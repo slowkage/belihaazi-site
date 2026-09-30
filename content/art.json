@@ -1,0 +1,71 @@
+{
+  "_note": "Pieces without their own image get a public-domain painting. 'search' is looked up on Wikimedia Commons at build time; 'paint' is the fallback generated brushwork.",
+  "Pedantics & Problem Solving": {
+    "search": "Van Gogh The Sower 1888 Kröller-Müller",
+    "paint": "wheat"
+  },
+  "On culture & Pronouns": {
+    "search": "Van Gogh Portrait of Père Tanguy 1887 Musée Rodin",
+    "paint": "almond"
+  },
+  "Fatal Flaws": {
+    "search": "Van Gogh Skull of a Skeleton with Burning Cigarette",
+    "paint": "crows"
+  },
+  "Things to Remember 2": {
+    "search": "Van Gogh Almond blossom 1890",
+    "paint": "almond"
+  },
+  "Things to Remember pt1": {
+    "search": "Van Gogh At Eternity's Gate 1890",
+    "paint": "almond"
+  },
+  "Notes from 2021": {
+    "search": "Van Gogh Wheat Field with Cypresses 1889 Metropolitan",
+    "paint": "cypress"
+  },
+  "August 15": {
+    "search": "Van Gogh Fourteenth of July Celebration in Paris",
+    "paint": "wheat"
+  },
+  "On Hate": {
+    "search": "Van Gogh Wheatfield with crows 1890",
+    "paint": "crows"
+  },
+  "Moon's mystery": {
+    "search": "Van Gogh Road with Cypress and Star 1890",
+    "paint": "night"
+  },
+  "Balance and Chaos": {
+    "search": "Van Gogh Starry Night Google Art Project",
+    "paint": "night"
+  },
+  "dar aur mohabbat": {
+    "search": "Odilon Redon The Cyclops Kröller-Müller",
+    "paint": "almond"
+  },
+  "Jaana hai": {
+    "search": "Hieronymus Bosch Garden of Earthly Delights High Resolution",
+    "paint": "night"
+  },
+  "Children of the sun": {
+    "search": "Van Gogh The Sower with Setting Sun 1888",
+    "paint": "wheat"
+  },
+  "Kal tum aaoge": {
+    "search": "Van Gogh Starry Night Over the Rhone",
+    "paint": "almond"
+  },
+  "The tormented demon": {
+    "search": "William Blake The Great Red Dragon and the Woman Clothed in Sun",
+    "paint": "cypress"
+  },
+  "Tell m3": {
+    "search": "Odilon Redon The Eye Like a Strange Balloon Mounts Toward Infinity",
+    "paint": "almond"
+  },
+  "Fragments": {
+    "search": "Van Gogh Irises 1889 Getty",
+    "paint": "crows"
+  }
+}

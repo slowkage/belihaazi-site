@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Into the Mind of Belihaazi</title>
+<meta name="description" content="Poems, prose, spoken word and hip hop by belihaazi (Utkarsh Singh), 2019 onwards."><link rel="canonical" href="https://belihaazi.com/belihaazi.html">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Noto+Nastaliq+Urdu:wght@600&family=Tiro+Devanagari+Hindi&family=IBM+Plex+Mono:wght@400&display=swap">
+<style>
+/* Layout: a living Starry Night canvas under raw black label blocks (brutalist stickers). Below it, one ruled grid of rooms switched by tabs, image-led. Committed dark look. */
+:root{
+  --night:#07091A; --panel:#0D1230; --parch:#EDE4CC; --dim:#9FA3C4; --chrome:#F2C12E; --ultra:#2F55B5;
+  --rule:3px solid var(--parch);
+  --sans:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --verse:"Cormorant Garamond","Tiro Devanagari Hindi",Garamond,serif;
+  --deva:"Tiro Devanagari Hindi","Noto Serif Devanagari",serif;
+  --urdu:"Noto Nastaliq Urdu",serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--night);color:var(--parch);font-family:var(--sans);font-size:17px;line-height:1.5;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:4px solid var(--chrome);outline-offset:2px}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.page{padding-inline:clamp(10px,2vw,24px);padding-block:0 24px}
+canvas.pt{position:absolute;inset:0;width:100%;height:100%;display:block}
+
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;display:flex;border:var(--rule);border-top:0;background:var(--night);margin-inline:clamp(-24px,-2vw,-10px);overflow-x:auto}
+.bar a{display:flex;align-items:center;padding:12px 16px;border-right:var(--rule);text-decoration:none;white-space:nowrap}
+.bar .home{background:var(--parch);color:var(--night);font-weight:800;font-stretch:115%}
+.bar a:hover{background:var(--chrome);color:var(--night)}
+.bar .day{margin-left:auto;border-right:0;border-left:var(--rule);background:var(--chrome);color:var(--night)}
+
+/* hero */
+.sky{position:relative;border:var(--rule);margin-top:clamp(10px,2vw,24px);height:clamp(560px,78vh,780px);overflow:hidden}
+.blk{position:absolute;background:var(--night);color:var(--parch);border:var(--rule);padding:10px 14px}
+.title{left:clamp(12px,3vw,40px);top:clamp(12px,3vw,40px);padding:6px 18px 14px}
+.title .mono{display:block;color:var(--dim);margin-top:8px}
+.title h1{margin:0;font-family:var(--verse);font-style:italic;font-weight:500;font-size:clamp(60px,10vw,150px);line-height:.95}
+.urdu{right:clamp(12px,3vw,40px);top:clamp(12px,3vw,40px);background:var(--chrome);color:var(--night);font-family:var(--urdu);font-size:clamp(26px,3.4vw,44px);line-height:1.9;padding:0 18px;direction:rtl}
+.frag{appearance:none;font:inherit;cursor:pointer;text-align:left;max-width:min(300px,70%);font-family:var(--verse);font-style:italic;font-size:clamp(17px,1.6vw,21px);line-height:1.25;transition:transform .2s,background .2s}
+.frag.d{font-family:var(--deva);font-style:normal}
+.frag small{display:block;font-family:var(--mono);font-style:normal;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);margin-top:6px}
+.frag:hover,.frag:focus-visible{background:var(--parch);color:var(--night);transform:rotate(-1.5deg)}
+.frag:hover small{color:var(--night)}
+.note{left:clamp(12px,3vw,40px);bottom:clamp(12px,3vw,40px);font-family:var(--mono);font-size:12px;padding:8px 12px}
+.why{right:clamp(12px,3vw,40px);bottom:clamp(12px,3vw,40px);background:var(--parch);color:var(--night);font-weight:800;font-stretch:80%;text-transform:uppercase;font-size:clamp(18px,2vw,26px);cursor:pointer;appearance:none;font-family:var(--sans)}
+.why:hover{background:var(--chrome)}
+@media (max-width:720px){
+  .sky{height:auto;display:flex;flex-direction:column;gap:10px;padding:12px}
+  .sky .blk{position:relative;inset:auto!important;max-width:none}
+  .urdu{align-self:flex-start}
+}
+
+/* rooms */
+.grid{border-left:var(--rule);border-top:var(--rule);margin-top:clamp(10px,2vw,24px)}
+.tabs{display:flex;flex-wrap:wrap;border-right:var(--rule);border-bottom:var(--rule)}
+.tabs button{appearance:none;border:0;border-right:var(--rule);background:var(--night);color:var(--parch);font:inherit;font-weight:800;font-stretch:70%;text-transform:uppercase;font-size:18px;padding:12px 18px;cursor:pointer;display:flex;gap:8px;align-items:baseline}
+.tabs button span{font-family:var(--mono);font-size:11px;font-weight:400;color:var(--dim)}
+.tabs button[aria-selected="true"]{background:var(--chrome);color:var(--night)}
+.tabs button[aria-selected="true"] span{color:var(--night)}
+.tabs button:hover:not([aria-selected="true"]){background:var(--ultra)}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}
+.card{appearance:none;font:inherit;color:inherit;text-align:left;border:0;border-right:var(--rule);border-bottom:var(--rule);background:var(--night);cursor:pointer;padding:0;display:flex;flex-direction:column;text-decoration:none;min-width:0;margin:0}
+.card .im{position:relative;aspect-ratio:1/1;overflow:hidden;border-bottom:var(--rule);background:var(--panel)}
+.card .im img{position:relative;width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.card:hover .im img{transform:scale(1.06)}
+.card .im .tag{position:absolute;left:8px;bottom:8px;z-index:2;background:var(--night);border:2px solid var(--parch);padding:3px 7px}
+.card .tx{padding:10px 12px 14px;display:flex;flex-direction:column;gap:2px}
+.card b{font-family:var(--verse);font-style:italic;font-weight:500;font-size:22px;line-height:1.1}
+.card b.d{font-family:var(--deva);font-style:normal;font-size:19px}
+.card .mono{font-size:11px;color:var(--dim)}
+.card:hover{background:var(--panel)}
+.filler{position:relative;border-right:var(--rule);border-bottom:var(--rule);min-height:120px;overflow:hidden}
+.card:hover b{color:var(--chrome)}
+.card .im .t-over{position:absolute;inset:0;display:grid;place-items:center;padding:12px;text-align:center;z-index:1}
+.card .im .t-over b{background:var(--night);border:2px solid var(--parch);padding:6px 10px;font-size:20px}
+
+footer{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;padding-top:14px;color:var(--dim)}
+footer a{text-decoration:none;border-bottom:2px solid var(--dim)}
+
+/* reader */
+.reader{position:fixed;inset:0;z-index:50;background:rgba(3,4,12,.82);overflow-y:auto;padding:clamp(10px,4vw,48px) 12px}
+.r-card{max-width:720px;margin:0 auto;background:var(--night);border:var(--rule);box-shadow:14px 14px 0 var(--ultra);position:relative}
+.r-close{position:sticky;top:0;float:right;z-index:2;appearance:none;border:0;border-left:var(--rule);border-bottom:var(--rule);background:var(--parch);color:var(--night);font-family:var(--mono);font-size:13px;padding:10px 14px;cursor:pointer}
+.r-paint{position:relative;height:clamp(180px,32vh,300px);border-bottom:var(--rule)}
+.ig{width:100%;height:min(80vh,720px);border:var(--rule);background:#000}
+.r-img{width:100%;max-height:50vh;object-fit:cover;border-bottom:var(--rule)}
+.r-body{padding:clamp(18px,4vw,44px)}
+.r-meta{font-family:var(--mono);font-size:12px;text-transform:uppercase;color:var(--dim);margin:0}
+.r-title{margin:6px 0 24px;font-family:var(--verse);font-style:italic;font-weight:500;font-size:clamp(34px,5vw,56px);line-height:1}
+.r-body p{max-width:60ch;margin:0 0 1em;font-family:var(--verse);font-size:21px;line-height:1.55}
+.is-poem .r-body p{margin:0 0 .15em}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="page">
+<nav class="bar mono" aria-label="Main">
+  <a class="home" href="index.html">Belihaazi</a>
+  <a class="day" href="utkarsh.html">← Utkarsh</a>
+</nav>
+
+<main>
+  <section class="sky" aria-label="belihaazi">
+    <canvas class="pt" data-paint='{"palette":"night","seed":42,"vortices":[[0.30,0.34,0.20,1],[0.52,0.40,0.16,-1],[0.82,0.28,0.10,1],[0.14,0.78,0.08,1],[0.66,0.72,0.12,1]],"gap":7,"animate":true,"rate":60}' aria-hidden="true"></canvas>
+    <div class="blk title"><h1>belihaazi</h1><span class="mono">Poems · prose · spoken word · hip hop</span></div>
+    <div class="blk urdu" lang="ur">بے لحاظ</div>
+    <button class="blk frag" type="button" data-k="poems" data-t="The Ceiling" style="left:38%;top:44%">A ceiling is the canvas, for the chaos, of an empty mind.<small>The Ceiling · 2023</small></button>
+    <button class="blk frag d" type="button" data-k="poems" data-t="Phoolon se ishq" style="left:64%;top:22%" lang="hi">मेरा इश्क धीमा है, मुझे मुरझाए फ़ूलों से ही इश्क होता है।<small>Phoolon se ishq · 2022</small></button>
+    <button class="blk frag" type="button" data-k="prose" data-t="No Poetry" style="left:8%;top:52%">There is no poetry. Only people.<small>No Poetry · 2023</small></button>
+    <button class="blk frag" type="button" data-k="prose" data-t="Pillow Castles" style="left:66%;top:60%">The clock is ticking at 3.43 a.m as I write this.<small>Pillow Castles · 2021</small></button>
+    <button class="blk frag" type="button" data-k="poems" data-t="Children of the sun" style="left:34%;top:70%">that we, in our hearts, we hold the sun.<small>Children of the sun · 2022</small></button>
+    <div class="blk note">Some pieces deal with mental health and distress.</div>
+    <button class="blk why" type="button" data-k="prose" data-t="Why belihaazi">Why belihaazi →</button>
+  </section>
+
+  <div class="grid">
+    <div class="tabs" role="tablist" id="tabs"></div>
+    <div class="cards" id="cards"></div>
+  </div>
+</main>
+
+<footer class="mono">
+  <span>belihaazi · بے لحاظ</span>
+  <span><a href="https://instagram.com/belihaazi">Instagram</a> &nbsp; <a href="https://belihaazi.medium.com">Medium</a> &nbsp; <a href="utkarsh.html">Utkarsh</a></span>
+</footer>
+</div>
+
+<script src="paint.js"></script>
+<script>
+const isHi=s=>/[ऀ-ॿ]/.test(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function igEmbed(link,title){
+  const m=/instagram\.com\/(reel|p)\/([^/?#]+)/.exec(link||'');if(!m)return false;
+  let el=document.querySelector('.reader');if(!el){Reader.open({t:'',body:[]});el=document.querySelector('.reader')}
+  el.innerHTML=`<article class="r-card"><button class="r-close" type="button">Close ✕</button><div class="r-body"><h2 class="r-title">${esc(title)}</h2><iframe class="ig" src="https://www.instagram.com/${m[1]}/${m[2]}/embed/" title="${esc(title)}" allowfullscreen loading="lazy"></iframe><p class="r-meta"><a href="${link}">Open on Instagram ↗</a></p></div></article>`;
+  el.hidden=false;document.body.style.overflow='hidden';el.querySelector('.r-close').focus();return true;
+}
+fetch('data.json').then(r=>r.json()).then(D=>{
+  const find=(k,t)=>D[k].find(i=>i.t.toLowerCase().startsWith(t.toLowerCase()));
+  document.querySelectorAll('[data-t]').forEach(b=>b.addEventListener('click',()=>{const it=find(b.dataset.k,b.dataset.t);if(it)Reader.open(it,b.dataset.k)}));
+  const tabs=document.getElementById('tabs'),cards=document.getElementById('cards');
+  const ROOMS=[["Poems",D.poems.length],["Prose",D.prose.length],["Spoken word",D.spoken_word.length],["Hip hop",D.hip_hop.length],["Medium",D.medium.length]];
+  const painted=(o)=>`<canvas class="pt" data-p='${JSON.stringify(o)}'></canvas>`;
+  function show(r){
+    tabs.querySelectorAll('button').forEach(b=>b.setAttribute('aria-selected',b.dataset.r===r));
+    cards.innerHTML='';
+    if(r==='Poems'||r==='Prose'){
+      const k=r.toLowerCase();
+      D[k].forEach((it,i)=>{const b=document.createElement('a');b.className='card';b.href=`${k}/${it.s}/`;
+        b.innerHTML=`<div class="im">${it.img?`<img src="${it.img}" alt="" loading="lazy">`:painted(it.paint||{palette:'night',seed:i*7+2,gap:6})+`<div class="t-over"><b class="${isHi(it.t)?'d':''}">${esc(it.t)}</b></div>`}</div><div class="tx"><span class="mono">${Reader.date(it)}</span><b class="${isHi(it.t)?'d':''}">${esc(it.t)}</b></div>`;
+        b.addEventListener('click',e=>{e.preventDefault();Reader.open(it,k)});cards.appendChild(b)});
+    } else if(r==='Medium'){
+      D.medium.forEach((p,i)=>{const a=document.createElement('a');a.className='card';a.href=p.link;
+        a.innerHTML=`<div class="im">${p.img?`<img src="${p.img}" alt="" loading="lazy">`:painted({palette:'cypress',seed:i*11+9,vortices:[[0.5,0.5,0.35,1]],gap:6})}<span class="tag mono">${p.pinned?'Pinned · ':''}Medium ↗</span></div><div class="tx"><span class="mono">${Reader.date(p)}</span><b>${esc(p.t)}</b></div>`;cards.appendChild(a)});
+    } else {
+      const hh=r==='Hip hop',L=hh?D.hip_hop:D.spoken_word;
+      L.forEach((it,i)=>{const a=document.createElement('a');a.className='card';a.href=it.link||'https://instagram.com/belihaazi';
+        a.innerHTML=`<div class="im">${it.img?`<img src="${it.img}" alt="" loading="lazy">`:painted({palette:hh?'wheat':'night',seed:i*5+(hh?31:17),vortices:[[0.5,0.5,0.35,i%2?1:-1]],gap:6})}<span class="tag mono">▶ Play</span></div><div class="tx"><span class="mono">${it.year}</span><b>${esc(it.title)}</b></div>`;
+        a.addEventListener('click',e=>{if(igEmbed(it.link,it.title))e.preventDefault()});cards.appendChild(a)});
+    }
+    cards.querySelectorAll('canvas[data-p]').forEach(c=>Paint.paint(c,JSON.parse(c.dataset.p)));
+    Paint.fill(cards,'card',r==='Hip hop'?'wheat':'night');
+  }
+  ROOMS.forEach(([r,n])=>{const b=document.createElement('button');b.type='button';b.role='tab';b.dataset.r=r;b.innerHTML=`${r} <span>${n}</span>`;b.addEventListener('click',()=>show(r));tabs.appendChild(b)});
+  show('Poems');
+});
+</script>
+</body>
+</html>

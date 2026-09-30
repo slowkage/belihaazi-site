@@ -1,0 +1,46 @@
+<title>Utkarsh × Belihaazi</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,700..900&family=Cormorant+Garamond:ital,wght@1,500&family=Noto+Nastaliq+Urdu:wght@600&family=IBM+Plex+Mono:wght@400&display=swap">
+<style>
+/* Layout: two painted halves (wheatfield day, starry night) under raw black label blocks. Committed look, colors explicit. */
+:root{
+  --ink:#0E0E0C; --paper:#F6F6F2; --night:#07091A; --parch:#EDE4CC; --chrome:#F2C12E;
+  --sans:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --verse:"Cormorant Garamond",Garamond,serif;
+  --urdu:"Noto Nastaliq Urdu",serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  color-scheme:dark;
+}
+html,body{height:100%}
+body{margin:0;background:var(--ink);color:var(--paper);font-family:var(--sans)}
+.door{display:grid;grid-template-columns:1fr 1fr;min-height:100%;border:3px solid var(--ink);box-sizing:border-box}
+.side{position:relative;overflow:hidden;text-decoration:none;min-height:420px;display:block}
+.side + .side{border-left:3px solid var(--ink)}
+.side canvas{position:absolute;inset:0;width:100%;height:100%}
+.blk{position:absolute;border:3px solid var(--ink);padding:10px 16px}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.day .name{left:6%;top:8%;background:var(--paper);color:var(--ink);font-stretch:125%;font-weight:900;text-transform:uppercase;font-size:clamp(40px,6.4vw,96px);line-height:.9;letter-spacing:-.02em;padding:12px 18px 16px}
+.day .role{left:6%;top:calc(8% + clamp(78px,9.6vw,140px));background:var(--ink);color:var(--chrome)}
+.night .name{right:6%;top:8%;background:var(--night);color:var(--parch);border-color:var(--parch);font-family:var(--verse);font-style:italic;font-weight:500;font-size:clamp(48px,7vw,110px);line-height:1;padding:4px 20px 14px}
+.night .ur{right:6%;top:calc(8% + clamp(84px,10.4vw,150px));background:var(--chrome);color:var(--night);font-family:var(--urdu);font-size:clamp(22px,2.6vw,34px);line-height:1.9;padding:0 16px;direction:rtl}
+.go{bottom:6%;background:var(--ink);color:var(--paper);transition:background .2s,color .2s}
+.day .go{left:6%}.night .go{right:6%;border-color:var(--parch);background:var(--night);color:var(--parch)}
+.side:hover .go,.side:focus-visible .go{background:var(--chrome);color:var(--ink)}
+.side:focus-visible{outline:4px solid var(--chrome);outline-offset:-8px}
+@media (max-width:720px){.door{grid-template-columns:1fr}.side{min-height:50vh}.side + .side{border-left:0;border-top:3px solid var(--ink)}}
+</style>
+
+<main class="door">
+  <a class="side day" href="utkarsh.html">
+    <canvas data-paint='{"palette":"wheat","seed":5,"vortices":[[0.75,0.3,0.25,1],[0.25,0.75,0.3,-1]],"gap":8}' aria-hidden="true"></canvas>
+    <span class="blk name">Utkarsh</span>
+    <span class="blk role mono">Context architect</span>
+    <span class="blk go mono">Enter →</span>
+  </a>
+  <a class="side night" href="belihaazi.html">
+    <canvas data-paint='{"palette":"night","seed":42,"vortices":[[0.3,0.35,0.2,1],[0.6,0.5,0.15,-1],[0.85,0.8,0.1,1]],"gap":7,"animate":true}' aria-hidden="true"></canvas>
+    <span class="blk name">belihaazi</span>
+    <span class="blk ur" lang="ur">بے لحاظ</span>
+    <span class="blk go mono">Enter →</span>
+  </a>
+</main>
+<script src="paint.js"></script>

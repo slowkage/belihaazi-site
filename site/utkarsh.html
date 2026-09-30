@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Utkarsh Singh · Context Architect &amp; Behavioural Scientist, India</title>
+<meta name="description" content="Utkarsh Singh is a context architect and behavioural scientist in India, at 1001 Stories. Talks, points of view on behavioural science, frameworks and reports.">
+<link rel="canonical" href="https://belihaazi.com/utkarsh.html">
+<meta property="og:title" content="Utkarsh Singh · Context Architect"><meta property="og:image" content="https://belihaazi.com/img/portrait.jpg"><meta property="og:url" content="https://belihaazi.com/utkarsh.html">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Utkarsh Singh","alternateName":"belihaazi","jobTitle":"Context Architect & Strategist","description":"Context architect and behavioural scientist in India","worksFor":{"@type":"Organization","name":"1001 Stories","url":"https://1001stories.com"},"alumniOf":{"@type":"CollegeOrUniversity","name":"CHRIST University"},"knowsAbout":["Behavioural science","Context architecture","Behavioral economics","Psychology","Systems theory","Consumer behaviour in India"],"url":"https://belihaazi.com/utkarsh.html","image":"https://belihaazi.com/img/portrait.jpg","sameAs":["https://linkedin.com/in/belihaazi","https://belihaazi.medium.com","https://instagram.com/belihaazi","https://1001stories.com/context-architecture.html"]}</script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=IBM+Plex+Mono:wght@400;500&family=Tiro+Devanagari+Hindi&display=swap">
+<style>
+/* Layout: a raw grid of ruled cells (brutalist) where a few cells are painted in thick moving brushwork (Van Gogh wheatfield). Type is one family stretched from condensed to expanded. Single light look, colors set explicitly. */
+:root{
+  --paper:#F6F6F2; --ink:#0E0E0C; --chrome:#F2B90F; --ultra:#2743A8; --night:#0A1030; --grey:#5B5B55;
+  --rule:3px solid var(--ink);
+  --sans:"Archivo","Helvetica Neue",Arial,"Tiro Devanagari Hindi",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.5;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:4px solid var(--ultra);outline-offset:2px}
+.page{padding-inline:clamp(10px,2vw,24px);padding-block:0 24px}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.x{font-stretch:125%;font-weight:900;letter-spacing:-.02em;text-transform:uppercase;line-height:.88}
+.c{font-stretch:62%;font-weight:800;text-transform:uppercase;letter-spacing:.01em;line-height:.95}
+
+/* top bar */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;display:flex;border:var(--rule);border-top:0;background:var(--paper);margin-inline:clamp(-24px,-2vw,-10px);overflow-x:auto}
+.bar a{display:flex;align-items:center;padding:12px 16px;border-right:var(--rule);text-decoration:none;white-space:nowrap}
+.bar .home{background:var(--ink);color:var(--paper);font-weight:800;font-stretch:115%}
+.bar a:hover{background:var(--chrome)}
+.bar .night{margin-left:auto;border-right:0;border-left:var(--rule);background:var(--night);color:var(--chrome)}
+.bar .night:hover{background:var(--ultra);color:#fff}
+@media (max-width:760px){.bar .nav{display:none}}
+
+/* grid */
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));border-left:var(--rule);border-top:var(--rule);margin-top:clamp(10px,2vw,24px)}
+.cell{border-right:var(--rule);border-bottom:var(--rule);padding:clamp(14px,1.8vw,24px);min-width:0;position:relative}
+.head{grid-column:1/-1;background:var(--ink);color:var(--paper);display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding-block:10px}
+.head h2{margin:0;font-size:clamp(28px,4vw,52px)}
+canvas.pt{position:absolute;inset:0;width:100%;height:100%;display:block}
+
+/* hero */
+.hero-t{grid-column:1/8}
+.hero-t h1{margin:0 0 20px;font-size:clamp(46px,7.4vw,112px)}
+.hero-t p{max-width:60ch;margin:0 0 12px;font-size:clamp(17px,1.35vw,20px)}
+.hero-t .arch{font-weight:800;font-stretch:100%}
+.hero-t .arch a{background:var(--chrome);text-decoration:none;padding:0 4px;border-bottom:3px solid var(--ink)}
+.hero-p{grid-column:8/13;padding:0;min-height:420px;overflow:hidden}
+.hero-p figure{position:absolute;margin:0;left:12%;top:10%;width:62%;border:var(--rule);box-shadow:12px 12px 0 var(--ink);transform:rotate(-2deg)}
+.hero-p figure img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:50% 20%}
+.hero-p figure figcaption{position:absolute;left:-3px;bottom:-3px;transform:translateY(100%);background:var(--ink);color:var(--paper);padding:6px 10px}
+.why{grid-column:1/6;background:var(--chrome)}
+.why p{margin:0;font-size:clamp(20px,1.9vw,28px);font-weight:700;line-height:1.15;font-stretch:90%}
+.why p + p{margin-top:12px;font-weight:400;font-size:17px;font-stretch:100%;line-height:1.4}
+.pen{grid-column:6/10}
+.pen p{margin:0}
+.pen a{font-weight:700}
+.facts{grid-column:10/13;display:grid;gap:12px;align-content:start}
+.facts div b{display:block;font-weight:700;line-height:1.2}
+.facts .mono{color:var(--grey)}
+@media (max-width:900px){.hero-t,.hero-p,.why,.pen,.facts{grid-column:1/-1}.hero-p{min-height:460px}}
+
+/* talks */
+.talks{grid-column:1/-1;padding:0;display:grid;grid-template-columns:repeat(8,minmax(0,1fr))}
+.talks .ph{grid-column:span 5;display:grid;grid-template-columns:2fr 1fr 1fr;border-bottom:var(--rule);margin-bottom:-3px}
+.talks .ph img{width:100%;height:100%;object-fit:cover;border-right:var(--rule)}
+.talks .ph img:last-child{border-right:0}
+@media (max-width:1100px){.talks{grid-template-columns:repeat(4,minmax(0,1fr))}.talks .ph{grid-column:span 1;grid-template-columns:1fr}.talks .ph img:nth-child(n+2){display:none}}
+@media (max-width:560px){.talks{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.talk{border-right:var(--rule);border-bottom:var(--rule);margin:0 -3px -3px 0;text-decoration:none;display:flex;flex-direction:column;background:var(--paper);min-width:0}
+.talk .th{position:relative;aspect-ratio:4/5;overflow:hidden;border-bottom:var(--rule);background:var(--night)}
+.talk .th img{width:100%;height:100%;object-fit:cover;object-position:50% 15%;transition:transform .35s}
+.talk:hover .th img{transform:scale(1.06)}
+.talk .th .play{position:absolute;left:10px;bottom:10px;background:var(--chrome);border:var(--rule);padding:4px 8px;z-index:2}
+.talk .tx{padding:10px 12px 12px;display:flex;flex-direction:column;gap:4px}
+.talk .tx .mono{color:var(--grey);font-size:11px}
+.talk .tx b{font-size:17px;font-stretch:75%;font-weight:800;line-height:1.05;text-transform:uppercase}
+.talk .tx span:last-child{font-size:13px;line-height:1.3;color:var(--grey)}
+.talk:hover{background:var(--chrome)}
+.strip{grid-column:1/-1;padding:0;display:grid;grid-template-columns:2fr 1fr 1fr 1.3fr;height:clamp(160px,18vw,240px)}
+.strip img{width:100%;height:100%;object-fit:cover;border-right:var(--rule)}
+.strip img:last-child{border-right:0}
+@media (max-width:700px){.strip{grid-template-columns:1fr 1fr}.strip img:nth-child(n+3){display:none}}
+
+/* povs */
+.tabs{grid-column:1/-1;padding:0;display:flex;flex-wrap:wrap}
+.tabs button{appearance:none;border:0;border-right:var(--rule);background:var(--paper);font:inherit;font-weight:800;font-stretch:70%;text-transform:uppercase;font-size:17px;padding:12px 16px;cursor:pointer;color:var(--ink)}
+.tabs button[aria-selected="true"]{background:var(--ultra);color:#fff}
+.tabs button:hover:not([aria-selected="true"]){background:var(--chrome)}
+.cards{grid-column:1/-1;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr))}
+.card{text-decoration:none;appearance:none;font:inherit;color:inherit;text-align:left;border:0;border-right:var(--rule);border-bottom:var(--rule);margin:0 -3px -3px 0;background:var(--paper);cursor:pointer;padding:0;display:flex;flex-direction:column;min-width:0}
+.card .im{aspect-ratio:4/3;overflow:hidden;border-bottom:var(--rule);background:var(--ultra);position:relative}
+.card .im img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.1);transition:filter .3s}
+.card:hover .im img,.card:focus-visible .im img{filter:none}
+.card .tx{padding:10px 12px 12px;display:flex;flex-direction:column;gap:4px}
+.card b{font-weight:700;font-size:16px;line-height:1.15}
+.card .mono{font-size:11px;color:var(--grey)}
+.card:hover{background:var(--chrome)}
+.filler{position:relative;border-right:var(--rule);border-bottom:var(--rule);margin:0 -3px -3px 0;min-height:120px;overflow:hidden}
+
+/* frameworks + reports */
+.cara{grid-column:1/6}
+.cara h3,.rep h3{margin:0 0 4px;font-size:clamp(26px,2.6vw,36px)}
+.m2{display:grid;grid-template-columns:auto 1fr;grid-template-rows:1fr auto;gap:6px;margin-top:16px}
+.m2 .yl{writing-mode:vertical-rl;transform:rotate(180deg);text-align:center}
+.m2 .xl{grid-column:2;text-align:center}
+.q4{display:grid;grid-template-columns:1fr 1fr;border:var(--rule);aspect-ratio:1/1;max-width:100%}
+.q4 button{appearance:none;border:0;font:inherit;color:var(--ink);background:var(--paper);text-align:left;padding:12px;cursor:pointer;display:flex;flex-direction:column;justify-content:space-between;gap:6px}
+.q4 button:nth-child(1),.q4 button:nth-child(2){border-bottom:var(--rule)}
+.q4 button:nth-child(odd){border-right:var(--rule)}
+.q4 b{font-size:clamp(16px,1.6vw,22px);font-stretch:75%;font-weight:800;text-transform:uppercase;line-height:1}
+.q4 small{font-size:14px;line-height:1.25}
+.q4 button:hover{background:var(--chrome)}
+.q4 button[aria-pressed="true"]{background:var(--ultra);color:#fff}
+.cara .gap{margin:16px 0 0;font-weight:700;font-size:18px;line-height:1.2}
+.cara a.go{display:inline-block;margin-top:12px;background:var(--ink);color:var(--paper);padding:8px 12px;text-decoration:none}
+.rep{grid-column:6/13;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+.rep a,.rep button{appearance:none;font:inherit;color:inherit;text-align:left;border:0;border-right:var(--rule);background:var(--paper);padding:14px;display:flex;flex-direction:column;gap:10px;text-decoration:none;cursor:pointer;min-width:0}
+.rep > :last-child{border-right:0}
+.rep img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:top;border:var(--rule)}
+.rep b{font-size:17px;font-stretch:80%;font-weight:800;text-transform:uppercase;line-height:1.05}
+.rep .mono{font-size:11px;color:var(--grey)}
+.rep a:hover,.rep button:hover{background:var(--chrome)}
+@media (max-width:900px){.cara,.rep{grid-column:1/-1}.rep{grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr)}}
+@media (max-width:560px){.rep{grid-template-columns:minmax(0,1fr)}.rep>*{border-right:0!important;border-bottom:var(--rule)}.rep img{aspect-ratio:4/3}}
+
+/* collage */
+.collage{grid-column:1/-1;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));grid-auto-rows:clamp(110px,13vw,190px);gap:3px;background:var(--ink);
+  grid-template-areas:"a a b c c d" "a a b e f d" "g g g h h h"}
+.collage img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.1);transition:filter .3s}
+.collage img:hover{filter:none}
+@media (max-width:700px){.collage{grid-template-columns:repeat(3,minmax(0,1fr));grid-template-areas:"a a b" "a a b" "c c d" "e f d" "g g g" "h h h"}}
+
+/* let's talk */
+.talk-cta{grid-column:1/-1;padding:0;min-height:260px;display:grid;place-items:center;overflow:hidden}
+.talk-cta .box{position:relative;background:var(--paper);border:var(--rule);box-shadow:10px 10px 0 var(--ink);padding:clamp(18px,3vw,32px);display:grid;gap:12px;justify-items:start;margin:36px 16px}
+.talk-cta h2{margin:0;font-size:clamp(36px,6vw,80px)}
+.talk-cta .btn{background:var(--ink);color:var(--paper);padding:12px 18px;text-decoration:none;font-weight:800;font-stretch:80%;text-transform:uppercase;font-size:18px;border:0;cursor:default}
+.talk-cta .mail{user-select:all}
+
+footer{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;padding-top:14px}
+footer a{text-decoration:none;border-bottom:2px solid var(--ink)}
+
+/* reader */
+.reader{position:fixed;inset:0;z-index:50;background:rgba(14,14,12,.72);overflow-y:auto;padding:clamp(10px,4vw,48px) 12px}
+.r-card{max-width:760px;margin:0 auto;background:var(--paper);border:var(--rule);box-shadow:14px 14px 0 var(--chrome);position:relative}
+.r-close{position:sticky;top:0;float:right;z-index:2;appearance:none;border:0;border-left:var(--rule);border-bottom:var(--rule);background:var(--ink);color:var(--paper);font:inherit;font-family:var(--mono);font-size:13px;padding:10px 14px;cursor:pointer}
+.r-paint{position:relative;height:clamp(180px,32vh,300px);border-bottom:var(--rule)}
+.r-img{width:100%;max-height:52vh;object-fit:cover;border-bottom:var(--rule)}
+.r-body{padding:clamp(18px,4vw,40px)}
+.r-meta{font-family:var(--mono);font-size:12px;text-transform:uppercase;color:var(--grey);margin:0}
+.r-title{margin:6px 0 22px;font-size:clamp(28px,4vw,46px);font-stretch:80%;font-weight:900;text-transform:uppercase;line-height:.95}
+.r-body p{max-width:64ch;margin:0 0 1em;font-size:18px;line-height:1.6}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="page">
+
+<nav class="bar mono" aria-label="Main">
+  <a class="home" href="index.html">Utkarsh Singh</a>
+  <a class="nav" href="#talks">Talks</a><a class="nav" href="#povs">POVs</a><a class="nav" href="#work">Frameworks &amp; Reports</a><a class="nav" href="#field">Fieldwork</a><a class="nav" href="#talk">Let's talk</a>
+  <a class="night" href="belihaazi.html">Belihaazi →</a>
+</nav>
+
+<main>
+<div class="grid">
+  <section class="cell hero-t">
+    <h1 class="x">Hi, I'm Utkarsh.</h1>
+    <p class="arch">I'm a context architect (<a href="https://1001stories.com/context-architecture.html">find out about context architecture here</a>).</p>
+    <p>I specialise in understanding human behaviour through a multidisciplinary lens. While formally trained in Psychology, with elements of social and neuropsychology, I lean towards uncovering the overlaps in systems theory and the unconscious mind, and how they affect our decision making.</p>
+  </section>
+  <div class="cell hero-p">
+    <canvas class="pt" data-paint='{"palette":"wheat","seed":11,"vortices":[[0.82,0.2,0.28,1],[0.2,0.78,0.3,-1]],"gap":8}' aria-hidden="true"></canvas>
+    <figure><img src="img/portrait.jpg" alt="Utkarsh speaking at a podium"><figcaption class="mono">CHRIST University · 2024</figcaption></figure>
+  </div>
+  <div class="cell why">
+    <p>Why? Because we deserve a world with better brands, products, and people.</p>
+    <p>That dream begins with understanding the contexts that influence it all.</p>
+  </div>
+  <div class="cell pen"><p>I sometimes go by my pen name, belihaazi. Which is also the side of me that shaped what I do professionally. This page is split between the life of Utkarsh, and <a href="belihaazi.html">the mind of belihaazi</a>.</p></div>
+  <div class="cell facts">
+    <div><span class="mono">Now</span><b>Context Architect &amp; Strategist, 1001 Stories</b></div>
+    <div><span class="mono">Studied</span><b>BSc Psychology (Hons), CHRIST University</b></div>
+  </div>
+
+  <div class="cell head" id="talks"><h2 class="c">Talks</h2><span class="mono">11</span></div>
+  <div class="cell talks" id="talk-grid"></div>
+
+  <div class="cell head" id="povs"><h2 class="c">POVs</h2><span class="mono">Behavioural science &amp; context architecture</span></div>
+  <div class="cell tabs" role="tablist" id="pov-tabs"></div>
+  <div class="cell cards" id="pov-cards"></div>
+
+  <div class="cell head" id="work"><h2 class="c">Frameworks &amp; Reports</h2><span class="mono">4</span></div>
+  <div class="cell cara">
+    <span class="mono">Framework</span>
+    <h3 class="c">CARA: Why well-crafted interventions fail</h3>
+    <div class="m2">
+      <span class="yl mono">Context awareness (I)</span>
+      <div class="q4" role="group" aria-label="Abhimanyu Matrix">
+        <button type="button" aria-pressed="false"><b>Abhimanyu Conundrum</b><small>I+ / A−<br>Clear understanding, blocked execution</small></button>
+        <button type="button" aria-pressed="true"><b>Arjuna State</b><small>I+ / A+<br>Aligned, high performance</small></button>
+        <button type="button" aria-pressed="false"><b>Trooper State</b><small>I− / A−<br>Constrained but coherent</small></button>
+        <button type="button" aria-pressed="false"><b>Hanuman Complex</b><small>I− / A+<br>Capacity without valid direction</small></button>
+      </div>
+      <span class="xl mono">Response availability (A)</span>
+    </div>
+    <p class="gap">The gap between I and A, not the level of either, determines effective drive.</p>
+    <a class="go mono" href="https://slowkage.github.io/Abhimanyu.Matrix/">Read the framework ↗</a>
+  </div>
+  <div class="cell rep" id="reps"></div>
+
+  <div class="cell head" id="field"><h2 class="c">Fieldwork</h2><span class="mono">2024–25</span></div>
+  <div class="cell collage" id="collage"></div>
+
+  <section class="cell talk-cta" id="talk">
+    <canvas class="pt" data-paint='{"palette":"night","seed":3,"vortices":[[0.15,0.4,0.35,1],[0.7,0.55,0.25,-1],[0.92,0.2,0.12,1]],"gap":8}' aria-hidden="true"></canvas>
+    <div class="box">
+      <h2 class="x">Let's talk</h2>
+      <span class="mono">30 minutes · Google Meet</span>
+      <a class="btn" id="book-btn" href="#talk">Book a slot</a>
+      <span class="mono mail" id="mail">utkarsh@1001stories.in</span>
+    </div>
+  </section>
+</div>
+</main>
+
+<footer class="mono">
+  <span>Utkarsh Singh</span>
+  <span><a href="https://linkedin.com/in/belihaazi">LinkedIn</a> &nbsp; <a href="https://belihaazi.medium.com">Medium</a> &nbsp; <a href="https://instagram.com/belihaazi">Instagram</a> &nbsp; <a href="belihaazi.html">Belihaazi</a></span>
+</footer>
+</div>
+
+<script src="paint.js"></script>
+<script>
+const q=[...document.querySelectorAll('.q4 button')];
+q.forEach(b=>b.addEventListener('click',()=>{q.forEach(o=>o.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true')}));
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+fetch('data.json').then(r=>r.json()).then(D=>{
+  // booking
+  const P=D.profile||{};if(P.booking_link){const b=document.getElementById('book-btn');b.href=P.booking_link}
+  // talks
+  const tg=document.getElementById('talk-grid');
+  D.talks.forEach((k,i)=>{
+    const a=document.createElement('a');a.className='talk';a.href=k.link||'#talks';if(!k.link)a.setAttribute('aria-disabled','true');
+    const th=k.img?`<img src="${k.img}" alt="${esc(k.title)}" loading="lazy">`:`<canvas class="pt" data-p='{"palette":"night","seed":${i*13+5},"vortices":[[0.5,0.45,0.4,${i%2?1:-1}]],"gap":6}'></canvas>`;
+    a.innerHTML=`<div class="th">${th}${k.youtube?'<span class="play mono">▶ Watch</span>':''}</div><div class="tx"><span class="mono">${esc(k.date)}</span><b>${esc(k.title)}</b><span>${esc(k.where)}</span></div>`;
+    tg.appendChild(a);
+  });
+  const ph=document.createElement('div');ph.className='ph';ph.innerHTML=D.talk_photos.slice(0,3).map(p=>`<img src="${p}" alt="" loading="lazy">`).join('');tg.appendChild(ph);
+  tg.querySelectorAll('canvas[data-p]').forEach(c=>Paint.paint(c,JSON.parse(c.dataset.p)));
+  // reports
+  const rp=document.getElementById('reps');
+  D.reports.forEach(r=>{
+    const el=document.createElement(r.summary?'button':'a');
+    if(r.summary){el.type='button';el.addEventListener('click',()=>Reader.open({t:r.title,y:2022,img:r.img,body:r.summary,pdf:r.pdf},'reports'))}
+    else{el.href=r.link||'#work'}
+    el.innerHTML=`<img src="${r.img}" alt="Cover of ${esc(r.title)}" loading="lazy"><span class="mono">${esc(r.label)}</span><b>${esc(r.title)}</b>`;rp.appendChild(el);
+  });
+  // fieldwork collage
+  const areas='abcdefgh';
+  document.getElementById('collage').innerHTML=D.fieldwork.map((f,i)=>`<img ${i<8?`style="grid-area:${areas[i]}"`:''} src="${f}" alt="" loading="lazy">`).join('');
+  // povs
+  const SHELVES=["All",...(D.shelves&&D.shelves.length?D.shelves:[...new Set(D.povs.map(p=>p.shelf))])];
+  const tabs=document.getElementById('pov-tabs'),cards=document.getElementById('pov-cards');
+  function show(s){
+    tabs.querySelectorAll('button').forEach(b=>b.setAttribute('aria-selected',b.dataset.s===s));
+    cards.innerHTML='';
+    D.povs.filter(p=>s==='All'||p.shelf===s).forEach((p,i)=>{
+      const b=document.createElement('a');b.className='card';b.href=`povs/${p.s}/`;
+      b.innerHTML=`<div class="im">${p.img?`<img src="${p.img}" alt="" loading="lazy">`:`<canvas class="pt" data-p='${JSON.stringify(p.paint||{palette:'wheat',seed:i+3,gap:6})}'></canvas>`}</div><div class="tx"><span class="mono">${Reader.date(p)}</span><b>${esc(p.t)}</b></div>`;
+      b.addEventListener('click',e=>{e.preventDefault();Reader.open(p,'povs')});cards.appendChild(b);
+    });
+    cards.querySelectorAll('canvas[data-p]').forEach(c=>Paint.paint(c,JSON.parse(c.dataset.p)));
+    Paint.fill(cards,'card','wheat');
+  }
+  SHELVES.forEach(s=>{const b=document.createElement('button');b.type='button';b.role='tab';b.dataset.s=s;
+    const n=s==='All'?D.povs.length:D.povs.filter(p=>p.shelf===s).length;b.textContent=`${s} (${n})`;b.addEventListener('click',()=>show(s));tabs.appendChild(b)});
+  show(SHELVES[1]);
+});
+</script>
+</body>
+</html>
