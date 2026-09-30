@@ -162,13 +162,15 @@ PIECE_TPL = """<!doctype html><html lang="en"><head><meta charset="utf-8">
 <title>{title} · {site}</title><meta name="description" content="{desc}">
 <link rel="canonical" href="{url}"><meta property="og:title" content="{title}"><meta property="og:description" content="{desc}">
 {og}<meta property="og:type" content="article"><meta property="og:url" content="{url}">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{title}"><meta name="twitter:description" content="{desc}">
+{twimg}<link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Cormorant+Garamond:ital,wght@0,400;1,500&family=Tiro+Devanagari+Hindi&family=IBM+Plex+Mono&display=swap">
 <script type="application/ld+json">{ld}</script>
 <style>
 body{{margin:0;background:{bg};color:{fg};font-family:{font};font-size:20px;line-height:1.6}}
 a{{color:inherit}} .w{{max-width:760px;margin:0 auto;padding:24px 16px 80px}}
 nav{{display:flex;justify-content:space-between;border:3px solid {fg};margin-bottom:24px}} nav a{{padding:10px 14px;text-decoration:none;font-family:"IBM Plex Mono",monospace;font-size:12px;text-transform:uppercase}}
-nav a+a{{border-left:3px solid {fg}}} img{{width:100%;max-height:60vh;object-fit:cover;border:3px solid {fg}}}
+nav a+a{{border-left:3px solid {fg}}} img{{width:100%;max-height:60vh;object-fit:cover;border:3px solid {fg}}} img[alt=""]{{border:0}}
 .m{{font-family:"IBM Plex Mono",monospace;font-size:12px;text-transform:uppercase;opacity:.7}}
 h1{{font-size:clamp(34px,6vw,56px);line-height:1;margin:.3em 0 .6em;{h1}}}
 p{{margin:0 0 {pgap}}} .cr{{font-family:"IBM Plex Mono",monospace;font-size:11px;opacity:.6;margin-top:6px}}
@@ -189,11 +191,12 @@ def piece_pages(items, kind, dark):
               "headline": it["t"], "author": {"@type": "Person", "name": "Utkarsh Singh", "alternateName": "belihaazi", "url": DOMAIN + "/utkarsh.html"},
               "url": url}
         if it.get("y"): ld["datePublished"] = f"{it['y']}-{(it.get('m') or 1):02d}-01"
-        img = f'<img src="/{it["img"]}" alt="">' if it.get("img") else ""
+        img = f'<img src="/{it["img"]}" alt="{html.escape(it["t"])}">' if it.get("img") else ""
         if it.get("credit"): img += f'<p class="cr">{html.escape(it["credit"])}</p>'
         page = PIECE_TPL.format(
             title=html.escape(it["t"]), site="belihaazi" if dark else "Utkarsh Singh", desc=desc, url=url,
             og=f'<meta property="og:image" content="{DOMAIN}/{it["img"][:-5]}.jpg">' if it.get("img") else "",
+            twimg=f'<meta name="twitter:image" content="{DOMAIN}/{it["img"][:-5]}.jpg">' if it.get("img") else "",
             ld=json.dumps(ld, ensure_ascii=False), bg="#07091A" if dark else "#F6F6F2", fg="#EDE4CC" if dark else "#0E0E0C",
             font='"Cormorant Garamond","Tiro Devanagari Hindi",serif' if dark else '"Archivo","Tiro Devanagari Hindi",sans-serif',
             h1="font-style:italic;font-weight:500" if dark else "font-stretch:80%;font-weight:900;text-transform:uppercase",

@@ -6,7 +6,9 @@
 <title>Utkarsh Singh · Context Architect &amp; Behavioural Scientist, India</title>
 <meta name="description" content="Utkarsh Singh is a context architect and behavioural scientist in India, at 1001 Stories. Talks, points of view on behavioural science, frameworks and reports.">
 <link rel="canonical" href="https://belihaazi.com/utkarsh.html">
-<meta property="og:title" content="Utkarsh Singh · Context Architect"><meta property="og:image" content="https://belihaazi.com/img/portrait.jpg"><meta property="og:url" content="https://belihaazi.com/utkarsh.html">
+<meta property="og:title" content="Utkarsh Singh · Context Architect"><meta property="og:description" content="Utkarsh Singh is a context architect and behavioural scientist in India, at 1001 Stories. Talks, points of view on behavioural science, frameworks and reports."><meta property="og:image" content="https://belihaazi.com/img/portrait.jpg"><meta property="og:url" content="https://belihaazi.com/utkarsh.html"><meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Utkarsh Singh · Context Architect"><meta name="twitter:description" content="Context architect and behavioural scientist in India, at 1001 Stories."><meta name="twitter:image" content="https://belihaazi.com/img/portrait.jpg">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Utkarsh Singh","alternateName":"belihaazi","jobTitle":"Context Architect & Strategist","description":"Context architect and behavioural scientist in India","worksFor":{"@type":"Organization","name":"1001 Stories","url":"https://1001stories.com"},"alumniOf":{"@type":"CollegeOrUniversity","name":"CHRIST University"},"knowsAbout":["Behavioural science","Context architecture","Behavioral economics","Psychology","Systems theory","Consumer behaviour in India"],"url":"https://belihaazi.com/utkarsh.html","image":"https://belihaazi.com/img/portrait.jpg","sameAs":["https://linkedin.com/in/belihaazi","https://belihaazi.medium.com","https://instagram.com/belihaazi","https://1001stories.com/context-architecture.html"]}</script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=IBM+Plex+Mono:wght@400;500&family=Tiro+Devanagari+Hindi&display=swap">
 <style>
@@ -278,7 +280,7 @@ fetch('data.json').then(r=>r.json()).then(D=>{
     cards.innerHTML='';
     D.povs.filter(p=>s==='All'||p.shelf===s).forEach((p,i)=>{
       const b=document.createElement('a');b.className='card';b.href=`povs/${p.s}/`;
-      b.innerHTML=`<div class="im">${p.img?`<img src="${p.img}" alt="" loading="lazy">`:`<canvas class="pt" data-p='${JSON.stringify(p.paint||{palette:'wheat',seed:i+3,gap:6})}'></canvas>`}</div><div class="tx"><span class="mono">${Reader.date(p)}</span><b>${esc(p.t)}</b></div>`;
+      b.innerHTML=`<div class="im">${p.img?`<img src="${p.img}" alt="${esc(p.t)}" loading="lazy">`:`<canvas class="pt" data-p='${JSON.stringify(p.paint||{palette:'wheat',seed:i+3,gap:6})}'></canvas>`}</div><div class="tx"><span class="mono">${Reader.date(p)}</span><b>${esc(p.t)}</b></div>`;
       b.addEventListener('click',e=>{e.preventDefault();Reader.open(p,'povs')});cards.appendChild(b);
     });
     cards.querySelectorAll('canvas[data-p]').forEach(c=>Paint.paint(c,JSON.parse(c.dataset.p)));

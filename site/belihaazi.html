@@ -4,7 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Into the Mind of Belihaazi</title>
-<meta name="description" content="Poems, prose, spoken word and hip hop by belihaazi (Utkarsh Singh), 2019 onwards."><link rel="canonical" href="https://belihaazi.com/belihaazi.html">
+<meta name="description" content="Poems, prose, spoken word and hip hop by belihaazi (Utkarsh Singh), 2019 onwards.">
+<link rel="canonical" href="https://belihaazi.com/belihaazi.html">
+<meta property="og:title" content="Into the Mind of Belihaazi"><meta property="og:description" content="Poems, prose, spoken word and hip hop by belihaazi (Utkarsh Singh), 2019 onwards."><meta property="og:image" content="https://belihaazi.com/img/portrait.jpg"><meta property="og:url" content="https://belihaazi.com/belihaazi.html"><meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Into the Mind of Belihaazi"><meta name="twitter:description" content="Poems, prose, spoken word and hip hop by belihaazi."><meta name="twitter:image" content="https://belihaazi.com/img/portrait.jpg">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Noto+Nastaliq+Urdu:wght@600&family=Tiro+Devanagari+Hindi&family=IBM+Plex+Mono:wght@400&display=swap">
 <style>
 /* Layout: a living Starry Night canvas under raw black label blocks (brutalist stickers). Below it, one ruled grid of rooms switched by tabs, image-led. Committed dark look. */
@@ -161,15 +165,15 @@ fetch('data.json').then(r=>r.json()).then(D=>{
     if(r==='Poems'||r==='Prose'){
       const k=r.toLowerCase();
       D[k].forEach((it,i)=>{const b=document.createElement('a');b.className='card';b.href=`${k}/${it.s}/`;
-        b.innerHTML=`<div class="im">${it.img?`<img src="${it.img}" alt="" loading="lazy">`:painted(it.paint||{palette:'night',seed:i*7+2,gap:6})+`<div class="t-over"><b class="${isHi(it.t)?'d':''}">${esc(it.t)}</b></div>`}</div><div class="tx"><span class="mono">${Reader.date(it)}</span><b class="${isHi(it.t)?'d':''}">${esc(it.t)}</b></div>`;
+        b.innerHTML=`<div class="im">${it.img?`<img src="${it.img}" alt="${esc(it.t)}" loading="lazy">`:painted(it.paint||{palette:'night',seed:i*7+2,gap:6})+`<div class="t-over"><b class="${isHi(it.t)?'d':''}">${esc(it.t)}</b></div>`}</div><div class="tx"><span class="mono">${Reader.date(it)}</span><b class="${isHi(it.t)?'d':''}">${esc(it.t)}</b></div>`;
         b.addEventListener('click',e=>{e.preventDefault();Reader.open(it,k)});cards.appendChild(b)});
     } else if(r==='Medium'){
       D.medium.forEach((p,i)=>{const a=document.createElement('a');a.className='card';a.href=p.link;
-        a.innerHTML=`<div class="im">${p.img?`<img src="${p.img}" alt="" loading="lazy">`:painted({palette:'cypress',seed:i*11+9,vortices:[[0.5,0.5,0.35,1]],gap:6})}<span class="tag mono">${p.pinned?'Pinned · ':''}Medium ↗</span></div><div class="tx"><span class="mono">${Reader.date(p)}</span><b>${esc(p.t)}</b></div>`;cards.appendChild(a)});
+        a.innerHTML=`<div class="im">${p.img?`<img src="${p.img}" alt="${esc(p.t)}" loading="lazy">`:painted({palette:'cypress',seed:i*11+9,vortices:[[0.5,0.5,0.35,1]],gap:6})}<span class="tag mono">${p.pinned?'Pinned · ':''}Medium ↗</span></div><div class="tx"><span class="mono">${Reader.date(p)}</span><b>${esc(p.t)}</b></div>`;cards.appendChild(a)});
     } else {
       const hh=r==='Hip hop',L=hh?D.hip_hop:D.spoken_word;
       L.forEach((it,i)=>{const a=document.createElement('a');a.className='card';a.href=it.link||'https://instagram.com/belihaazi';
-        a.innerHTML=`<div class="im">${it.img?`<img src="${it.img}" alt="" loading="lazy">`:painted({palette:hh?'wheat':'night',seed:i*5+(hh?31:17),vortices:[[0.5,0.5,0.35,i%2?1:-1]],gap:6})}<span class="tag mono">▶ Play</span></div><div class="tx"><span class="mono">${it.year}</span><b>${esc(it.title)}</b></div>`;
+        a.innerHTML=`<div class="im">${it.img?`<img src="${it.img}" alt="${esc(it.title)}" loading="lazy">`:painted({palette:hh?'wheat':'night',seed:i*5+(hh?31:17),vortices:[[0.5,0.5,0.35,i%2?1:-1]],gap:6})}<span class="tag mono">▶ Play</span></div><div class="tx"><span class="mono">${it.year}</span><b>${esc(it.title)}</b></div>`;
         a.addEventListener('click',e=>{if(playVideo(it)||igEmbed(it.link,it.title))e.preventDefault()});cards.appendChild(a)});
     }
     cards.querySelectorAll('canvas[data-p]').forEach(c=>Paint.paint(c,JSON.parse(c.dataset.p)));
