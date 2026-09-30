@@ -294,17 +294,53 @@ def report_pages(reps):
         urls.append(url)
     return urls
 
-def prerender_reports(reps):
-    """Put plain links to the reports into utkarsh.html so crawlers that don't run JavaScript still find them."""
-    p = os.path.join(D, "utkarsh.html")
+# ---------- pre-render: write the JS-drawn cards into the HTML, so crawlers that don't run JavaScript see everything ----------
+def _inject(fname, empty_tag, inner):
+    p = os.path.join(D, fname)
     s = open(p, encoding="utf-8").read()
+    if empty_tag not in s:
+        log("prerender: could not find", empty_tag, "in", fname); return
+    open(p, "w", encoding="utf-8").write(s.replace(empty_tag, empty_tag[:-6] + inner + "</div>"))
+
+def _date(i):
+    return (MN[i["m"]] + " " if i.get("m") else "") + (str(i["y"]) if i.get("y") else "")
+
+def _card(href, img, title, date, hidden=False, tag="", hi=False):
+    e = html.escape
+    im = f'<img src="{e(img)}" alt="{e(title)}" loading="lazy">' if img else f'<div class="t-over"><b>{e(title)}</b></div>'
+    return (f'<a class="card" href="{e(href)}"{" hidden" if hidden else ""}><div class="im">{im}{tag}</div>'
+            f'<div class="tx"><span class="mono">{e(date)}</span><b{" class=d" if hi else ""}>{e(title)}</b></div></a>')
+
+def prerender_pages(data):
+    e = html.escape
+    # utkarsh.html: reports
     cards = []
-    for r in reps:
+    for r in data["reports"]:
         href = r.get("page") or r.get("pdf") or r.get("link")
-        cards.append(f'<a href="{html.escape(href)}"><img src="{r["img"]}" alt="Cover of {html.escape(r["title"])}" loading="lazy">'
-                     f'<span class="mono">{html.escape(r["label"])}</span><b>{html.escape(r["title"])}</b></a>')
-    s = s.replace('<div class="cell rep" id="reps"></div>', '<div class="cell rep" id="reps">' + "".join(cards) + "</div>")
-    open(p, "w", encoding="utf-8").write(s)
+        cards.append(f'<a href="{e(href)}"><img src="{r["img"]}" alt="Cover of {e(r["title"])}" loading="lazy">'
+                     f'<span class="mono">{e(r["label"])}</span><b>{e(r["title"])}</b></a>')
+    _inject("utkarsh.html", '<div class="cell rep" id="reps"></div>', "".join(cards))
+    # utkarsh.html: talks
+    talks = []
+    for t in data["talks"]:
+        im = f'<img src="{e(t["img"])}" alt="{e(t["title"])}" loading="lazy">' if t.get("img") else ""
+        talks.append(f'<a class="talk" href="{e(t.get("link") or "#talks")}"><div class="th">{im}</div><div class="tx">'
+                     f'<span class="mono">{e(t.get("date", ""))}</span><b>{e(t["title"])}</b><span>{e(t.get("where", ""))}</span></div></a>')
+    _inject("utkarsh.html", '<div class="cell talks" id="talk-grid"></div>', "".join(talks))
+    # utkarsh.html: POVs (all of them; only the default shelf is visible before the script takes over)
+    shelves = data.get("shelves") or list(dict.fromkeys(p.get("shelf") for p in data["povs"]))
+    first = shelves[0] if shelves else None
+    _inject("utkarsh.html", '<div class="cell cards" id="pov-cards"></div>',
+            "".join(_card(f"povs/{p['s']}/", p.get("img"), p["t"], _date(p), hidden=p.get("shelf") != first) for p in data["povs"]))
+    # belihaazi.html: every room (poems visible, the rest hidden until their tab is opened)
+    hi = lambda s: bool(re.search("[ऀ-ॿ]", s))
+    out = [_card(f"poems/{i['s']}/", i.get("img"), i["t"], _date(i), hi=hi(i["t"])) for i in data["poems"]]
+    out += [_card(f"prose/{i['s']}/", i.get("img"), i["t"], _date(i), hidden=True, hi=hi(i["t"])) for i in data["prose"]]
+    for key in ("spoken_word", "hip_hop"):
+        out += [_card(i.get("link") or "https://instagram.com/belihaazi", i.get("img"), i["title"], str(i.get("year", "")), hidden=True,
+                      tag='<span class="tag mono">▶ Play</span>') for i in data[key]]
+    out += [_card(p["link"], p.get("img"), p["t"], _date(p), hidden=True, tag='<span class="tag mono">Medium ↗</span>') for p in data["medium"]]
+    _inject("belihaazi.html", '<div class="cards" id="cards"></div>', "".join(out))
 
 def llms_txt(data):
     L = ["# Utkarsh Singh (belihaazi)", "",
@@ -321,8 +357,13 @@ def llms_txt(data):
                 line += s.rstrip(".") + ". "
                 if len(line) > 80: break
             L.append(f"  - [{c['name']}]({DOMAIN}/{r['page']}#{slugify(c['name'])}): {line.strip()}")
+    L += ["", "## Talks"]
+    L += [f"- {t['title']}" + (f" ({t['where']}, {t['date']})" if t.get("where") else "") + (f": {t['link']}" if t.get("link") else "") for t in data["talks"]]
     L += ["", "## Points of view on behavioural science"]
     L += [f"- [{p['t']}]({DOMAIN}/povs/{p['s']}/)" for p in data["povs"]]
+    L += ["", "## Writing as belihaazi", f"- [Why belihaazi (on the pen name)]({DOMAIN}/prose/why-belihaazi/)"]
+    L += [f"- [{i['t']}]({DOMAIN}/prose/{i['s']}/) (prose)" for i in data["prose"] if i["s"] != "why-belihaazi"]
+    L += [f"- [{i['t']}]({DOMAIN}/poems/{i['s']}/) (poem)" for i in data["poems"]]
     open(os.path.join(D, "llms.txt"), "w", encoding="utf-8").write("\n".join(L) + "\n")
 
 # ---------- main ----------
@@ -381,7 +422,7 @@ def main():
         data[key.replace("-", "_")] = m["items"]
     data["medium"] = medium()
     report_urls = report_pages(data["reports"])
-    prerender_reports(data["reports"])
+    prerender_pages(data)
 
     json.dump(data, open(os.path.join(D, "data.json"), "w", encoding="utf-8"), ensure_ascii=False)
 

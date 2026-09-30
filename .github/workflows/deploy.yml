@@ -39,3 +39,25 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+
+  # Tell Bing (which also feeds ChatGPT search and Copilot), Yandex and others that pages changed.
+  # Skipped on the daily run so search engines only hear about real edits.
+  notify-search-engines:
+    needs: deploy
+    if: github.event_name != 'schedule'
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - run: |
+          sleep 30
+          python3 - <<'EOF'
+          import json, re, urllib.request
+          KEY = "383443aa7e36f9f3af2e6d21c682fdee"
+          sm = urllib.request.urlopen("https://belihaazi.com/sitemap.xml").read().decode()
+          urls = re.findall(r"<loc>([^<]+)</loc>", sm) + ["https://belihaazi.com/llms.txt"]
+          body = json.dumps({"host": "belihaazi.com", "key": KEY,
+                             "keyLocation": f"https://belihaazi.com/{KEY}.txt", "urlList": urls}).encode()
+          req = urllib.request.Request("https://api.indexnow.org/indexnow", data=body,
+                                       headers={"Content-Type": "application/json; charset=utf-8"})
+          print("IndexNow:", urllib.request.urlopen(req).status, "for", len(urls), "URLs")
+          EOF

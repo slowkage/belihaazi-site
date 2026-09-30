@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://belihaazi.com/">
 <meta property="og:title" content="Utkarsh Singh × belihaazi"><meta property="og:description" content="Utkarsh Singh, context architect and behavioural scientist in India, and belihaazi, his pen name for poems, prose, spoken word and hip hop."><meta property="og:image" content="https://belihaazi.com/img/portrait.jpg"><meta property="og:url" content="https://belihaazi.com/"><meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Utkarsh Singh × belihaazi"><meta name="twitter:description" content="Context architect, behavioural scientist, and writer."><meta name="twitter:image" content="https://belihaazi.com/img/portrait.jpg">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://belihaazi.com/#site","name":"belihaazi","alternateName":"Utkarsh Singh","url":"https://belihaazi.com/","author":{"@id":"https://belihaazi.com/utkarsh.html#person"}},{"@type":"Person","@id":"https://belihaazi.com/utkarsh.html#person","name":"Utkarsh Singh","alternateName":"belihaazi","jobTitle":"Context Architect & Strategist","description":"Context architect and behavioural scientist in India, at 1001 Stories. Writes poems, prose, spoken word and hip hop as belihaazi.","worksFor":{"@type":"Organization","name":"1001 Stories","url":"https://1001stories.com"},"url":"https://belihaazi.com/utkarsh.html","image":"https://belihaazi.com/img/portrait.jpg","sameAs":["https://linkedin.com/in/belihaazi","https://belihaazi.medium.com","https://instagram.com/belihaazi"]}]}</script>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.png" sizes="32x32" type="image/png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,700..900&family=Cormorant+Garamond:ital,wght@1,500&family=Noto+Nastaliq+Urdu:wght@600&family=IBM+Plex+Mono:wght@400&display=swap">
 <style>
@@ -38,6 +39,11 @@ body{margin:0;background:var(--ink);color:var(--paper);font-family:var(--sans)}
 .side:focus-visible{outline:4px solid var(--chrome);outline-offset:-8px}
 @media (max-width:720px){.door{grid-template-columns:1fr}.side{min-height:50vh;min-height:50svh}.side + .side{border-left:0;border-top:3px solid var(--ink)}}
 
+.strip{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between;align-items:center;padding:12px 16px;background:var(--ink);color:var(--parch);border-top:3px solid var(--ink)}
+.strip p{margin:0;line-height:1.5}
+.strip nav{display:flex;flex-wrap:wrap;gap:6px 16px}
+.strip a{color:var(--parch);text-decoration:none;border-bottom:1px solid currentColor}
+.strip a:hover{color:var(--chrome)}
 /* auto-redirect transition */
 .door{transition:grid-template-columns .7s cubic-bezier(.4,0,.2,1)}
 .side{transition:opacity .5s}
@@ -65,6 +71,10 @@ body{margin:0;background:var(--ink);color:var(--paper);font-family:var(--sans)}
     <span class="blk go mono">Enter →</span>
   </a>
 </main>
+<footer class="strip mono">
+  <p>Utkarsh Singh · Context architect and behavioural scientist at 1001 Stories, India · Writes as belihaazi</p>
+  <nav aria-label="Sections"><a href="utkarsh.html#talks">Talks</a><a href="utkarsh.html#povs">POVs</a><a href="utkarsh.html#work">Frameworks &amp; reports</a><a href="belihaazi.html">Poems &amp; prose</a><a href="prose/why-belihaazi/">Why belihaazi</a></nav>
+</footer>
 <div class="progress" id="prog"></div>
 <script src="paint.js"></script>
 <script>
