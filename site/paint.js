@@ -10,8 +10,9 @@ const PAL={
 function rng(seed){let s=seed>>>0||1;return()=>((s=Math.imul(s^s>>>15,1|s)+0x6D2B79F5|0,((s^s>>>7)>>>0)%100000)/100000)}
 function paint(cv,o={}){
   const p=PAL[o.palette||'night'];const R=rng(o.seed||7);
-  const dpr=Math.min(devicePixelRatio||1,2);
-  let W,H,ctx,vort,t=0,raf;
+  const small=matchMedia('(max-width: 700px), (pointer: coarse)').matches;
+  const dpr=Math.min(devicePixelRatio||1,small?1.25:2);
+  let W,H,ctx,vort,t=0,raf,lastW=0,lastH=0,job=0,busy=false;
   function field(x,y,tt){
     const nx=x/W,ny=y/H;
     let a=Math.sin(ny*6.2+Math.sin(nx*4.1+tt)*1.4)*0.9+Math.cos(nx*3.3-ny*2.1+tt*.7)*0.6+(o.tilt||0);
@@ -34,20 +35,30 @@ function paint(cv,o={}){
     ctx.strokeStyle=p.dark;ctx.globalAlpha=.35;ctx.lineWidth=(lw+1.6)*dpr;ctx.stroke();
     ctx.strokeStyle=col;ctx.globalAlpha=.95;ctx.lineWidth=lw*dpr;ctx.stroke();
   }
-  function size(){
-    const r=cv.getBoundingClientRect();W=cv.width=Math.max(1,r.width*dpr);H=cv.height=Math.max(1,r.height*dpr);ctx=cv.getContext('2d');
+  function size(force){
+    const r=cv.getBoundingClientRect();
+    if(r.width<2||r.height<2)return;                       // hidden: paint later
+    const dw=Math.abs(r.width-lastW),dh=Math.abs(r.height-lastH);
+    if(!force&&lastW&&dw<2&&dh<lastH*.25)return;            // ignore mobile address-bar wobble
+    lastW=r.width;lastH=r.height;
+    W=cv.width=Math.max(1,Math.round(r.width*dpr));H=cv.height=Math.max(1,Math.round(r.height*dpr));ctx=cv.getContext('2d');
     vort=(o.vortices||[]).map(v=>({x:v[0]*W,y:v[1]*H,r:v[2]*Math.min(W,H),dir:v[3]||1}));
     ctx.fillStyle=p.base[0];ctx.fillRect(0,0,W,H);
-    const gap=(o.gap||7)*dpr;
-    for(let y=-gap;y<H+gap;y+=gap)for(let x=-gap;x<W+gap;x+=gap)stroke(x+R()*gap,y+R()*gap,0,true);
-    for(let i=0;i<(W*H)/(gap*gap)*.6;i++)stroke(R()*W,R()*H,0,false);
+    const gap=(o.gap||7)*dpr,pts=[];
+    for(let y=-gap;y<H+gap;y+=gap)for(let x=-gap;x<W+gap;x+=gap)pts.push([x+R()*gap,y+R()*gap,1]);
+    for(let i=0;i<(W*H)/(gap*gap)*.6;i++)pts.push([R()*W,R()*H,0]);
+    const my=++job;let i=0;busy=true;
+    const chunk=()=>{if(my!==job)return;const end=Math.min(pts.length,i+(small?500:1400));
+      for(;i<end;i++)stroke(pts[i][0],pts[i][1],0,pts[i][2]);
+      if(i<pts.length)requestAnimationFrame(chunk);else busy=false};
+    chunk();
   }
-  size();
-  let rt;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(size,200)});
+  size(true);
+  let rt;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>size(false),250)});
   if(o.animate&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
     let vis=true;const rate=(o.rate||45)*(innerWidth<700?.5:1);
     if('IntersectionObserver' in window)new IntersectionObserver(e=>{vis=e[0].isIntersecting;if(vis&&!raf)loop()}).observe(cv);
-    const loop=()=>{if(!vis||document.hidden){raf=0;return}t+=.0025;for(let i=0;i<rate;i++)stroke(R()*W,R()*H,t,false);raf=requestAnimationFrame(loop)};
+    const loop=()=>{if(!vis||document.hidden){raf=0;return}if(busy||!ctx){raf=requestAnimationFrame(loop);return}t+=.0025;for(let i=0;i<rate;i++)stroke(R()*W,R()*H,t,false);raf=requestAnimationFrame(loop)};
     document.addEventListener('visibilitychange',()=>{if(!document.hidden&&vis&&!raf)loop()});loop();
   }
 }
@@ -58,7 +69,8 @@ function fill(box,cls,pal){
     for(let i=0;i<k;i++){const d=document.createElement('div');d.className=cls+' filler';d.setAttribute('aria-hidden','true');
       const c=document.createElement('canvas');c.className='pt';d.appendChild(c);box.appendChild(d);
       paint(c,{palette:pal,seed:n*7+i*13,vortices:[[0.5,0.5,0.4,i%2?1:-1]],gap:7})}};
-  run();let t;addEventListener('resize',()=>{clearTimeout(t);t=setTimeout(run,250)});
+  let lastCols=0;const cols=()=>getComputedStyle(box).gridTemplateColumns.split(' ').filter(Boolean).length;
+  run();lastCols=cols();let t;addEventListener('resize',()=>{clearTimeout(t);t=setTimeout(()=>{const c=cols();if(c!==lastCols){lastCols=c;run()}},250)});
 }
 window.Paint={paint,fill};
 document.addEventListener('DOMContentLoaded',()=>{
