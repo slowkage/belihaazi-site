@@ -37,6 +37,16 @@ body{margin:0;background:var(--ink);color:var(--paper);font-family:var(--sans)}
 .side:hover .go,.side:focus-visible .go{background:var(--chrome);color:var(--ink)}
 .side:focus-visible{outline:4px solid var(--chrome);outline-offset:-8px}
 @media (max-width:720px){.door{grid-template-columns:1fr}.side{min-height:50vh;min-height:50svh}.side + .side{border-left:0;border-top:3px solid var(--ink)}}
+
+/* auto-redirect transition */
+.door{transition:grid-template-columns .7s cubic-bezier(.4,0,.2,1)}
+.side{transition:opacity .5s}
+.door.go-day{grid-template-columns:1fr 0fr}
+.door.go-day .night{opacity:0;pointer-events:none;min-height:0;overflow:hidden}
+.progress{position:fixed;bottom:0;left:0;height:3px;background:var(--chrome);width:0;z-index:50;transition:opacity .3s}
+.progress.run{animation:fill 3s linear forwards}
+@keyframes fill{to{width:100%}}
+@media (max-width:720px){.door.go-day{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -55,6 +65,36 @@ body{margin:0;background:var(--ink);color:var(--paper);font-family:var(--sans)}
     <span class="blk go mono">Enter →</span>
   </a>
 </main>
+<div class="progress" id="prog"></div>
 <script src="paint.js"></script>
+<script>
+(function(){
+  var door=document.querySelector('.door'), prog=document.getElementById('prog'), done=false;
+  var tid=setTimeout(go, 3000);
+  prog.classList.add('run');
+
+  function cancel(){
+    if(done) return;
+    clearTimeout(tid); done=true;
+    prog.style.opacity='0';
+    setTimeout(function(){prog.remove()},300);
+  }
+  function go(){
+    if(done) return; done=true;
+    prog.style.opacity='0';
+    door.classList.add('go-day');
+    setTimeout(function(){ window.location.href='utkarsh.html'; }, 700);
+  }
+
+  // any deliberate interaction cancels
+  door.addEventListener('click', function(e){
+    cancel();
+    // let the <a> navigate normally
+  });
+  document.addEventListener('keydown', cancel);
+  // touch means they're choosing
+  door.addEventListener('touchstart', cancel, {passive:true});
+})();
+</script>
 </body>
 </html>
