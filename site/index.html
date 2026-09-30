@@ -8,7 +8,7 @@
 <link rel="canonical" href="https://belihaazi.com/">
 <meta property="og:title" content="Utkarsh Singh × belihaazi"><meta property="og:description" content="Utkarsh Singh, context architect and behavioural scientist in India, and belihaazi, his pen name for poems, prose, spoken word and hip hop."><meta property="og:image" content="https://belihaazi.com/img/portrait.jpg"><meta property="og:url" content="https://belihaazi.com/"><meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Utkarsh Singh × belihaazi"><meta name="twitter:description" content="Context architect, behavioural scientist, and writer."><meta name="twitter:image" content="https://belihaazi.com/img/portrait.jpg">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.png" sizes="32x32" type="image/png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,700..900&family=Cormorant+Garamond:ital,wght@1,500&family=Noto+Nastaliq+Urdu:wght@600&family=IBM+Plex+Mono:wght@400&display=swap">
 <style>
 /* Layout: two painted halves (wheatfield day, starry night) under raw black label blocks. Committed look, colors explicit. */
@@ -44,7 +44,7 @@ body{margin:0;background:var(--ink);color:var(--paper);font-family:var(--sans)}
 .door.go-day{grid-template-columns:1fr 0fr}
 .door.go-day .night{opacity:0;pointer-events:none;min-height:0;overflow:hidden}
 .progress{position:fixed;bottom:0;left:0;height:3px;background:var(--chrome);width:0;z-index:50;transition:opacity .3s}
-.progress.run{animation:fill 3s linear forwards}
+.progress.run{animation:fill 5s linear forwards}
 @keyframes fill{to{width:100%}}
 @media (max-width:720px){.door.go-day{grid-template-columns:1fr}}
 </style>
@@ -70,7 +70,7 @@ body{margin:0;background:var(--ink);color:var(--paper);font-family:var(--sans)}
 <script>
 (function(){
   var door=document.querySelector('.door'), prog=document.getElementById('prog'), done=false;
-  var tid=setTimeout(go, 3000);
+  var tid=setTimeout(go, 5000);
   prog.classList.add('run');
 
   function cancel(){

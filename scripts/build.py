@@ -163,7 +163,7 @@ PIECE_TPL = """<!doctype html><html lang="en"><head><meta charset="utf-8">
 <link rel="canonical" href="{url}"><meta property="og:title" content="{title}"><meta property="og:description" content="{desc}">
 {og}<meta property="og:type" content="article"><meta property="og:url" content="{url}">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{title}"><meta name="twitter:description" content="{desc}">
-{twimg}<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+{twimg}<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.png" sizes="32x32" type="image/png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Cormorant+Garamond:ital,wght@0,400;1,500&family=Tiro+Devanagari+Hindi&family=IBM+Plex+Mono&display=swap">
 <script type="application/ld+json">{ld}</script>
 <style>
