@@ -162,6 +162,16 @@ footer a{text-decoration:none;border-bottom:2px solid var(--ink)}
 .r-meta{font-family:var(--mono);font-size:12px;text-transform:uppercase;color:var(--grey);margin:0}
 .r-title{margin:6px 0 22px;font-size:clamp(28px,4vw,46px);font-stretch:80%;font-weight:900;text-transform:uppercase;line-height:.95}
 .r-body p{max-width:64ch;margin:0 0 1em;font-size:18px;line-height:1.6}
+.r-cta{display:inline-block;background:var(--ink);color:var(--paper);padding:12px 16px;text-decoration:none;font-family:var(--mono);font-size:13px;text-transform:uppercase;letter-spacing:.04em}
+.r-cta:hover{background:var(--chrome);color:var(--ink)}
+.r-h{margin:28px 0 0;background:var(--ink);color:var(--paper);padding:6px 12px;font-stretch:80%;font-weight:900;text-transform:uppercase;font-size:24px}
+.r-c{border:var(--rule);border-top:0;padding:14px 16px 4px}
+.r-c h4{margin:2px 0 6px;font-size:21px;line-height:1.15;font-stretch:85%;font-weight:900}.r-c h4 a{text-decoration:none}
+.r-c p{font-size:16px!important;margin-bottom:10px!important}
+.r-c blockquote{margin:0 0 10px;border-left:6px solid var(--chrome);padding:2px 0 2px 12px;font-size:15px}
+.r-c blockquote span{display:block;font-family:var(--mono);font-size:11px;color:var(--grey);margin-top:4px}
+.r-c .r-src{font-family:var(--mono);font-size:11px!important;color:var(--grey)}
+.k-reports .r-img{max-height:30vh;object-position:top}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
@@ -262,11 +272,17 @@ fetch('data.json').then(r=>r.json()).then(D=>{
   const ph=document.createElement('div');ph.className='ph';ph.innerHTML=D.talk_photos.slice(0,3).map(p=>`<img src="${p}" alt="" loading="lazy">`).join('');tg.appendChild(ph);
   tg.querySelectorAll('canvas[data-p]').forEach(c=>Paint.paint(c,JSON.parse(c.dataset.p)));
   // reports
-  const rp=document.getElementById('reps');
+  const rp=document.getElementById('reps');rp.innerHTML='';
+  const slug=s=>s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,60);
   D.reports.forEach(r=>{
-    const el=document.createElement(r.summary?'button':'a');
-    if(r.summary){el.type='button';el.addEventListener('click',()=>Reader.open({t:r.title,y:2022,img:r.img,body:r.summary,pdf:r.pdf},'reports'))}
-    else{el.href=r.link||'#work'}
+    const el=document.createElement('a');
+    el.href=r.page||r.pdf||r.link||'#work';
+    if(r.concepts){
+      const html=`<h3 class="r-h">Concepts in this report</h3>`+r.concepts.map(c=>`<div class="r-c"><span class="r-meta">${esc(c.kind)}</span><h4><a href="${r.page}#${slug(c.name)}">${esc(c.name)}</a></h4><p>${esc(c.def)}</p>${c.quote?`<blockquote>“${esc(c.quote)}”<span>${esc(c.by)}</span></blockquote>`:''}<p class="r-src">Source: ${esc(r.title.replace(/\.$/,''))}, 1001 Stories, PDF p. ${c.page}</p></div>`).join('');
+      el.addEventListener('click',e=>{e.preventDefault();Reader.open({t:r.title,meta:`${r.label} · by ${r.authors.join(', ')}`,img:r.img,body:r.summary,html,cta:{href:r.link,label:'Read the full report on 1001 Stories ↗'}},'reports')});
+    }else if(r.summary){
+      el.addEventListener('click',e=>{e.preventDefault();Reader.open({t:r.title,y:2022,img:r.img,body:r.summary,pdf:r.pdf},'reports')});
+    }
     el.innerHTML=`<img src="${r.img}" alt="Cover of ${esc(r.title)}" loading="lazy"><span class="mono">${esc(r.label)}</span><b>${esc(r.title)}</b>`;rp.appendChild(el);
   });
   // fieldwork collage

@@ -97,10 +97,11 @@ window.Reader=(function(){
       el.addEventListener('click',e=>{if(e.target===el||e.target.closest('.r-close'))close()});
       addEventListener('keydown',e=>{if(e.key==='Escape')close()})}
     const poem=kind==='poems';
-    el.innerHTML=`<article class="r-card ${poem?'is-poem':''}"><button class="r-close" type="button">Close ✕</button>
+    el.innerHTML=`<article class="r-card k-${kind} ${poem?'is-poem':''}"><button class="r-close" type="button">Close ✕</button>
       ${item.img?`<img class="r-img" src="${item.img}" alt="">`:(item.paint?'<div class="r-paint"><canvas class="pt"></canvas></div>':'')}
-      <div class="r-body"><p class="r-meta">${esc(date(item))}</p><h2 class="r-title">${esc(item.t)}</h2>
-      ${item.body.map(p=>`<p>${esc(p)}</p>`).join('')}${item.pdf?`<p><a href="${item.pdf}">Read the full dissertation (PDF) ↗</a></p>`:''}${item.credit?`<p class="r-meta">Image: ${esc(item.credit)}</p>`:''}</div></article>`;
+      <div class="r-body"><p class="r-meta">${esc(item.meta||date(item))}</p><h2 class="r-title">${esc(item.t)}</h2>
+      ${item.cta?`<p><a class="r-cta" href="${item.cta.href}">${esc(item.cta.label)}</a></p>`:''}
+      ${item.body.map(p=>`<p>${esc(p)}</p>`).join('')}${item.html||''}${item.cta?`<p><a class="r-cta" href="${item.cta.href}">${esc(item.cta.label)}</a></p>`:''}${item.pdf?`<p><a href="${item.pdf}">Read the full dissertation (PDF) ↗</a></p>`:''}${item.credit?`<p class="r-meta">Image: ${esc(item.credit)}</p>`:''}</div></article>`;
     el.hidden=false;const rc=el.querySelector('.r-paint canvas');if(rc)paint(rc,item.paint);document.body.style.overflow='hidden';el.querySelector('.r-close').focus();el.scrollTop=0;
   }
   function close(){if(el){el.hidden=true;document.body.style.overflow=''}}

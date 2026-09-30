@@ -207,6 +207,124 @@ def piece_pages(items, kind, dark):
         urls.append(url)
     return urls
 
+# ---------- report pages (1001 Stories BiteGeists: concepts as crawlable text) ----------
+REPORT_TPL = """<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{title} · 1001 Stories BiteGeist · Utkarsh Singh</title><meta name="description" content="{desc}">
+<link rel="canonical" href="{url}"><meta property="og:title" content="{title}"><meta property="og:description" content="{desc}">
+<meta property="og:image" content="{ogimg}"><meta property="og:type" content="article"><meta property="og:url" content="{url}">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{title}"><meta name="twitter:description" content="{desc}"><meta name="twitter:image" content="{ogimg}">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.png" sizes="32x32" type="image/png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono&display=swap">
+<script type="application/ld+json">{ld}</script>
+<style>
+*{{box-sizing:border-box}} body{{margin:0;background:#F6F6F2;color:#0E0E0C;font-family:"Archivo",Arial,sans-serif;font-size:18px;line-height:1.6}}
+a{{color:inherit}} .w{{max-width:820px;margin:0 auto;padding:24px 16px 80px}}
+.m{{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.05em;text-transform:uppercase}}
+nav{{display:flex;border:3px solid #0E0E0C;margin-bottom:24px}} nav a{{padding:10px 14px;text-decoration:none}} nav a+a{{border-left:3px solid #0E0E0C}}
+.top{{display:grid;grid-template-columns:200px 1fr;gap:24px;align-items:start;border:3px solid #0E0E0C;padding:18px;background:#fff}}
+.top img{{width:100%;border:3px solid #0E0E0C;display:block}}
+h1{{font-size:clamp(32px,5.4vw,54px);line-height:.95;margin:.25em 0 .2em;font-stretch:80%;font-weight:900;text-transform:uppercase}}
+.sub{{font-weight:700;margin:0 0 10px}} .by{{color:#5B5B55}}
+.go{{display:inline-block;background:#0E0E0C;color:#F6F6F2;padding:12px 16px;text-decoration:none;font-weight:800;margin-top:10px}} .go:hover{{background:#F2B90F;color:#0E0E0C}}
+.sum p{{max-width:66ch}}
+h2{{font-stretch:80%;font-weight:900;text-transform:uppercase;font-size:30px;background:#0E0E0C;color:#F6F6F2;padding:6px 12px;margin:36px 0 0}}
+.toc{{border:3px solid #0E0E0C;border-top:0;padding:12px 16px;columns:2;column-gap:24px}} .toc a{{display:block;text-decoration:none;padding:2px 0;break-inside:avoid}} .toc a:hover{{background:#F2B90F}}
+.c{{border:3px solid #0E0E0C;border-top:0;padding:18px 18px 8px;background:#F6F6F2}} .c:target{{background:#FFF4CC}}
+.c h3{{margin:4px 0 8px;font-size:24px;line-height:1.1;font-stretch:85%;font-weight:900}} .c p{{margin:0 0 12px;max-width:66ch}}
+blockquote{{margin:0 0 12px;border-left:6px solid #F2B90F;padding:2px 0 2px 14px;font-size:16px}} blockquote footer{{font-size:13px;color:#5B5B55;margin-top:4px}}
+.src{{font-size:12px;color:#5B5B55}}
+.end{{margin-top:36px;border:3px solid #0E0E0C;padding:18px;box-shadow:10px 10px 0 #F2B90F;background:#fff}}
+@media (max-width:640px){{.top{{grid-template-columns:1fr}} .top img{{max-width:220px}} .toc{{columns:1}}}}
+</style></head><body><div class="w">
+<nav class="m"><a href="/">Home</a><a href="/utkarsh.html#work">← Utkarsh</a></nav>
+<header class="top"><img src="/{img}" alt="Cover of {title}">
+<div><p class="m">{label}{year}</p><h1>{title}</h1><p class="sub">{subtitle}</p><p class="by">By {authors}</p>
+<a class="go m" href="{link}">Read the full report on 1001 Stories ↗</a></div></header>
+<section class="sum">{summary}</section>
+<h2>Concepts in this report</h2>
+<div class="toc">{toc}</div>
+{concepts}
+<section class="end"><p><b>This page is a summary.</b> The concepts above are from <i>{title}</i>, a BiteGeist by 1001 Stories. Page numbers refer to the report PDF. The full report, with its data, illustrations and sources, is published by 1001 Stories.</p>
+<a class="go m" href="{link}">Read the full report on 1001 Stories ↗</a></section>
+</div></body></html>"""
+
+def report_pages(reps):
+    urls = []
+    for r in reps:
+        if not r.get("concepts"): continue
+        rel = f"reports/{r['slug']}/"
+        url = f"{DOMAIN}/{rel}"
+        e = html.escape
+        ct = e(r["title"].rstrip("."))
+        cite = lambda p: (f'<a href="{r["source_pdf"]}#page={p}">{ct}, 1001 Stories, PDF p. {p}</a>' if r.get("source_pdf")
+                          else f'<a href="{r["link"]}">{ct}, 1001 Stories, PDF p. {p}</a>')
+        blocks, toc, terms = [], [], []
+        for c in r["concepts"]:
+            cid = slugify(c["name"])
+            q = ""
+            if c.get("quote"):
+                q = f'<blockquote><p>“{e(c["quote"])}”</p><footer>{e(c["by"])}{", p. " + str(c["qpage"]) if c.get("qpage") else ""}</footer></blockquote>'
+            aka = f'<p class="src">Also written as: {e(", ".join(c["aka"]))}</p>' if c.get("aka") else ""
+            blocks.append(f'<section class="c" id="{cid}"><p class="m">{e(c["kind"])}</p><h3>{e(c["name"])}</h3>'
+                          f'<p>{e(c["def"])}</p>{q}{aka}<p class="src">Source: {cite(c["page"])}</p></section>')
+            toc.append(f'<a href="#{cid}">{e(c["name"])}</a>')
+            t = {"@type": "DefinedTerm", "name": c["name"], "description": c["def"], "url": f"{url}#{cid}",
+                 "termCode": cid, "inDefinedTermSet": url + "#concepts"}
+            if c.get("aka"): t["alternateName"] = c["aka"]
+            terms.append(t)
+        people = [{"@type": "Person", "name": a, **({"url": DOMAIN + "/utkarsh.html"} if a == "Utkarsh Singh" else {})} for a in r["authors"]]
+        org = {"@type": "Organization", "name": "1001 Stories", "url": "https://1001stories.com"}
+        report = {"@type": "Report", "@id": url + "#report", "name": r["title"], "alternativeHeadline": r.get("subtitle", ""),
+                  "author": people, "publisher": org, "url": url, "sameAs": r["link"],
+                  "description": " ".join(r["summary"]), "about": [{"@id": url + "#concepts"}]}
+        if r.get("year"): report["datePublished"] = str(r["year"])
+        if r.get("source_pdf"): report["associatedMedia"] = {"@type": "MediaObject", "contentUrl": r["source_pdf"], "encodingFormat": "application/pdf"}
+        ld = {"@context": "https://schema.org", "@graph": [report,
+              {"@type": "DefinedTermSet", "@id": url + "#concepts", "name": f"Concepts from {r['title']} (1001 Stories)", "hasDefinedTerm": terms}]}
+        desc = e(r["summary"][0][:150] + ("…" if len(r["summary"][0]) > 150 else ""))
+        page = REPORT_TPL.format(
+            title=e(r["title"]), subtitle=e(r.get("subtitle", "")), desc=desc, url=url, link=e(r["link"]),
+            ogimg=f"{DOMAIN}/{r['img'][:-5]}.jpg", img=r["img"], label=e(r["label"]), year=f" · {r['year']}" if r.get("year") else "",
+            authors=e(", ".join(r["authors"])), summary="".join(f"<p>{e(p)}</p>" for p in r["summary"]),
+            toc="".join(toc), concepts="\n".join(blocks), ld=json.dumps(ld, ensure_ascii=False).replace("</", "<\\/"))
+        os.makedirs(os.path.join(D, rel), exist_ok=True)
+        open(os.path.join(D, rel, "index.html"), "w", encoding="utf-8").write(page)
+        r["page"] = rel
+        urls.append(url)
+    return urls
+
+def prerender_reports(reps):
+    """Put plain links to the reports into utkarsh.html so crawlers that don't run JavaScript still find them."""
+    p = os.path.join(D, "utkarsh.html")
+    s = open(p, encoding="utf-8").read()
+    cards = []
+    for r in reps:
+        href = r.get("page") or r.get("pdf") or r.get("link")
+        cards.append(f'<a href="{html.escape(href)}"><img src="{r["img"]}" alt="Cover of {html.escape(r["title"])}" loading="lazy">'
+                     f'<span class="mono">{html.escape(r["label"])}</span><b>{html.escape(r["title"])}</b></a>')
+    s = s.replace('<div class="cell rep" id="reps"></div>', '<div class="cell rep" id="reps">' + "".join(cards) + "</div>")
+    open(p, "w", encoding="utf-8").write(s)
+
+def llms_txt(data):
+    L = ["# Utkarsh Singh (belihaazi)", "",
+         "> Utkarsh Singh is a context architect and behavioural scientist in India, at 1001 Stories. He writes as belihaazi.", "",
+         "## Pages", f"- [Utkarsh Singh: talks, POVs, frameworks, reports]({DOMAIN}/utkarsh.html)",
+         f"- [Into the mind of belihaazi: poems, prose, spoken word, hip hop]({DOMAIN}/belihaazi.html)", "",
+         "## Reports and the concepts they introduce (1001 Stories BiteGeists)"]
+    for r in data["reports"]:
+        if not r.get("page"): continue
+        L.append(f"- [{r['title']}]({DOMAIN}/{r['page']}): by {', '.join(r['authors'])}. Full report: {r['link']}")
+        for c in r["concepts"]:
+            parts, line = c["def"].split(". "), ""
+            for s in parts:
+                line += s.rstrip(".") + ". "
+                if len(line) > 80: break
+            L.append(f"  - [{c['name']}]({DOMAIN}/{r['page']}#{slugify(c['name'])}): {line.strip()}")
+    L += ["", "## Points of view on behavioural science"]
+    L += [f"- [{p['t']}]({DOMAIN}/povs/{p['s']}/)" for p in data["povs"]]
+    open(os.path.join(D, "llms.txt"), "w", encoding="utf-8").write("\n".join(L) + "\n")
+
 # ---------- main ----------
 def main():
     shutil.rmtree(D, ignore_errors=True); os.makedirs(D)
@@ -241,7 +359,7 @@ def main():
 
     reps = load("utkarsh/reports.json", [])
     for r in reps:
-        r["img"] = save_img(os.path.join(C, "utkarsh/reports", r["cover"]), f"img/reports/{slugify(r['title'])}.jpg", 420)
+        r["img"] = save_img(os.path.join(C, "utkarsh/reports", r["cover"]), f"img/reports/{slugify(r['title'])}.jpg", 420, og=True)
         if r.get("pdf"):
             os.makedirs(os.path.join(D, "files"), exist_ok=True)
             shutil.copy(os.path.join(C, "utkarsh/reports", r["pdf"]), os.path.join(D, "files", r["pdf"]))
@@ -262,6 +380,8 @@ def main():
                 it["src"] = "video/" + it["video"]
         data[key.replace("-", "_")] = m["items"]
     data["medium"] = medium()
+    report_urls = report_pages(data["reports"])
+    prerender_reports(data["reports"])
 
     json.dump(data, open(os.path.join(D, "data.json"), "w", encoding="utf-8"), ensure_ascii=False)
 
@@ -269,6 +389,8 @@ def main():
     urls += piece_pages(data["povs"], "povs", False)
     urls += piece_pages(data["prose"], "prose", True)
     urls += piece_pages(data["poems"], "poems", True)
+    urls += report_urls
+    llms_txt(data)
     today = date.today().isoformat()
     open(os.path.join(D, "sitemap.xml"), "w").write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
         + "".join(f"<url><loc>{u}</loc><lastmod>{today}</lastmod></url>\n" for u in urls) + "</urlset>\n")

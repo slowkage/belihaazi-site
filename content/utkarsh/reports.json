@@ -1,15 +1,204 @@
 [
   {
     "title": "Apna Sapna Money Money",
+    "subtitle": "Less F.I.R.E. More A.A.A.G.",
+    "slug": "apna-sapna-money-money",
     "label": "BiteGeist · 1001 Stories",
     "cover": "apna-sapna-money-money.jpg",
-    "link": "https://1001stories.com/case-studies/apna-sapna-money-money/"
+    "link": "https://1001stories.com/case-studies/apna-sapna-money-money/",
+    "authors": ["Utkarsh Singh", "Prakash Sharma", "Reshma Tonse"],
+    "summary": [
+      "A BiteGeist by 1001 Stories on how Indians save, spend and plan for the future, and why the F.I.R.E. (Financial Independence, Retire Early) dream does not fit most of India.",
+      "India has long been a savings-driven economy. Yet net financial savings of Indian households almost halved, from 10% of GDP in FY11 to 5.4% in FY23. UPI and EMIs have reduced the pain of paying, and spending on small indulgences has risen while essentials are held back.",
+      "The report argues that most earning Indians are not chasing F.I.R.E. Their desire is better summed up as A.A.A.G.: Aspire, Arrive, Age Gracefully."
+    ],
+    "concepts": [
+      {
+        "name": "A.A.A.G. (Aspire, Arrive, Age Gracefully)",
+        "kind": "Core concept",
+        "page": 35,
+        "def": "The financial desire of the larger Indian populace, in place of F.I.R.E. Financial advisors and the top 3% can automate investing large chunks of income and swear by F.I.R.E. The larger masses, once taken by the idea, are losing optimism around it and are looking for options they can call realistic. Their desire can be summed up as A.A.A.G.: Less F.I.R.E. More A.A.A.G."
+      },
+      {
+        "name": "Arrive",
+        "kind": "A.A.A.G.",
+        "page": 36,
+        "def": "Fired up by F.I.R.E., earning professionals aim for financial independence. The math does not add up, but what they have managed to create is a healthy financial fitness habit. For a large BFSI consumer base, the ability to invest, diversify income and be future-prepared feels like arriving in life. Aspirations must be met, but not early. There is no hurry.",
+        "quote": "After MBA, almost half my batch bought a home, or got married, or got a small plot of land and everything came from a parent. Then, you have a kid. So you are locked in... People are saying, 'Why get married early? Why have kids early?' It's still a small thing, but the voices are getting louder.",
+        "by": "Arun Kumar, author, The 80-20 Money Makeover",
+        "qpage": 37
+      },
+      {
+        "name": "Aspire: meaning from work > money",
+        "kind": "A.A.A.G.",
+        "page": 38,
+        "def": "In India, work is associated with status and community, not only money. Career and work experience are social capital, so after leaving the workforce Indians see themselves as continuing to build it. Giving up on building social capital means aging. Where retirement once meant living on a predetermined corpus, retirement today must entail the continuation of a revenue stream: consulting, freelancing, rental property or agri-businesses."
+      },
+      {
+        "name": "Age gracefully: age-agnostic youth",
+        "kind": "A.A.A.G.",
+        "page": 40,
+        "def": "In the new work identity there is no getting 'older', only an expanding youth canvas. For the new Indian consumer, the late phase of life is not about becoming free of responsibility and stopping work, but about finding new potential and becoming socially more relevant. For the new Indian, retirement is a backup growth opportunity.",
+        "quote": "Retirement is for people who cannot grow in life. Ab bas, ab baith jao.",
+        "by": "Male, 42, Bangalore",
+        "qpage": 41
+      },
+      {
+        "name": "Indians do not have piggy banks",
+        "kind": "Concept",
+        "page": 9,
+        "def": "The Western piggy bank is conceptually about saving for a purpose. The Indian Gullak, Chukka or Undiyal is about saving until an emergency arises, which, by God's grace, will hopefully never happen. Breaking a piggy bank is exciting; a broken Gullak is discomforting. Nothing was saved to spend. Any expenditure was an 'emergency'."
+      },
+      {
+        "name": "One way to feel rich is to save money. Another is to spend it.",
+        "kind": "Concept",
+        "page": 16,
+        "def": "UPI and EMI payments drastically reduce the pain of paying, leading to reduced savings and increased expenditure in the Indian household. 74.2% of respondents in an IIIT Delhi survey reported increased spending after adopting UPI. Ezetap reported a 220% increase in EMI transaction volumes post-pandemic, and earning individuals in India spend over 33% of their monthly salary on EMIs."
+      },
+      {
+        "name": "Changing contexts, changing behaviour",
+        "kind": "Concept",
+        "page": 32,
+        "def": "The context of saving instruction was scarcity and uncertainty. It produced beliefs of loss aversion, need for stability and 'low risk' as a virtue, and the behaviour of saving long term in risk-free instruments. The context of wealth creation instruction is surplus and frictionless upgrades of lifestyle. It produces the belief that one should be curious and try riskier instruments in small amounts, and the behaviour of hunting for short-term returns while explaining losses as the long-term nature of instruments. The aam aadmi is looking to answer an old context with a new behaviour, but is open to being introduced to new desires and new behaviour."
+      },
+      {
+        "name": "True F.I.R.E. is for the top 3%",
+        "kind": "Concept",
+        "page": 26,
+        "def": "F.I.R.E. has morphed into many forms in India: Fat, Lean, Chubby, Coast and Barista F.I.R.E. Indian aspirants are realising that the people who can and will achieve F.I.R.E. are those who were going to retire in their 50s anyway: product managers with large paychecks, generational wealth holders, business owners and founders who will sell, and property owners whose assets already generate passive income."
+      },
+      {
+        "name": "Five context shifts of the Indian consumer",
+        "kind": "Concept",
+        "page": 42,
+        "def": "Across deep-contextual studies in FMCG, automotive, public health, ed-tech, e-commerce, q-commerce, BFSI, fashion, luxury and technology, 1001 Stories observed five shifts shaping how Indians plan for the future: (1) new aspirations and signals different from the collective's; (2) changing gender roles affecting financial choices; (3) intra- and inter-city access, migration and a new-found Indian individuality; (4) new codes of youth and self, and new metrics of success; (5) an expectation of evergreen, age-agnostic youth that changes future goals."
+      },
+      {
+        "name": "The Time-Money Mosaic",
+        "kind": "Framework",
+        "page": 44,
+        "def": "In categories that marry present and future selves, four co-existing and opposite forces act on one another: Culture & Beliefs, Current Trends, Fears, and Desires. Each exerts and counteracts on the others, moulding current beliefs and actions. For any new product to work, it must consider these contradictions and find its place alongside these tensions."
+      }
+    ]
   },
   {
     "title": "Why you failed your New Year's resolution. Again.",
+    "subtitle": "And how to succeed next year.",
+    "slug": "why-you-failed-your-new-years-resolution",
     "label": "BiteGeist · 1001 Stories",
     "cover": "new-year-resolution.jpg",
-    "link": "https://1001stories.com/case-studies/making-your-new-years-resolution-work/"
+    "link": "https://1001stories.com/case-studies/making-your-new-years-resolution-work/",
+    "source_pdf": "https://1001stories.com/case-studies/wp-content/uploads/sites/4/2025/03/Why-did-your-New-Year-Resolution-Fail.pdf",
+    "year": 2025,
+    "authors": ["Meha Mehrotra", "Paranshi Zaveri", "Utkarsh Singh", "Prakash Sharma"],
+    "summary": [
+      "A BiteGeist by 1001 Stories on why resolutions fail, what those who succeed do differently, and how Indian traditions had ritualised these learnings.",
+      "The study combined a survey (n=81, ages 20 to 68, Indians and NRIs), in-depth interviews (n=13, ages 22 to 47) and a three-year longitudinal study of 6 participants (ages 28 to 45) keeping logs of success and failure. Most resolutions were about picking up a healthy habit (61.7%), learning and self-improvement (48.1%), money (28.4%) and quitting a bad habit (23.5%).",
+      "The report finds that many failures are triggered by context shifts, and names five of them. It sets out three principles that work, and introduces the Kick-Start Effect."
+    ],
+    "concepts": [
+      {
+        "name": "The Chole Bhature Effect",
+        "kind": "Context shift #1",
+        "page": 8,
+        "def": "The expectations and norms that keep an individual within a collective can be stronger than the individual's need for self-improvement in collectivistic cultures. You have cut carbs and are sticking to your resolution. Then Sunday comes, guests are over, and your mother is famous for her chole bhature. You could not be a spoilsport. You had to share the table and appreciate your mother's food.",
+        "quote": "I have to eat a lot of junk food because everyone else at work is so stressed... We get 10 minute breaks and that place only has samosa and cake. You have to eat either cake or samosa.",
+        "by": "VV, female, 27",
+        "qpage": 9
+      },
+      {
+        "name": "The Ghar-Wapsi Effect",
+        "kind": "Context shift #2",
+        "page": 10,
+        "def": "Habits built in adopted environments break down when one goes back to their original contexts, triggering an earlier identity. A young migrant couple from Meerut, with a gym routine in Mumbai, goes home for Makar Sankranti. Ghee-rich home food and the halwai's sweets are a call to their very identity. What is resolved in Mumbai stays in Mumbai. The person you used to be in your older environment tends to switch chairs with who you are in your work or study city.",
+        "quote": "We go to Goa [hometown] quite often. And because we are home and everyone is pampering us... we get a little lazy. It's OK, once we're back in Pune, we are very strict. I wanna stick to my resolution even when I am in Goa.",
+        "by": "PD, female, 34",
+        "qpage": 11,
+        "aka": ["Ghar Wapasi Effect", "Ghar Wapsi Effect"]
+      },
+      {
+        "name": "The Fast-Train Effect",
+        "kind": "Context shift #3",
+        "page": 12,
+        "def": "Picking new habits and goals without slowing down and making space for them in current life often causes failure. A new resolution requires careful consideration of how it fits in your life without disrupting other facets. Doing it often needs some slowing down, or the momentum of your own life will make you trip.",
+        "quote": "Take up your crazy weightloss journey when you don't have too much going on. In difficult times your body just needs to survive.",
+        "by": "DT, female, 39",
+        "qpage": 13
+      },
+      {
+        "name": "The Daily Googly",
+        "kind": "Context shift #4",
+        "page": 14,
+        "def": "Every day comes with its own set of challenges. The higher the variability in daily life, the greater the likelihood of falling off the journey. While creating three to four month resolution plans, individuals often fail to account for daily micro-variations: field-heavy jobs, unpredictable city traffic, long office hours. A highly frequent Daily Googly caused resolution-related activities to drop quickly, especially in the initial phases.",
+        "quote": "I kind of think my day is not very structured, so for me to insert a habit it gets difficult.",
+        "by": "RK, male, 26",
+        "qpage": 15
+      },
+      {
+        "name": "Resolver's Blindspot",
+        "kind": "Context shift #5",
+        "page": 16,
+        "def": "The resolution taker gets so focused on the fact that they are changing that they become blind to the fact that the world is constantly changing too. Related to the spotlight effect: we are far more aware of changes in ourselves than others are. If not accounted for long enough, resolutions become incompatible with life, and you drop off, blindsided by the change."
+      },
+      {
+        "name": "Adjacent Likeable Activity and Faux Resolutions",
+        "kind": "Concept",
+        "page": 22,
+        "def": "Adjacent likeable activities resemble the process and skills needed for the main resolution, and help train individuals for it. Faux resolutions take you further away: they do not solve the root cause or do not align with the desired future. If doom scrolling is caused by loneliness, going back to a feature phone may not help. 'Simple' depends on your starting point: for someone who wants to become a product manager but is not a reader, starting simple means reading books they like before books on PM skills."
+      },
+      {
+        "name": "Lifephase Resolutions > Lifestyle Resolutions",
+        "kind": "Principle #1",
+        "page": 32,
+        "def": "Across projects in healthcare, insurance and public health, 1001 Stories observed that helping people move towards a new identity created a stronger drive for action than simple motivations for a 'better life'. In a project on a nicotine replacement product for gutka chewers, users were most likely to try it after they had a girl child; they wanted to be seen as ideal fathers. Desiring a new identity triggers change. Building it towards a new life-phase consolidates it.",
+        "quote": "We have been trying for a family for the last one year... That dream keeps me going to keep improving my body, mind and spirit so that I am ready for it.",
+        "by": "PD, female, 34",
+        "qpage": 33,
+        "aka": ["Lifestage > Lifestyle", "Lifestage over lifestyle", "Lifephase over lifestyle"]
+      },
+      {
+        "name": "Fail Thrice",
+        "kind": "Principle #2",
+        "page": 35,
+        "def": "In 2020, 1001 Stories observed 30 individuals who wanted to be fitter, with one instruction: make every day 'non-zero'. At each stage of lapsing, roughly 30% of people dropped off. The people who learnt through failing each time and tried again were the ones who finally ran marathons or lost weight and kept it off. Facing failure is inherent to starting anew."
+      },
+      {
+        "name": "Eigenzeit",
+        "kind": "Principle #3",
+        "page": 38,
+        "def": "A German concept for 'the time inherent to a process'. Three-month transformation stories miss the effort, resources and precision needed. Each kind of resolution requires its own time, and rushing it adds stress and causes lapses. There is an inherent time needed for building a healthy relationship with your resolution."
+      },
+      {
+        "name": "Sankalpa and festival rituals",
+        "kind": "Tradition",
+        "page": 40,
+        "def": "Indian traditions ritualised these learnings. In a Sankalpa, one articulates their current state and sense of self, the place and time, and the purpose and duration of the endeavour: a highly intentional resolution that takes current state into account. Akshaya Tritiya and Dhanteras work as a yearly ritual for investing in gold. Vishwakarma Puja, Holi, Navratri and Saraswati Puja offer multiple occasions to make new attempts."
+      },
+      {
+        "name": "Resolution Gestation",
+        "kind": "Concept",
+        "page": 47,
+        "def": "The pre-resolution period during which individuals can work on improving their relationship with the resolution before kick-starting it. 1001 Stories found that activities before the new year itself were a better predictor of success. Those who worked on this relationship during gestation, through failing and learning, stayed more consistent by forecasting periods of failure."
+      },
+      {
+        "name": "The Kick-Start Effect",
+        "kind": "Concept",
+        "page": 47,
+        "def": "Discovered by 1001 Stories. An evolution of the Fresh Start Effect in which learning from past failures has been incorporated into the individual's abilities after a prolonged gestation period of the resolution. It gives individuals an edge over those who decide to 'start fresh'. The Fresh Start Effect, by contrast, is explained as people 'getting over' their past failures after a temporal landmark like a new year."
+      },
+      {
+        "name": "Resolution Relationship Graph",
+        "kind": "Framework",
+        "page": 46,
+        "def": "Maps a person's relationship with their resolution, from resolution as an adversary to overcome, to resolution as an ally. As the relationship line crosses the intention-to-action cut-off, intentions start translating into action. The veteran's curve crosses it; the newbie's does not."
+      },
+      {
+        "name": "The Resolver's Perspective Board",
+        "kind": "Framework",
+        "page": 48,
+        "def": "Resolutions as snakes and ladders. Lapses (the Chole Bhature Effect, the Daily Googly) are snakes; triggers (life-phase shifts) are ladders; every roll of the dice is an attempt. The newbie wants to keep rolling 5s and 6s, expects only ladders and sees the goal as hitting a measure. The veteran accepts 1s, 2s and 3s, expects snakes and keeps rolling, and sees the goal as building a healthy relationship with the resolution. The veteran is the same person as the newbie. It's just that they continued rolling the dice."
+      }
+    ]
   },
   {
     "title": "Multidimensional Rape Predisposition Scale",

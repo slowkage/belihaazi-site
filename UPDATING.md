@@ -59,6 +59,18 @@ Nothing to do. The site checks Medium every morning at 6 am and adds new posts w
 
 `content/utkarsh/profile.json` holds your email, your current role and the Google Calendar booking link (`booking_link`).
 
+## 1001 Stories reports and their concepts
+
+`content/utkarsh/reports.json` lists the report cards. A report with a `concepts` list gets its own page at `belihaazi.com/reports/<slug>/`, readable by search engines and AI tools, and opens in a reading window with a button through to 1001 Stories. Each concept needs:
+
+- `name`: e.g. "The Daily Googly"
+- `kind`: e.g. "Context shift #4", "Principle #1", "Concept"
+- `page`: the PDF page it comes from (shown as the source)
+- `def`: the definition, in the report's words
+- optional: `quote` + `by` (+ `qpage`), and `aka` for other spellings people might search
+
+Also give the report a `slug`, `authors`, `summary` and `link` (the 1001 Stories page). Add `source_pdf` if the PDF has a public link, so each source jumps to the right page.
+
 ## Photos
 
 - Fieldwork collage: `content/utkarsh/fieldwork` (the first 8 photos, in file-name order, make the collage)
