@@ -23,7 +23,7 @@ body{margin:0;background:var(--ink);color:var(--paper);font-family:var(--sans)}
 .door{display:grid;grid-template-columns:1fr 1fr;min-height:100%;border:3px solid var(--ink);box-sizing:border-box}
 .side{position:relative;overflow:hidden;text-decoration:none;min-height:420px;display:block}
 .side + .side{border-left:3px solid var(--ink)}
-.side canvas{position:absolute;inset:0;width:100%;height:100%}
+.side .pt{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 .blk{position:absolute;border:3px solid var(--ink);padding:10px 16px}
 .mono{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase}
 .day .name{left:6%;top:8%;background:var(--paper);color:var(--ink);font-stretch:125%;font-weight:900;text-transform:uppercase;font-size:clamp(40px,6.4vw,96px);line-height:.9;letter-spacing:-.02em;padding:12px 18px 16px}
@@ -41,13 +41,13 @@ body{margin:0;background:var(--ink);color:var(--paper);font-family:var(--sans)}
 
 <main class="door">
   <a class="side day" href="utkarsh.html">
-    <canvas data-paint='{"palette":"wheat","seed":5,"vortices":[[0.75,0.3,0.25,1],[0.25,0.75,0.3,-1]],"gap":8}' aria-hidden="true"></canvas>
+    <canvas class="pt" data-paint='{"still":"paint/door-day.webp","palette":"wheat","seed":5,"vortices":[[0.75,0.3,0.25,1],[0.25,0.75,0.3,-1]],"gap":8}' aria-hidden="true"></canvas>
     <span class="blk name">Utkarsh</span>
     <span class="blk role mono">Context architect</span>
     <span class="blk go mono">Enter →</span>
   </a>
   <a class="side night" href="belihaazi.html">
-    <canvas data-paint='{"palette":"night","seed":42,"vortices":[[0.3,0.35,0.2,1],[0.6,0.5,0.15,-1],[0.85,0.8,0.1,1]],"gap":7,"animate":true}' aria-hidden="true"></canvas>
+    <canvas class="pt" data-paint='{"still":"paint/door-night.webp","palette":"night","seed":42,"vortices":[[0.3,0.35,0.2,1],[0.6,0.5,0.15,-1],[0.85,0.8,0.1,1]],"gap":7,"animate":true}' aria-hidden="true"></canvas>
     <span class="blk name">belihaazi</span>
     <span class="blk ur" lang="ur">بے لحاظ</span>
     <span class="blk go mono">Enter →</span>

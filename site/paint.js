@@ -11,6 +11,13 @@ function rng(seed){let s=seed>>>0||1;return()=>((s=Math.imul(s^s>>>15,1|s)+0x6D2
 function paint(cv,o={}){
   const p=PAL[o.palette||'night'];const R=rng(o.seed||7);
   const small=matchMedia('(max-width: 700px), (pointer: coarse)').matches;
+  if(small){                                   // phones: use a pre-painted still, no live canvas
+    if(cv.id==='backdrop'){cv.remove();return}
+    const img=document.createElement('img');img.className=(cv.className||'')+' pt';if(cv.id)img.id=cv.id;
+    img.alt='';img.setAttribute('aria-hidden','true');img.decoding='async';
+    img.src=o.still||`paint/tile-${o.palette||'night'}-${Math.abs(o.seed||0)%3}.webp`;
+    cv.replaceWith(img);return;
+  }
   const dpr=Math.min(devicePixelRatio||1,small?1.25:2);
   let W,H,ctx,vort,t=0,raf,lastW=0,lastH=0,job=0,busy=false;
   function field(x,y,tt){

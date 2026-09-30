@@ -25,7 +25,7 @@ a{color:inherit}
 :focus-visible{outline:4px solid var(--chrome);outline-offset:2px}
 .mono{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase}
 .page{position:relative;z-index:1;max-width:1320px;margin-inline:auto;padding-inline:clamp(16px,5vw,64px);padding-block:0 32px}
-canvas.pt{position:absolute;inset:0;width:100%;height:100%;display:block}
+.pt{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover}
 #backdrop{position:fixed;inset:0;width:100%;height:100%;z-index:0;opacity:.55;pointer-events:none}
 @media (max-width:700px){#backdrop{display:none}}
 
@@ -108,7 +108,7 @@ footer a{text-decoration:none;border-bottom:2px solid var(--dim)}
 
 <main>
   <section class="sky" aria-label="belihaazi">
-    <canvas class="pt" data-paint='{"palette":"night","seed":42,"vortices":[[0.30,0.34,0.20,1],[0.52,0.40,0.16,-1],[0.82,0.28,0.10,1],[0.14,0.78,0.08,1],[0.66,0.72,0.12,1]],"gap":7,"animate":true,"rate":60}' aria-hidden="true"></canvas>
+    <canvas class="pt" data-paint='{"still":"paint/sky-b.webp","palette":"night","seed":42,"vortices":[[0.30,0.34,0.20,1],[0.52,0.40,0.16,-1],[0.82,0.28,0.10,1],[0.14,0.78,0.08,1],[0.66,0.72,0.12,1]],"gap":7,"animate":true,"rate":60}' aria-hidden="true"></canvas>
     <div class="blk title"><h1>belihaazi</h1><span class="mono">Poems · prose · spoken word · hip hop</span></div>
     <div class="blk urdu" lang="ur">بے لحاظ</div>
     <button class="blk frag" type="button" data-k="poems" data-t="The Ceiling" style="left:38%;top:44%">A ceiling is the canvas, for the chaos, of an empty mind.<small>The Ceiling · 2023</small></button>

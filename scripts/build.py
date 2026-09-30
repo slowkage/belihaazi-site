@@ -207,7 +207,10 @@ def piece_pages(items, kind, dark):
 # ---------- main ----------
 def main():
     shutil.rmtree(D, ignore_errors=True); os.makedirs(D)
-    for f in os.listdir(SITE): shutil.copy(os.path.join(SITE, f), D)
+    for f in os.listdir(SITE):
+        src = os.path.join(SITE, f)
+        if os.path.isdir(src): shutil.copytree(src, os.path.join(D, f))
+        else: shutil.copy(src, D)
 
     shelves = load("utkarsh/shelves.json")
     data = {"povs": writing("povs", "utkarsh/povs", shelves),
