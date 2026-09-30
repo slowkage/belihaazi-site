@@ -17,49 +17,57 @@
       "title": "My grip is breaking",
       "year": 2024,
       "link": "",
-      "cover": ""
+      "cover": "my-grip-is-breaking.jpg",
+      "video": "my-grip-is-breaking.mp4"
     },
     {
       "title": "Passion kya hai",
       "year": 2024,
       "link": "",
-      "cover": ""
+      "cover": "passion-kya-hai.jpg",
+      "video": "passion-kya-hai.mp4"
     },
     {
       "title": "Notification",
       "year": 2022,
       "link": "",
-      "cover": ""
+      "cover": "notification.jpg",
+      "video": "notification.mp4"
     },
     {
       "title": "Kya paaya tune",
       "year": 2022,
       "link": "",
-      "cover": ""
+      "cover": "kya-paaya-tune.jpg",
+      "video": "kya-paaya-tune.mp4"
     },
     {
       "title": "Just talking and a little shayari",
       "year": 2022,
       "link": "",
-      "cover": ""
+      "cover": "just-talking.jpg",
+      "video": "just-talking.mp4"
     },
     {
       "title": "Institutionalized",
       "year": 2021,
       "link": "",
-      "cover": ""
+      "cover": "institutionalized.jpg",
+      "video": "institutionalized.mp4"
     },
     {
       "title": "Corona Khidki",
       "year": 2021,
       "link": "",
-      "cover": ""
+      "cover": "corona-khidki.jpg",
+      "video": "corona-khidki.mp4"
     },
     {
       "title": "Nakaab",
       "year": 2021,
       "link": "",
-      "cover": ""
+      "cover": "nakaab.jpg",
+      "video": "nakaab.mp4"
     }
   ]
 }

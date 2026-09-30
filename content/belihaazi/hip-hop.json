@@ -19,73 +19,85 @@
       "title": "Khud ke paas",
       "year": 2023,
       "link": "",
-      "cover": ""
+      "cover": "khud-ke-paas.jpg",
+      "video": "khud-ke-paas.mp4"
     },
     {
       "title": "Silsile",
       "year": 2022,
       "link": "",
-      "cover": ""
+      "cover": "silsile.jpg",
+      "video": "silsile.mp4"
     },
     {
       "title": "Drona: the tabla flow",
       "year": 2022,
       "link": "",
-      "cover": ""
+      "cover": "drona.jpg",
+      "video": "drona.mp4"
     },
     {
       "title": "Haathi jab freestyle",
       "year": 2022,
       "link": "",
-      "cover": ""
+      "cover": "haathi-jab-freestyle.jpg",
+      "video": "haathi-jab-freestyle.mp4"
     },
     {
       "title": "Students nahi safe",
       "year": 2022,
       "link": "",
-      "cover": ""
+      "cover": "students-nahi-safe.jpg",
+      "video": "students-nahi-safe.mp4"
     },
     {
       "title": "Saza nahi",
       "year": 2022,
       "link": "",
-      "cover": ""
+      "cover": "saza-nahi.jpg",
+      "video": "saza-nahi.mp4"
     },
     {
       "title": "Jaag ley",
       "year": 2021,
       "link": "",
-      "cover": ""
+      "cover": "jaag-ley.jpg",
+      "video": "jaag-ley.mp4"
     },
     {
       "title": "Love will save us",
       "year": 2021,
       "link": "",
-      "cover": ""
+      "cover": "love-will-save-us.jpg",
+      "video": "love-will-save-us.mp4"
     },
     {
       "title": "Bas ka nai",
       "year": 2021,
       "link": "",
-      "cover": ""
+      "cover": "bas-ka-nai.jpg",
+      "video": "bas-ka-nai.mp4"
     },
     {
       "title": "Bahane 100",
       "year": 2021,
       "link": "",
-      "cover": ""
+      "cover": "bahane-100.jpg",
+      "video": "bahane-100.mp4"
     },
     {
       "title": "Kahani haklu raam ki",
       "year": 2020,
       "link": "",
-      "cover": ""
+      "cover": "kahani-haklu-raam-ki.jpg",
+      "video": "kahani-haklu-raam-ki.mp4"
     },
     {
       "title": "Mai kaun",
       "year": 2019,
       "link": "",
-      "cover": ""
+      "cover": "mai-kaun.jpg",
+      "video": "mai-kaun.mp4"
     }
   ]
 }

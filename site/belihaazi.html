@@ -86,7 +86,7 @@ footer a{text-decoration:none;border-bottom:2px solid var(--dim)}
 .r-card{max-width:720px;margin:0 auto;background:var(--night);border:var(--rule);box-shadow:14px 14px 0 var(--ultra);position:relative}
 .r-close{position:sticky;top:0;float:right;z-index:2;appearance:none;border:0;border-left:var(--rule);border-bottom:var(--rule);background:var(--parch);color:var(--night);font-family:var(--mono);font-size:13px;padding:10px 14px;cursor:pointer}
 .r-paint{position:relative;height:clamp(180px,32vh,300px);border-bottom:var(--rule)}
-.ig{width:100%;height:min(80vh,720px);border:var(--rule);background:#000}
+.ig{display:block;width:100%;height:min(76vh,720px);border:var(--rule);background:#000;object-fit:contain}
 .r-img{width:100%;max-height:50vh;object-fit:cover;border-bottom:var(--rule)}
 .r-body{padding:clamp(18px,4vw,44px)}
 .r-meta{font-family:var(--mono);font-size:12px;text-transform:uppercase;color:var(--dim);margin:0}
@@ -133,6 +133,13 @@ footer a{text-decoration:none;border-bottom:2px solid var(--dim)}
 <script>
 const isHi=s=>/[ऀ-ॿ]/.test(s);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function playVideo(it){
+  if(!it.src)return false;
+  let el=document.querySelector('.reader');if(!el){Reader.open({t:'',body:[]});el=document.querySelector('.reader')}
+  el.innerHTML=`<article class="r-card"><button class="r-close" type="button">Close ✕</button><div class="r-body"><p class="r-meta">${it.year}</p><h2 class="r-title">${esc(it.title)}</h2><video class="ig" src="${it.src}" ${it.img?`poster="${it.img}"`:''} controls autoplay playsinline></video>${it.link?`<p class="r-meta"><a href="${it.link}">Watch on Instagram ↗</a></p>`:''}</div></article>`;
+  el.hidden=false;document.body.style.overflow='hidden';el.querySelector('.r-close').focus();return true;
+}
+addEventListener('click',e=>{if(e.target.closest('.r-close')||e.target.classList.contains('reader')){document.querySelectorAll('.reader video').forEach(v=>v.pause())}},true);
 function igEmbed(link,title){
   const m=/instagram\.com\/(reel|p)\/([^/?#]+)/.exec(link||'');if(!m)return false;
   let el=document.querySelector('.reader');if(!el){Reader.open({t:'',body:[]});el=document.querySelector('.reader')}
@@ -160,7 +167,7 @@ fetch('data.json').then(r=>r.json()).then(D=>{
       const hh=r==='Hip hop',L=hh?D.hip_hop:D.spoken_word;
       L.forEach((it,i)=>{const a=document.createElement('a');a.className='card';a.href=it.link||'https://instagram.com/belihaazi';
         a.innerHTML=`<div class="im">${it.img?`<img src="${it.img}" alt="" loading="lazy">`:painted({palette:hh?'wheat':'night',seed:i*5+(hh?31:17),vortices:[[0.5,0.5,0.35,i%2?1:-1]],gap:6})}<span class="tag mono">▶ Play</span></div><div class="tx"><span class="mono">${it.year}</span><b>${esc(it.title)}</b></div>`;
-        a.addEventListener('click',e=>{if(igEmbed(it.link,it.title))e.preventDefault()});cards.appendChild(a)});
+        a.addEventListener('click',e=>{if(playVideo(it)||igEmbed(it.link,it.title))e.preventDefault()});cards.appendChild(a)});
     }
     cards.querySelectorAll('canvas[data-p]').forEach(c=>Paint.paint(c,JSON.parse(c.dataset.p)));
     Paint.fill(cards,'card',r==='Hip hop'?'wheat':'night');

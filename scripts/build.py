@@ -245,7 +245,12 @@ def main():
         m = load(f"belihaazi/{key}.json", {"items": []})
         for it in m["items"]:
             if it.get("cover"):
-                it["img"] = save_img(os.path.join(C, "belihaazi/covers", it["cover"]), f"img/covers/{it['cover']}", 600)
+                cp = os.path.join(C, "belihaazi/covers", it["cover"])
+                if os.path.exists(cp): it["img"] = save_img(cp, f"img/covers/{it['cover']}", 600)
+            if it.get("video") and os.path.exists(os.path.join(C, "belihaazi/videos", it["video"])):
+                os.makedirs(os.path.join(D, "video"), exist_ok=True)
+                shutil.copy(os.path.join(C, "belihaazi/videos", it["video"]), os.path.join(D, "video", it["video"]))
+                it["src"] = "video/" + it["video"]
         data[key.replace("-", "_")] = m["items"]
     data["medium"] = medium()
 
