@@ -34,11 +34,14 @@ def get(url, timeout=20):
     except Exception as e:
         log("could not fetch", url, e); return None
 
-def save_img(data_or_img, rel, size=900, q=76):
+def save_img(data_or_img, rel, size=900, q=74, og=False):
+    rel = os.path.splitext(rel)[0] + ".webp"
     out = os.path.join(D, rel); os.makedirs(os.path.dirname(out), exist_ok=True)
     try:
         im = data_or_img if isinstance(data_or_img, Image.Image) else Image.open(io.BytesIO(data_or_img) if isinstance(data_or_img, bytes) else data_or_img)
-        im = im.convert("RGB"); im.thumbnail((size, size)); im.save(out, quality=q, optimize=True)
+        im = im.convert("RGB"); im.thumbnail((size, size)); im.save(out, "WEBP", quality=q, method=6)
+        if og:
+            j = im.copy(); j.thumbnail((1200, 1200)); j.save(out[:-5] + ".jpg", quality=80, optimize=True)
         return rel
     except Exception as e:
         log("bad image", rel, e); return None
@@ -81,7 +84,7 @@ def writing(kind, folder, shelves=None):
         body, im = read_docx(os.path.join(src, fn))
         s = slugify(t)
         it = {"t": t, "y": y, "m": mo, "s": s, "kind": kind, "body": body,
-              "img": save_img(im, f"img/w/{kind}-{s}.jpg", 800) if im else None}
+              "img": save_img(im, f"img/w/{kind}-{s}.jpg", 640, og=True) if im else None}
         if shelves:
             it["shelf"] = next((k for k, v in shelves.items() if any(x.lower() in t.lower() for x in v)), list(shelves)[0])
         items.append(it)
@@ -118,7 +121,7 @@ def add_art(items, art):
             url, title, credit = found
             data = get(url)
             if data:
-                it["img"] = save_img(data, f"img/art/{it['kind']}-{it['s']}.jpg", 900)
+                it["img"] = save_img(data, f"img/art/{it['kind']}-{it['s']}.jpg", 800, og=True)
                 it["credit"] = f"{credit} · {title.replace('File:', '')} · Wikimedia Commons"
                 log("painting for", it["t"], "→", title)
 
@@ -147,7 +150,7 @@ def medium():
         img = None
         if p.get("image"):
             data = get(p["image"])
-            if data: img = save_img(data, f"img/medium/{slugify(p['title'])}.jpg", 600)
+            if data: img = save_img(data, f"img/medium/{slugify(p['title'])}.jpg", 480)
         y, mo = (int(p["date"][:4]), int(p["date"][5:7])) if p.get("date") else (None, None)
         out.append({"t": p["title"], "link": p["link"], "img": img, "y": y, "m": mo, "pinned": p.get("pinned", False)})
     log("medium", len(out), "posts")
@@ -190,7 +193,7 @@ def piece_pages(items, kind, dark):
         if it.get("credit"): img += f'<p class="cr">{html.escape(it["credit"])}</p>'
         page = PIECE_TPL.format(
             title=html.escape(it["t"]), site="belihaazi" if dark else "Utkarsh Singh", desc=desc, url=url,
-            og=f'<meta property="og:image" content="{DOMAIN}/{it["img"]}">' if it.get("img") else "",
+            og=f'<meta property="og:image" content="{DOMAIN}/{it["img"][:-5]}.jpg">' if it.get("img") else "",
             ld=json.dumps(ld, ensure_ascii=False), bg="#07091A" if dark else "#F6F6F2", fg="#EDE4CC" if dark else "#0E0E0C",
             font='"Cormorant Garamond","Tiro Devanagari Hindi",serif' if dark else '"Archivo","Tiro Devanagari Hindi",sans-serif',
             h1="font-style:italic;font-weight:500" if dark else "font-stretch:80%;font-weight:900;text-transform:uppercase",
@@ -217,22 +220,22 @@ def main():
     talks = load("utkarsh/talks.json", [])
     for i, t in enumerate(talks):
         if t.get("poster"):
-            t["img"] = save_img(os.path.join(C, "utkarsh/talks", t["poster"]), f"img/talks/{i}.jpg", 700)
+            t["img"] = save_img(os.path.join(C, "utkarsh/talks", t["poster"]), f"img/talks/{i}.jpg", 480)
         if t.get("youtube"):
             data_ = get(f"https://i.ytimg.com/vi/{t['youtube']}/hqdefault.jpg")
-            t["img"] = save_img(data_, f"img/talks/yt-{t['youtube']}.jpg", 700) if data_ else None
+            t["img"] = save_img(data_, f"img/talks/yt-{t['youtube']}.jpg", 480) if data_ else None
             t["link"] = f"https://youtu.be/{t['youtube']}"
     data["talks"] = talks
-    data["talk_photos"] = [save_img(os.path.join(C, "utkarsh/talk-photos", f), f"img/photos/{f}", 1200)
+    data["talk_photos"] = [save_img(os.path.join(C, "utkarsh/talk-photos", f), f"img/photos/{f}", 900)
                            for f in sorted(os.listdir(os.path.join(C, "utkarsh/talk-photos"))) if not f.startswith("portrait")]
-    data["fieldwork"] = [save_img(os.path.join(C, "utkarsh/fieldwork", f), f"img/field/{f}", 1100)
+    data["fieldwork"] = [save_img(os.path.join(C, "utkarsh/fieldwork", f), f"img/field/{f}", 800)
                          for f in sorted(os.listdir(os.path.join(C, "utkarsh/fieldwork")), key=lambda x: (len(x), x))]
     por = os.path.join(C, "utkarsh/talk-photos/portrait.jpg")
-    if os.path.exists(por): save_img(por, "img/portrait.jpg", 900)
+    if os.path.exists(por): save_img(por, "img/portrait.jpg", 700, og=True)
 
     reps = load("utkarsh/reports.json", [])
     for r in reps:
-        r["img"] = save_img(os.path.join(C, "utkarsh/reports", r["cover"]), f"img/reports/{slugify(r['title'])}.jpg", 600)
+        r["img"] = save_img(os.path.join(C, "utkarsh/reports", r["cover"]), f"img/reports/{slugify(r['title'])}.jpg", 420)
         if r.get("pdf"):
             os.makedirs(os.path.join(D, "files"), exist_ok=True)
             shutil.copy(os.path.join(C, "utkarsh/reports", r["pdf"]), os.path.join(D, "files", r["pdf"]))
@@ -246,7 +249,7 @@ def main():
         for it in m["items"]:
             if it.get("cover"):
                 cp = os.path.join(C, "belihaazi/covers", it["cover"])
-                if os.path.exists(cp): it["img"] = save_img(cp, f"img/covers/{it['cover']}", 600)
+                if os.path.exists(cp): it["img"] = save_img(cp, f"img/covers/{it['cover']}", 480)
             if it.get("video") and os.path.exists(os.path.join(C, "belihaazi/videos", it["video"])):
                 os.makedirs(os.path.join(D, "video"), exist_ok=True)
                 shutil.copy(os.path.join(C, "belihaazi/videos", it["video"]), os.path.join(D, "video", it["video"]))

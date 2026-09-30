@@ -45,7 +45,10 @@ function paint(cv,o={}){
   size();
   let rt;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(size,200)});
   if(o.animate&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
-    const loop=()=>{t+=.0025;for(let i=0;i<(o.rate||45);i++)stroke(R()*W,R()*H,t,false);raf=requestAnimationFrame(loop)};loop();
+    let vis=true;const rate=(o.rate||45)*(innerWidth<700?.5:1);
+    if('IntersectionObserver' in window)new IntersectionObserver(e=>{vis=e[0].isIntersecting;if(vis&&!raf)loop()}).observe(cv);
+    const loop=()=>{if(!vis||document.hidden){raf=0;return}t+=.0025;for(let i=0;i<rate;i++)stroke(R()*W,R()*H,t,false);raf=requestAnimationFrame(loop)};
+    document.addEventListener('visibilitychange',()=>{if(!document.hidden&&vis&&!raf)loop()});loop();
   }
 }
 function fill(box,cls,pal){
