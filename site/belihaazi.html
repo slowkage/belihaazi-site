@@ -24,10 +24,10 @@ img{max-width:100%;display:block}
 a{color:inherit}
 :focus-visible{outline:4px solid var(--chrome);outline-offset:2px}
 .mono{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase}
-.page{padding-inline:clamp(10px,2vw,24px);padding-block:0 24px}
+.page{max-width:1180px;margin-inline:auto;padding-inline:clamp(16px,5vw,64px);padding-block:0 32px}
 canvas.pt{position:absolute;inset:0;width:100%;height:100%;display:block}
 
-.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;display:flex;border:var(--rule);border-top:0;background:var(--night);margin-inline:clamp(-24px,-2vw,-10px);overflow-x:auto}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;display:flex;border:var(--rule);border-top:0;background:var(--night);overflow-x:auto}
 .bar a{display:flex;align-items:center;padding:12px 16px;border-right:var(--rule);text-decoration:none;white-space:nowrap}
 .bar .home{background:var(--parch);color:var(--night);font-weight:800;font-stretch:115%}
 .bar a:hover{background:var(--chrome);color:var(--night)}
