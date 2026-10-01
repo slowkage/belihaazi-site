@@ -31,7 +31,9 @@ def req(url, body=None, headers=None, method=None):
 
 
 def sb(path, body=None, prefer=None):
-    h = {"apikey": SK, "Authorization": f"Bearer {SK}"}
+    h = {"apikey": SK}
+    if SK.startswith("eyJ"):          # older "service_role" keys also go in the Authorization header
+        h["Authorization"] = f"Bearer {SK}"
     if prefer: h["Prefer"] = prefer
     return req(f"{SB}/rest/v1/{path}", body, h)
 
