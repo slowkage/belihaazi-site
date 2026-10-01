@@ -77,6 +77,16 @@ const css = `
 .sx-fab .sx-menu a+a{border-top:3px solid ${INK}}
 .sx-fab .sx-menu a:hover,.sx-fab .sx-menu a:focus-visible{background:${GOLD}}
 .sx-fab .sx-menu small{display:block;text-transform:none;letter-spacing:0;opacity:.7;font-size:11px;margin-top:2px}
+.sx-pop{position:fixed;inset:0;z-index:70;background:rgba(14,14,12,.6);display:grid;place-items:center;padding:16px;font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace}
+.sx-pop[hidden]{display:none}
+.sx-pop .sx-card{position:relative;max-width:420px;width:100%;background:#F6F6F2;color:${INK};border:3px solid ${INK};box-shadow:12px 12px 0 ${GOLD};padding:28px 24px 22px;text-align:left;animation:sx-in .25s ease-out}
+.sx-pop .sx-sw{width:56px;height:56px;background:${INK};padding:8px;margin-bottom:16px}
+.sx-pop h2{font-family:"Archivo","Helvetica Neue",Arial,sans-serif;font-weight:900;font-stretch:80%;text-transform:uppercase;font-size:34px;line-height:.95;margin:0 0 10px}
+.sx-pop p{font-size:14px;line-height:1.5;margin:0 0 18px}
+.sx-pop button{appearance:none;font:inherit;font-weight:700;text-transform:uppercase;letter-spacing:.05em;background:${GOLD};color:${INK};border:3px solid ${INK};padding:10px 16px;cursor:pointer}
+.sx-pop button:hover{background:${INK};color:${GOLD}}
+@keyframes sx-in{from{transform:translateY(10px) scale(.97);opacity:0}}
+@media (prefers-reduced-motion:reduce){.sx-pop .sx-card{animation:none}}
 @media print{.sx,.sx-fab{display:none}}
 @media (prefers-reduced-motion:reduce){.sx-fab *{transition:none!important}}
 `;
@@ -186,10 +196,25 @@ function subscribe(el){
     const d = Object.fromEntries(new FormData(f)), go = f.querySelector('.sx-go');
     go.disabled = true; msg.textContent = 'Adding you…';
     api('rpc/subscribe', { addr: d.addr, website: d.website || '' })
-      .then(() => { f.reset(); msg.textContent = "Done. You'll get an email when something new goes up."; })
+      .then(() => { f.reset(); msg.textContent = ''; thanks(); })
       .catch(err => { msg.textContent = err.message; })
       .finally(() => { go.disabled = false; });
   });
+}
+
+function thanks(){
+  let p = document.querySelector('.sx-pop');
+  if(!p){
+    p = document.createElement('div'); p.className = 'sx-pop'; p.setAttribute('role','dialog'); p.setAttribute('aria-modal','true'); p.setAttribute('aria-labelledby','sx-pop-t');
+    p.innerHTML = `<div class="sx-card"><div class="sx-sw">${ICON.swirl}</div><h2 id="sx-pop-t">Thank you</h2>
+      <p>You're on the list. You'll get an email when something new goes up, and you can unsubscribe from any of them.</p>
+      <button type="button">Back to reading</button></div>`;
+    document.body.appendChild(p);
+    const close = () => { p.hidden = true; };
+    p.addEventListener('click', e => { if(e.target === p || e.target.closest('button')) close(); });
+    document.addEventListener('keydown', e => { if(e.key === 'Escape' && !p.hidden) close(); });
+  }
+  p.hidden = false; p.querySelector('button').focus();
 }
 
 /* ---------- unsubscribe page ---------- */
