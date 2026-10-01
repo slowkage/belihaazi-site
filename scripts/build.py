@@ -351,6 +351,7 @@ def solve_lines(sv):
     L = ["## What Utkarsh can solve for you", f"In his words: \"{sv['lead']}\"", ""]
     for a in sv["areas"]:
         L.append(f"- {a['name']}: " + "; ".join(a["problems"]) + ".")
+    if sv.get("outcomes"): L += ["", f"{sv.get('outcomes_label', 'The work has fed into')}: {', '.join(sv['outcomes'])}."]
     L += ["", f"Industries and categories: {', '.join(sv['categories'])}.", sv["scales"], f"How: {sv['how']}",
           f"Book 30 minutes: {DOMAIN}/utkarsh.html#talk", ""]
     return L
@@ -359,6 +360,7 @@ def llms_txt(data):
     L = ["# Utkarsh Singh (belihaazi)", "",
          "> Utkarsh Singh is a context architect and behavioural scientist in India, at 1001 Stories. He writes as belihaazi.", "",
          *solve_lines(data.get("solve")),
+         *([f"Brands worked with: {', '.join(b['name'] for b in data['clients']['brands'])}.", ""] if data.get("clients") else []),
          "## Pages", f"- [Utkarsh Singh: talks, POVs, frameworks, reports]({DOMAIN}/utkarsh.html)",
          f"- [Into the mind of belihaazi: poems, prose, spoken word, hip hop]({DOMAIN}/belihaazi.html)", "",
          "## Reports and the concepts they introduce (1001 Stories BiteGeists)"]
@@ -390,7 +392,9 @@ def render_solve(sv, profile):
              f'<div class="cell solve-lead"><p>{e(sv["lead"])}</p></div>{areas}'
              f'<div class="cell solve-x"><div><span class="mono">{e(sv.get("across", "Across"))}</span><ul>'
              + "".join(f"<li>{e(c)}</li>" for c in sv["categories"]) + f'</ul><p>{e(sv["scales"])}</p></div>'
-             f'<div><span class="mono">How</span><p>{e(sv["how"])}</p>'
+             + (f'<div><span class="mono">{e(sv.get("outcomes_label", "The work has fed into"))}</span><ol>'
+                + "".join(f"<li>{e(o)}</li>" for o in sv["outcomes"]) + "</ol></div>" if sv.get("outcomes") else "")
+             + f'<div><span class="mono">How</span><p>{e(sv["how"])}</p>'
              f'<a class="go" href="{e(profile.get("booking_link") or "#talk")}">{e(sv["cta"])} →</a></div></div>')
     offers = [{"@type": "Offer", "itemOffered": {"@type": "Service", "name": f"{a['name']} problem solving with behavioural science",
                "description": "; ".join(a["problems"]), "provider": {"@id": DOMAIN + "/utkarsh.html#person"}, "areaServed": "India"}}
@@ -403,6 +407,29 @@ def render_solve(sv, profile):
     s = s.replace("<!--SOLVE-->", block, 1)
     s = s.replace("</head>", '<script type="application/ld+json">' + json.dumps(ld, ensure_ascii=False) + "</script>\n</head>", 1)
     open(p, "w", encoding="utf-8").write(s)
+
+# ---------- "Worked with" strip (content/utkarsh/clients.json, optional logos in content/utkarsh/logos/) ----------
+def render_clients(cl):
+    if not cl or not cl.get("brands"): return
+    e = html.escape
+    src = os.path.join(C, "utkarsh", "logos")
+    have = {os.path.splitext(f)[0].lower(): f for f in (os.listdir(src) if os.path.isdir(src) else []) if not f.startswith(".")}
+    items = []
+    for b in cl["brands"]:
+        f = have.get(os.path.splitext(b.get("logo", ""))[0].lower())
+        if f:
+            os.makedirs(os.path.join(D, "img", "logos"), exist_ok=True)
+            shutil.copy(os.path.join(src, f), os.path.join(D, "img", "logos", f))
+            items.append(f'<li><img src="img/logos/{e(f)}" alt="{e(b["name"])}" loading="lazy"></li>')
+        else:
+            items.append(f"<li>{e(b['name'])}</li>")
+    track = "".join(items)
+    block = (f'<div class="cell clients" role="region" aria-label="{e(cl.get("label", "Worked with"))}">'
+             f'<span class="cl-label mono">{e(cl.get("label", "Worked with"))}</span><div class="cl-view">'
+             f'<ul class="cl-track">{track}</ul><ul class="cl-track" aria-hidden="true">{track}</ul></div></div>')
+    p = os.path.join(D, "utkarsh.html")
+    s = open(p, encoding="utf-8").read()
+    open(p, "w", encoding="utf-8").write(s.replace("<!--CLIENTS-->", block, 1))
 
 # ---------- settings for social.js, the post list, RSS feed, unsubscribe page ----------
 def site_config(profile):
@@ -513,6 +540,8 @@ def main():
     prerender_pages(data)
     data["solve"] = load("utkarsh/solve.json")
     render_solve(data["solve"], data["profile"])
+    data["clients"] = load("utkarsh/clients.json")
+    render_clients(data["clients"])
 
     json.dump(data, open(os.path.join(D, "data.json"), "w", encoding="utf-8"), ensure_ascii=False)
 

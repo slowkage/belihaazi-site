@@ -35,21 +35,32 @@
       ]
     }
   ],
+  "across": "Across industries, categories and scales",
   "categories": [
-    "FMCG",
-    "Automotive",
-    "BFSI & insurance",
+    "FMCG & beverages",
+    "Automotive & mobility",
+    "Banking, insurance & investing",
     "Healthcare & public health",
-    "Mental health",
-    "Ed-tech",
+    "Consumer health",
+    "Telecom & B2B",
     "E-commerce & quick commerce",
-    "Fashion & luxury",
-    "Technology",
-    "Home & kitchen",
-    "Travel & tourism"
+    "Consumer apps",
+    "Mental health",
+    "AI & technology"
   ],
-  "scales": "From early-stage start-ups to large consumer brands and public health programmes.",
-  "how": "Deep context interviews, field immersion, longitudinal studies and behavioural design. I call it context architecture.",
-  "cta": "Bring me a problem",
-  "across": "Across industries, categories and scales"
+  "scales": "From zero-to-one launches to national brands and globally funded public health programmes, with teams from field sales up to the board.",
+  "outcomes_label": "The work has fed into",
+  "outcomes": [
+    "Product launches",
+    "Product roadmaps & experience",
+    "Brand positioning & communication",
+    "Retail & field sales strategy",
+    "Go-to-market for new categories",
+    "Where to grow, where to cut spend",
+    "Behaviour change at population scale",
+    "Trend & future outlooks",
+    "In-house research & strategy teams"
+  ],
+  "how": "Deep context interviews, field immersion, longitudinal studies and behavioural design. Research that ends in decisions, not decks. I call it context architecture.",
+  "cta": "Bring me a problem"
 }
