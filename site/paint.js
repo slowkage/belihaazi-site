@@ -102,6 +102,8 @@ window.Reader=(function(){
       <div class="r-body"><p class="r-meta">${esc(item.meta||date(item))}</p><h2 class="r-title">${esc(item.t)}</h2>
       ${item.cta?`<p><a class="r-cta" href="${item.cta.href}">${esc(item.cta.label)}</a></p>`:''}
       ${item.body.map(p=>`<p>${esc(p)}</p>`).join('')}${item.html||''}${item.cta?`<p><a class="r-cta" href="${item.cta.href}">${esc(item.cta.label)}</a></p>`:''}${item.pdf?`<p><a href="${item.pdf}">Read the full dissertation (PDF) ↗</a></p>`:''}${item.credit?`<p class="r-meta">Image: ${esc(item.credit)}</p>`:''}</div></article>`;
+    const sp=item.path||(item.s&&/^(povs|prose|poems)$/.test(kind)?`/${kind}/${item.s}/`:null);
+    if(sp&&window.Social){const d=document.createElement('div');el.querySelector('.r-body').appendChild(d);Social.bar(d,{path:sp,title:item.t})}
     el.hidden=false;const rc=el.querySelector('.r-paint canvas');if(rc)paint(rc,item.paint);document.body.style.overflow='hidden';el.querySelector('.r-close').focus();el.scrollTop=0;
   }
   function close(){if(el){el.hidden=true;document.body.style.overflow=''}}

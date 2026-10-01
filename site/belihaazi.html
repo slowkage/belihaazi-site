@@ -9,6 +9,7 @@
 <meta property="og:title" content="Into the Mind of Belihaazi"><meta property="og:description" content="Poems, prose, spoken word and hip hop by belihaazi (Utkarsh Singh), 2019 onwards."><meta property="og:image" content="https://belihaazi.com/img/portrait.jpg"><meta property="og:url" content="https://belihaazi.com/belihaazi.html"><meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Into the Mind of Belihaazi"><meta name="twitter:description" content="Poems, prose, spoken word and hip hop by belihaazi."><meta name="twitter:image" content="https://belihaazi.com/img/portrait.jpg">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"Into the Mind of Belihaazi","url":"https://belihaazi.com/belihaazi.html","description":"Poems, prose, spoken word and hip hop by belihaazi, the pen name of Utkarsh Singh.","inLanguage":["en","hi","ur"],"author":{"@type":"Person","@id":"https://belihaazi.com/utkarsh.html#person","name":"Utkarsh Singh","alternateName":"belihaazi","url":"https://belihaazi.com/utkarsh.html"}}</script>
+<link rel="alternate" type="application/rss+xml" title="Utkarsh Singh · belihaazi" href="/feed.xml">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.png" sizes="32x32" type="image/png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Noto+Nastaliq+Urdu:wght@600&family=Tiro+Devanagari+Hindi&family=IBM+Plex+Mono:wght@400&display=swap">
 <style>
@@ -86,6 +87,8 @@ a.frag,a.why{text-decoration:none;color:inherit}a.why{color:var(--night)}
 .card .im .t-over{position:absolute;inset:0;display:grid;place-items:center;padding:12px;text-align:center;z-index:1}
 .card .im .t-over b{background:var(--night);border:2px solid var(--parch);padding:6px 10px;font-size:20px}
 
+/* email sign-up */
+.subs.sx{margin:clamp(10px,2vw,24px) 0 0;background:var(--night)}
 footer{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;padding-top:14px;color:var(--dim)}
 footer a{text-decoration:none;border-bottom:2px solid var(--dim)}
 
@@ -130,6 +133,7 @@ footer a{text-decoration:none;border-bottom:2px solid var(--dim)}
     <div class="tabs" role="tablist" id="tabs"></div>
     <div class="cards" id="cards"></div>
   </div>
+  <section class="subs" data-subscribe hidden></section>
 </main>
 
 <footer class="mono">
@@ -138,7 +142,9 @@ footer a{text-decoration:none;border-bottom:2px solid var(--dim)}
 </footer>
 </div>
 
+<script src="config.js"></script>
 <script src="paint.js"></script>
+<script src="social.js"></script>
 <script>
 const isHi=s=>/[ऀ-ॿ]/.test(s);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));

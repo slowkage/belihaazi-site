@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://belihaazi.com/utkarsh.html">
 <meta property="og:title" content="Utkarsh Singh · Context Architect"><meta property="og:description" content="Utkarsh Singh is a context architect and behavioural scientist in India, at 1001 Stories. Talks, points of view on behavioural science, frameworks and reports."><meta property="og:image" content="https://belihaazi.com/img/portrait.jpg"><meta property="og:url" content="https://belihaazi.com/utkarsh.html"><meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Utkarsh Singh · Context Architect"><meta name="twitter:description" content="Context architect and behavioural scientist in India, at 1001 Stories."><meta name="twitter:image" content="https://belihaazi.com/img/portrait.jpg">
+<link rel="alternate" type="application/rss+xml" title="Utkarsh Singh · belihaazi" href="/feed.xml">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.png" sizes="32x32" type="image/png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","@id":"https://belihaazi.com/utkarsh.html#person","name":"Utkarsh Singh","alternateName":"belihaazi","jobTitle":"Context Architect & Strategist","description":"Context architect and behavioural scientist in India","worksFor":{"@type":"Organization","name":"1001 Stories","url":"https://1001stories.com"},"alumniOf":{"@type":"CollegeOrUniversity","name":"CHRIST University"},"knowsAbout":["Behavioural science","Context architecture","Behavioral economics","Psychology","Systems theory","Consumer behaviour in India"],"url":"https://belihaazi.com/utkarsh.html","image":"https://belihaazi.com/img/portrait.jpg","sameAs":["https://linkedin.com/in/belihaazi","https://belihaazi.medium.com","https://instagram.com/belihaazi","https://1001stories.com/context-architecture.html"]}</script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=IBM+Plex+Mono:wght@400;500&family=Tiro+Devanagari+Hindi&display=swap">
@@ -149,6 +150,8 @@ a{color:inherit}
 .talk-cta .btn{background:var(--ink);color:var(--paper);padding:12px 18px;text-decoration:none;font-weight:800;font-stretch:80%;text-transform:uppercase;font-size:18px;border:0;cursor:default}
 .talk-cta .mail{user-select:all}
 
+/* email sign-up */
+.subs{grid-column:1/-1;padding:0}.subs.sx{margin:0}.subs .sx-sub{border:0}
 footer{background:var(--paper);border:var(--rule);border-top:0;padding:14px 16px;display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;padding-top:14px}
 footer a{text-decoration:none;border-bottom:2px solid var(--ink)}
 
@@ -244,6 +247,7 @@ footer a{text-decoration:none;border-bottom:2px solid var(--ink)}
       <span class="mono mail" id="mail">utkarsh@1001stories.in</span>
     </div>
   </section>
+  <div class="cell subs" data-subscribe hidden></div>
 </div>
 </main>
 
@@ -253,7 +257,9 @@ footer a{text-decoration:none;border-bottom:2px solid var(--ink)}
 </footer>
 </div>
 
+<script src="config.js"></script>
 <script src="paint.js"></script>
+<script src="social.js"></script>
 <script>
 const q=[...document.querySelectorAll('.q4 button')];
 q.forEach(b=>b.addEventListener('click',()=>{q.forEach(o=>o.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true')}));
@@ -279,7 +285,7 @@ fetch('data.json').then(r=>r.json()).then(D=>{
     el.href=r.page||r.pdf||r.link||'#work';
     if(r.concepts){
       const html=`<h3 class="r-h">Concepts in this report</h3>`+r.concepts.map(c=>`<div class="r-c"><span class="r-meta">${esc(c.kind)}</span><h4><a href="${r.page}#${slug(c.name)}">${esc(c.name)}</a></h4><p>${esc(c.def)}</p>${c.quote?`<blockquote>“${esc(c.quote)}”<span>${esc(c.by)}</span></blockquote>`:''}<p class="r-src">Source: ${esc(r.title.replace(/\.$/,''))}, 1001 Stories, PDF p. ${c.page}</p></div>`).join('');
-      el.addEventListener('click',e=>{e.preventDefault();Reader.open({t:r.title,meta:`${r.label} · by ${r.authors.join(', ')}`,img:r.img,body:r.summary,html,cta:{href:r.link,label:'Read the full report on 1001 Stories ↗'}},'reports')});
+      el.addEventListener('click',e=>{e.preventDefault();Reader.open({t:r.title,path:'/'+r.page,meta:`${r.label} · by ${r.authors.join(', ')}`,img:r.img,body:r.summary,html,cta:{href:r.link,label:'Read the full report on 1001 Stories ↗'}},'reports')});
     }else if(r.summary){
       el.addEventListener('click',e=>{e.preventDefault();Reader.open({t:r.title,y:2022,img:r.img,body:r.summary,pdf:r.pdf},'reports')});
     }

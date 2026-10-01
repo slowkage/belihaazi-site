@@ -71,6 +71,24 @@ Nothing to do. The site checks Medium every morning at 6 am and adds new posts w
 
 Also give the report a `slug`, `authors`, `summary` and `link` (the 1001 Stories page). Add `source_pdf` if the PDF has a public link, so each source jumps to the right page.
 
+## Likes, comments and new-post emails
+
+These live in a free Supabase database. Readers don't need an account to like, comment or subscribe.
+
+**One-time setup**
+1. Create a free project at supabase.com (region: Mumbai).
+2. Supabase → **SQL Editor** → paste all of `supabase/setup.sql` → **Run**.
+3. Supabase → **Project Settings → API**. Copy the **Project URL** and the **anon public** key into `content/utkarsh/profile.json` as `supabase_url` and `supabase_anon_key`. (The anon key is meant to be public; the database only lets it like, comment and subscribe.)
+4. For emails: create a free account at resend.com, add the domain `belihaazi.com`, and add the DNS records it shows you in GoDaddy. Then create an API key.
+5. GitHub → this repo → **Settings → Secrets and variables → Actions** → add three secrets: `SUPABASE_URL` (the Project URL), `SUPABASE_SERVICE_KEY` (the **service_role** key from step 3; never put this one in a file), `RESEND_API_KEY`.
+
+The first publish after step 5 only records the posts that already exist. After that, anything new you add (a Word file, a report, a Medium post) is emailed to subscribers once, after the site publishes.
+
+**Day to day**
+- Hide a comment: Supabase → **Table Editor → comments** → untick `visible`. Delete the row to remove it for good.
+- See who subscribed: **Table Editor → subscribers** (`active` is false for people who unsubscribed).
+- Want to approve comments before they show? In the SQL Editor run `alter table comments alter column visible set default false;` and tick `visible` on the ones you approve.
+
 ## Photos
 
 - Fieldwork collage: `content/utkarsh/fieldwork` (the first 8 photos, in file-name order, make the collage)

@@ -178,7 +178,9 @@ p{{margin:0 0 {pgap}}} .cr{{font-family:"IBM Plex Mono",monospace;font-size:11px
 <nav><a href="/">Home</a><a href="/{back}.html">← {backlabel}</a></nav>
 {img}<p class="m">{date}</p><h1>{title}</h1>
 {body}
-</div></body></html>"""
+<div data-social="{path}" data-title="{title}"></div>
+<div data-subscribe hidden style="margin-top:28px"></div>
+</div><script src="/config.js"></script><script src="/social.js"></script></body></html>"""
 
 def piece_pages(items, kind, dark):
     urls = []
@@ -200,7 +202,7 @@ def piece_pages(items, kind, dark):
             ld=json.dumps(ld, ensure_ascii=False), bg="#07091A" if dark else "#F6F6F2", fg="#EDE4CC" if dark else "#0E0E0C",
             font='"Cormorant Garamond","Tiro Devanagari Hindi",serif' if dark else '"Archivo","Tiro Devanagari Hindi",sans-serif',
             h1="font-style:italic;font-weight:500" if dark else "font-stretch:80%;font-weight:900;text-transform:uppercase",
-            pgap=".2em" if kind == "poems" else "1em", back="belihaazi" if dark else "utkarsh", backlabel="belihaazi" if dark else "Utkarsh",
+            pgap=".2em" if kind == "poems" else "1em", path="/" + rel, back="belihaazi" if dark else "utkarsh", backlabel="belihaazi" if dark else "Utkarsh",
             img=img, date=d, body="\n".join(f"<p>{html.escape(p)}</p>" for p in it["body"]))
         os.makedirs(os.path.join(D, rel), exist_ok=True)
         open(os.path.join(D, rel, "index.html"), "w", encoding="utf-8").write(page)
@@ -247,7 +249,9 @@ blockquote{{margin:0 0 12px;border-left:6px solid #F2B90F;padding:2px 0 2px 14px
 {concepts}
 <section class="end"><p><b>This page is a summary.</b> The concepts above are from <i>{title}</i>, a BiteGeist by 1001 Stories. Page numbers refer to the report PDF. The full report, with its data, illustrations and sources, is published by 1001 Stories.</p>
 <a class="go m" href="{link}">Read the full report on 1001 Stories ↗</a></section>
-</div></body></html>"""
+<div data-social="/{rel}" data-title="{title}"></div>
+<div data-subscribe hidden style="margin-top:28px"></div>
+</div><script src="/config.js"></script><script src="/social.js"></script></body></html>"""
 
 def report_pages(reps):
     urls = []
@@ -284,7 +288,7 @@ def report_pages(reps):
               {"@type": "DefinedTermSet", "@id": url + "#concepts", "name": f"Concepts from {r['title']} (1001 Stories)", "hasDefinedTerm": terms}]}
         desc = e(r["summary"][0][:150] + ("…" if len(r["summary"][0]) > 150 else ""))
         page = REPORT_TPL.format(
-            title=e(r["title"]), subtitle=e(r.get("subtitle", "")), desc=desc, url=url, link=e(r["link"]),
+            rel=rel, title=e(r["title"]), subtitle=e(r.get("subtitle", "")), desc=desc, url=url, link=e(r["link"]),
             ogimg=f"{DOMAIN}/{r['img'][:-5]}.jpg", img=r["img"], label=e(r["label"]), year=f" · {r['year']}" if r.get("year") else "",
             authors=e(", ".join(r["authors"])), summary="".join(f"<p>{e(p)}</p>" for p in r["summary"]),
             toc="".join(toc), concepts="\n".join(blocks), ld=json.dumps(ld, ensure_ascii=False).replace("</", "<\\/"))
@@ -366,6 +370,56 @@ def llms_txt(data):
     L += [f"- [{i['t']}]({DOMAIN}/poems/{i['s']}/) (poem)" for i in data["poems"]]
     open(os.path.join(D, "llms.txt"), "w", encoding="utf-8").write("\n".join(L) + "\n")
 
+# ---------- settings for social.js, the post list, RSS feed, unsubscribe page ----------
+def site_config(profile):
+    cfg = {"site": DOMAIN, "sb": (profile.get("supabase_url") or "").rstrip("/"), "key": profile.get("supabase_anon_key") or "",
+           "book": profile.get("booking_link") or "", "linkedin": (profile.get("links") or {}).get("linkedin", "")}
+    open(os.path.join(D, "config.js"), "w", encoding="utf-8").write("window.BELI=" + json.dumps(cfg) + ";\n")
+
+def all_posts(data):
+    """Every post, newest first: what the feed and the new-post emails use."""
+    P = []
+    names = {"povs": "POV", "prose": "Prose", "poems": "Poem"}
+    for k in ("povs", "prose", "poems"):
+        for i in data[k]:
+            P.append({"url": f"{DOMAIN}/{k}/{i['s']}/", "title": i["t"], "section": names[k],
+                      "date": f"{i['y']}-{(i.get('m') or 1):02d}-01" if i.get("y") else "",
+                      "text": " ".join(i["body"])[:280]})
+    for r in data["reports"]:
+        if r.get("page"):
+            P.append({"url": f"{DOMAIN}/{r['page']}", "title": r["title"], "section": "Report",
+                      "date": f"{r['year']}-01-01" if r.get("year") else "", "text": r["summary"][0][:280]})
+    for m in data["medium"]:
+        P.append({"url": m["link"], "title": m["t"], "section": "Medium",
+                  "date": f"{m['y']}-{(m.get('m') or 1):02d}-01" if m.get("y") else "", "text": ""})
+    P.sort(key=lambda p: p["date"], reverse=True)
+    return P
+
+def feeds(posts):
+    from email.utils import format_datetime
+    from datetime import datetime, timezone
+    json.dump(posts, open(os.path.join(D, "posts.json"), "w", encoding="utf-8"), ensure_ascii=False)
+    e = html.escape
+    items = []
+    for p in posts:
+        pd = f"<pubDate>{format_datetime(datetime.fromisoformat(p['date']).replace(tzinfo=timezone.utc))}</pubDate>" if p["date"] else ""
+        items.append(f"<item><title>{e(p['title'])}</title><link>{e(p['url'])}</link><guid>{e(p['url'])}</guid>"
+                     f"<category>{p['section']}</category>{pd}<description>{e(p['text'])}</description></item>")
+    open(os.path.join(D, "feed.xml"), "w", encoding="utf-8").write(
+        '<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel>'
+        f'<title>Utkarsh Singh · belihaazi</title><link>{DOMAIN}/</link>'
+        f'<atom:link href="{DOMAIN}/feed.xml" rel="self" type="application/rss+xml"/>'
+        '<description>POVs on behavioural science, reports, poems and prose by Utkarsh Singh (belihaazi).</description>'
+        '<language>en</language>' + "".join(items) + "</channel></rss>\n")
+    os.makedirs(os.path.join(D, "unsubscribe"), exist_ok=True)
+    open(os.path.join(D, "unsubscribe", "index.html"), "w", encoding="utf-8").write(
+        '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">'
+        '<meta name="robots" content="noindex"><title>Unsubscribe · belihaazi</title><link rel="icon" href="/favicon.svg" type="image/svg+xml">'
+        '<style>body{margin:0;background:#F6F6F2;color:#0E0E0C;font:18px/1.6 "IBM Plex Mono",ui-monospace,monospace}'
+        '.w{max-width:620px;margin:12vh auto;padding:24px;border:3px solid #0E0E0C;box-shadow:10px 10px 0 #F2C12E;background:#fff}'
+        'a{color:inherit}</style></head><body data-nofab><div class="w"><p data-unsubscribe>One moment…</p><p><a href="/">belihaazi.com</a></p></div>'
+        '<script src="/config.js"></script><script src="/social.js"></script></body></html>')
+
 # ---------- main ----------
 def main():
     shutil.rmtree(D, ignore_errors=True); os.makedirs(D)
@@ -432,6 +486,8 @@ def main():
     urls += piece_pages(data["poems"], "poems", True)
     urls += report_urls
     llms_txt(data)
+    site_config(data["profile"])
+    feeds(all_posts(data))
     today = date.today().isoformat()
     open(os.path.join(D, "sitemap.xml"), "w").write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
         + "".join(f"<url><loc>{u}</loc><lastmod>{today}</lastmod></url>\n" for u in urls) + "</urlset>\n")

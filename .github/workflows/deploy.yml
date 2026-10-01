@@ -40,6 +40,18 @@ jobs:
       - id: deployment
         uses: actions/deploy-pages@v4
 
+  # Email subscribers about anything new (does nothing until the secrets are added).
+  email-subscribers:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 scripts/notify.py
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+
   # Tell Bing (which also feeds ChatGPT search and Copilot), Yandex and others that pages changed.
   # Skipped on the daily run so search engines only hear about real edits.
   notify-search-engines:
