@@ -348,7 +348,7 @@ def prerender_pages(data):
 
 def solve_lines(sv):
     if not sv: return []
-    L = ["## What Utkarsh can solve for you", f"In his words: \"{sv['lead']}\"", ""]
+    L = ["## What Utkarsh can solve for you", *([f"In his words: \"{sv['line']}\""] if sv.get("line") else []), f"His approach: \"{sv['lead']}\"", ""]
     for a in sv["areas"]:
         L.append(f"- {a['name']}: " + "; ".join(a["problems"]) + ".")
     if sv.get("roi"): L += ["", f"{sv.get('roi_label', 'How the work creates returns')}:"] + [f"- {r}." for r in sv["roi"]]
