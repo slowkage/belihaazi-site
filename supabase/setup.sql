@@ -50,18 +50,18 @@ drop policy if exists "read visible comments" on comments;
 create policy "read visible comments" on comments for select to anon using (visible);
 grant select (id, page, name, body, created_at) on comments to anon;
 
--- like counts, without exposing who liked
-create or replace view like_counts with (security_invoker = false) as
-  select page, count(*)::int as n from like_votes group by page;
-revoke all on like_counts from anon, authenticated;
-grant select on like_counts to anon;
+drop view if exists like_counts;   -- replaced by like_count() below
 
 -- ---------- helpers ----------
-create or replace function _ip_hash() returns text language sql stable as $$
-  select md5(coalesce(split_part(current_setting('request.headers', true)::json->>'x-forwarded-for', ',', 1), 'none') || 'belihaazi')
+create or replace function _ip_hash() returns text language sql stable set search_path = public as $$
+  select md5(coalesce(
+    current_setting('request.headers', true)::json->>'cf-connecting-ip',
+    current_setting('request.headers', true)::json->>'x-real-ip',
+    split_part(current_setting('request.headers', true)::json->>'x-forwarded-for', ',', 1),
+    'none') || 'belihaazi')
 $$;
 
-create or replace function _valid_page(p text) returns boolean language sql immutable as $$
+create or replace function _valid_page(p text) returns boolean language sql immutable set search_path = public as $$
   select p ~ '^/(povs|prose|poems|reports)/[a-z0-9-]{1,80}/$'
 $$;
 
@@ -117,6 +117,12 @@ begin
   return true;
 end $$;
 
+-- like count for a page, without exposing who liked
+create or replace function like_count(p text) returns int
+language sql stable security definer set search_path = public as $$
+  select count(*)::int from like_votes where page = p
+$$;
+
 -- unsubscribe from the link in an email
 create or replace function unsubscribe(t uuid) returns boolean
 language plpgsql security definer set search_path = public as $$
@@ -129,3 +135,8 @@ revoke all on function like_page(text, uuid, boolean), add_comment(text, text, t
   subscribe(text, text), unsubscribe(uuid), _ip_hash(), _valid_page(text) from public;
 grant execute on function like_page(text, uuid, boolean), add_comment(text, text, text, text),
   subscribe(text, text), unsubscribe(uuid) to anon;
+revoke all on function _ip_hash(), _valid_page(text) from anon, authenticated;
+revoke all on function like_count(text) from public, authenticated;
+grant execute on function like_count(text) to anon;
+revoke execute on function like_page(text, uuid, boolean), add_comment(text, text, text, text),
+  subscribe(text, text), unsubscribe(uuid) from authenticated;

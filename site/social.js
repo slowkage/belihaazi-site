@@ -134,7 +134,7 @@ function bar(el, o){
   // likes
   const lk = el.querySelector('.sx-like'), ln = el.querySelector('.sx-n');
   const show = n => { ln.textContent = n ? n + (n === 1 ? ' like' : ' likes') : 'Like'; };
-  api('like_counts?select=n&page=eq.' + encodeURIComponent(path)).then(r => show(r[0] ? r[0].n : 0)).catch(() => {});
+  api('rpc/like_count', { p: path }).then(show).catch(() => {});
   lk.addEventListener('click', () => {
     const now = !liked.has(path);
     lk.setAttribute('aria-pressed', now); lk.querySelector('svg').outerHTML = ICON.heart(now);
