@@ -386,11 +386,22 @@ def llms_txt(data):
 def render_solve(sv, profile):
     if not sv: return
     e = html.escape
-    short = [a for a in sv["areas"] if a.get("short")]
-    block = (f'<section class="cell sv-intro" id="solve"><span class="mono">{e(sv["title"])}</span><p>{e(sv["line"])}</p></section>'
-             + "".join(f'<div class="cell sv-a"><h3 class="c">{e(a["name"])}</h3><p>{e(a["short"])}</p></div>' for a in short)
-             + f'<div class="cell sv-foot mono"><span>{" · ".join(e(x) for x in sv.get("sectors_short", sv["categories"]))}</span>'
-             f'<a href="{e(profile.get("booking_link") or "#talk")}">{e(sv["cta"])} →</a></div>')
+    def roi_item(r):
+        h, _, t = r.partition(": ")
+        return f"<li><b>{e(h)}</b>" + (f"<span>{e(t)}</span>" if t else "") + "</li>"
+    areas = "".join(f'<section class="sv-a"><h3 class="c">{e(a["name"])}</h3>'
+                    + (f'<p class="sv-short">{e(a["short"])}</p>' if a.get("short") else "")
+                    + "<ul>" + "".join(f"<li>{e(p)}</li>" for p in a["problems"]) + "</ul></section>" for a in sv["areas"])
+    block = (f'<details class="cell solve" id="solve"><summary><span class="mono">{e(sv["title"])}</span>'
+             f'<span class="sv-line">{e(sv["line"])}</span><span class="sv-tog mono" aria-hidden="true"></span></summary>'
+             f'<div class="sv-body"><div class="sv-areas">{areas}</div><div class="sv-x">'
+             f'<div><span class="mono">{e(sv.get("across", "Sectors"))}</span><ul class="sv-chips">'
+             + "".join(f"<li>{e(c)}</li>" for c in sv["categories"]) + f'</ul><p>{e(sv["scales"])}</p></div>'
+             + (f'<div><span class="mono">{e(sv.get("roi_label", "How the work creates returns"))}</span><ol>'
+                + "".join(roi_item(r) for r in sv["roi"]) + "</ol></div>" if sv.get("roi") else "")
+             + f'<div><span class="mono">How</span><p>{e(sv["how"])}</p>'
+             + (f'<blockquote class="ca"><p>{e(sv["ca"]["text"])}</p><a href="{e(sv["ca"]["link"])}">{e(sv["ca"]["source"])} on context architecture ↗</a></blockquote>' if sv.get("ca") else "")
+             + f'<a class="go" href="{e(profile.get("booking_link") or "#talk")}">{e(sv["cta"])} →</a></div></div></div></details>')
     offers = [{"@type": "Offer", "itemOffered": {"@type": "Service", "name": f"{a['name']} problem solving with behavioural science",
                "description": "; ".join(a["problems"]), "provider": {"@id": DOMAIN + "/utkarsh.html#person"}, "areaServed": "India"}}
               for a in sv["areas"]]

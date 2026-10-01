@@ -110,21 +110,37 @@ a{color:inherit}
 .card:hover{background:var(--chrome)}
 .filler{position:relative;border-right:var(--rule);border-bottom:var(--rule);margin:0 -3px -3px 0;min-height:120px;overflow:hidden}
 
-/* what I solve: one compact row */
-.sv-intro{grid-column:1/5;background:var(--ink);color:var(--paper);display:flex;flex-direction:column;justify-content:space-between;gap:14px}
-.sv-intro .mono{color:var(--chrome)}
-.sv-intro p{margin:0;font-weight:700;font-size:clamp(17px,1.5vw,20px);line-height:1.3}
-.sv-a{grid-column:span 2;display:flex;flex-direction:column;justify-content:space-between;gap:10px;container-type:inline-size}
-.sv-a h3{margin:0;font-size:clamp(24px,17cqi,44px)}
-.sv-a p{margin:0;font-size:15px;line-height:1.35}
-.sv-a:hover{background:var(--chrome)}
-.sv-foot{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between;align-items:center;padding-block:10px}
-.sv-foot span{color:var(--grey)}
-.sv-foot a{font-weight:500;text-decoration:none;border-bottom:2px solid var(--ink)}
-.sv-foot a:hover{background:var(--chrome)}
-@media (max-width:900px){.sv-intro{grid-column:1/-1}.sv-a{grid-column:span 3}}
-@media (max-width:700px){.sv-a{grid-column:span 6}}
-@media (max-width:560px){.sv-a{grid-column:1/-1;gap:4px}.sv-a h3{font-size:30px}}
+/* what I solve: closed by default, opens on click */
+.solve{grid-column:1/-1;padding:0}
+.solve summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:12px 24px;padding:14px clamp(14px,1.8vw,24px);flex-wrap:wrap}
+.solve summary::-webkit-details-marker{display:none}
+.solve summary .mono{flex:none;background:var(--ink);color:var(--chrome);padding:4px 8px}
+.solve .sv-line{flex:1 1 320px;font-weight:700;font-size:clamp(16px,1.4vw,19px);line-height:1.3}
+.sv-tog{flex:none;border:2px solid var(--ink);padding:4px 10px}
+.sv-tog::before{content:"Open +"}
+.solve[open] .sv-tog::before{content:"Close −"}
+.solve summary:hover,.solve summary:focus-visible{background:var(--chrome)}
+.sv-body{border-top:var(--rule)}
+.sv-areas{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
+.sv-a{padding:clamp(14px,1.6vw,22px);border-right:var(--rule);border-bottom:var(--rule);margin-right:-3px;container-type:inline-size}
+.sv-a h3{margin:0 0 6px;font-size:clamp(22px,13cqi,38px);overflow-wrap:anywhere}
+.sv-a .sv-short{margin:0 0 10px;font-weight:700;line-height:1.3}
+.sv-a ul{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+.sv-a li{padding-left:16px;position:relative;font-size:15px;line-height:1.3}
+.sv-a li::before{content:"→";position:absolute;left:0;font-family:var(--mono);font-size:12px;top:2px}
+.sv-x{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) minmax(0,1fr);gap:20px 32px;padding:clamp(14px,1.8vw,24px);margin-top:-3px;border-top:var(--rule)}
+.sv-x p{margin:10px 0 0}
+.sv-chips{margin:6px 0 0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px}
+.sv-chips li{border:2px solid var(--ink);padding:4px 8px;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+.sv-x ol{margin:6px 0 0;padding:0;list-style:none}
+.sv-x ol li{border-bottom:2px solid var(--ink);padding:8px 0 10px;font-size:15px;line-height:1.35}
+.sv-x ol li b{display:block;font-size:17px;font-weight:800;margin-bottom:2px}
+.sv-x .ca{margin:16px 0 14px;border-left:6px solid var(--chrome);padding:2px 0 2px 14px}
+.sv-x .ca p{margin:0 0 6px;font-style:italic}.sv-x .ca a{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+.sv-x .go{display:inline-block;background:var(--ink);color:var(--paper);padding:12px 16px;text-decoration:none;font-weight:800;font-stretch:80%;text-transform:uppercase;font-size:18px}
+.sv-x .go:hover{background:var(--chrome);color:var(--ink)}
+@media (max-width:900px){.sv-x{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.sv-x{grid-template-columns:1fr}.sv-tog{margin-left:auto}}
 /* frameworks + reports */
 .cara{grid-column:1/6}
 .cara h3,.rep h3{margin:0 0 4px;font-size:clamp(26px,2.6vw,36px)}
@@ -280,6 +296,7 @@ footer a{text-decoration:none;border-bottom:2px solid var(--ink)}
 const q=[...document.querySelectorAll('.q4 button')];
 q.forEach(b=>b.addEventListener('click',()=>{q.forEach(o=>o.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true')}));
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+(()=>{const d=document.getElementById('solve');if(!d)return;const o=()=>{d.open=true};if(location.hash==='#solve')o();addEventListener('hashchange',()=>{if(location.hash==='#solve')o()});document.querySelectorAll('a[href="#solve"]').forEach(a=>a.addEventListener('click',o))})();
 fetch('data.json').then(r=>r.json()).then(D=>{
   // booking
   const P=D.profile||{};if(P.booking_link){const b=document.getElementById('book-btn');b.href=P.booking_link}
