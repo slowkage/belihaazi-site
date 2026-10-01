@@ -1,0 +1,55 @@
+{
+  "title": "What I solve",
+  "sub": "Brand · Sales · Product",
+  "lead": "The problem you bring me is usually one version of the real one. I find the real one in the field, by understanding the context people actually live in, and then design what changes their behaviour.",
+  "areas": [
+    {
+      "name": "Brand",
+      "problems": [
+        "People know you, like you, and still don't choose you",
+        "Positioning that doesn't match how people actually live",
+        "Moving into a new city tier, region or audience"
+      ]
+    },
+    {
+      "name": "Sales",
+      "problems": [
+        "Interest that doesn't turn into a purchase",
+        "Customers who try once and don't come back",
+        "Offers, prices or payment options read differently than you meant"
+      ]
+    },
+    {
+      "name": "Product",
+      "problems": [
+        "Features people ask for but don't use",
+        "Habits that don't stick: onboarding, adoption, retention",
+        "Building for the many Indias, not one 'Indian user'"
+      ]
+    },
+    {
+      "name": "Programmes",
+      "problems": [
+        "Well-designed interventions that fail on the ground",
+        "Behaviour change in public health that has to work at scale"
+      ]
+    }
+  ],
+  "categories": [
+    "FMCG",
+    "Automotive",
+    "BFSI & insurance",
+    "Healthcare & public health",
+    "Mental health",
+    "Ed-tech",
+    "E-commerce & quick commerce",
+    "Fashion & luxury",
+    "Technology",
+    "Home & kitchen",
+    "Travel & tourism"
+  ],
+  "scales": "From early-stage start-ups to large consumer brands and public health programmes.",
+  "how": "Deep context interviews, field immersion, longitudinal studies and behavioural design. I call it context architecture.",
+  "cta": "Bring me a problem",
+  "across": "Across industries, categories and scales"
+}
