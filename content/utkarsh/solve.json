@@ -35,7 +35,7 @@
       ]
     }
   ],
-  "across": "Across industries, categories and scales",
+  "across": "Sectors",
   "categories": [
     "FMCG & beverages",
     "Automotive & mobility",
@@ -49,18 +49,19 @@
     "AI & technology"
   ],
   "scales": "From zero-to-one launches to national brands and globally funded public health programmes, with teams from field sales up to the board.",
-  "outcomes_label": "The work has fed into",
-  "outcomes": [
-    "Product launches",
-    "Product roadmaps & experience",
-    "Brand positioning & communication",
-    "Retail & field sales strategy",
-    "Go-to-market for new categories",
-    "Where to grow, where to cut spend",
-    "Behaviour change at population scale",
-    "Trend & future outlooks",
-    "In-house research & strategy teams"
+  "roi_label": "How the work creates returns",
+  "roi": [
+    "Fewer failed launches: ideas are tested against how people actually live before the money is spent",
+    "Higher conversion and repeat: fixing the real barrier, not the assumed one",
+    "Spend where it works: clearer calls on where to grow and where to cut",
+    "Faster decisions: research that ends in roadmaps, launch plans and sales plans",
+    "Capability that stays: teams keep the methods after the project ends"
   ],
-  "how": "Deep context interviews, field immersion, longitudinal studies and behavioural design. Research that ends in decisions, not decks. I call it context architecture.",
+  "how": "Deep context interviews, field immersion, longitudinal studies and behavioural design. Research that ends in decisions, not decks.",
+  "ca": {
+    "text": "Context Architecture™ is the science of mapping the elements that stimulate reactions out of us. It is the marriage of many disciplines, distilled into one lens.",
+    "source": "1001 Stories",
+    "link": "https://1001stories.com/context-architecture.html"
+  },
   "cta": "Bring me a problem"
 }
