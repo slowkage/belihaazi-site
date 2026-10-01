@@ -1,7 +1,6 @@
 {
   "title": "What I solve",
-  "sub": "Brand · Sales · Product",
-  "lead": "The problem you bring me is usually one version of the real one. I find the real one in the field, by understanding the context people actually live in, and then design what changes their behaviour.",
+  "line": "The brief is rarely the real problem. I find the real one, then change the behaviour behind it.",
   "areas": [
     {
       "name": "Brand",
@@ -9,7 +8,8 @@
         "People know you, like you, and still don't choose you",
         "Positioning that doesn't match how people actually live",
         "Moving into a new city tier, region or audience"
-      ]
+      ],
+      "short": "Get chosen, not just liked."
     },
     {
       "name": "Sales",
@@ -17,7 +17,8 @@
         "Interest that doesn't turn into a purchase",
         "Customers who try once and don't come back",
         "Offers, prices or payment options read differently than you meant"
-      ]
+      ],
+      "short": "Turn interest into purchase, and purchase into repeat."
     },
     {
       "name": "Product",
@@ -25,7 +26,8 @@
         "Features people ask for but don't use",
         "Habits that don't stick: onboarding, adoption, retention",
         "Building for the many Indias, not one 'Indian user'"
-      ]
+      ],
+      "short": "Build what actually gets used."
     },
     {
       "name": "Programmes",
@@ -35,6 +37,19 @@
       ]
     }
   ],
+  "sectors_short": [
+    "FMCG",
+    "Automotive",
+    "BFSI",
+    "Health",
+    "Telecom & B2B",
+    "Commerce",
+    "Consumer apps",
+    "AI"
+  ],
+  "cta": "Bring me a problem",
+  "sub": "Brand · Sales · Product",
+  "lead": "The problem you bring me is usually one version of the real one. I find the real one in the field, by understanding the context people actually live in, and then design what changes their behaviour.",
   "across": "Sectors",
   "categories": [
     "FMCG & beverages",
@@ -62,6 +77,5 @@
     "text": "Context Architecture™ is the science of mapping the elements that stimulate reactions out of us. It is the marriage of many disciplines, distilled into one lens.",
     "source": "1001 Stories",
     "link": "https://1001stories.com/context-architecture.html"
-  },
-  "cta": "Bring me a problem"
+  }
 }
