@@ -1,6 +1,6 @@
 {
   "title": "What I solve",
-  "line": "The brief is rarely the real problem. I find the real one, then change the behaviour behind it.",
+  "line": "From straightforward ROI questions to vague & complex problems, I've faced them across domains.",
   "areas": [
     {
       "name": "Brand",
@@ -10,6 +10,15 @@
         "Moving into a new city tier, region or audience"
       ],
       "short": "Get chosen, not just liked."
+    },
+    {
+      "name": "Comms",
+      "short": "Say the thing that actually moves people.",
+      "problems": [
+        "Messages people hear but don't act on",
+        "Campaigns built on the wrong insight",
+        "Speaking to many Indias without losing the one voice"
+      ]
     },
     {
       "name": "Sales",
