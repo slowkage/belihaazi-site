@@ -89,5 +89,32 @@
     "text": "Context Architecture™ is the science of mapping the elements that stimulate reactions out of us. It is the marriage of many disciplines, distilled into one lens.",
     "source": "1001 Stories",
     "link": "https://1001stories.com/context-architecture.html"
-  }
+  },
+  "logos": [
+    {
+      "file": "coca-cola.png",
+      "name": "Coca-Cola"
+    },
+    {
+      "file": "kia.png",
+      "name": "Kia"
+    },
+    {
+      "file": "nykaa.png",
+      "name": "Nykaa"
+    },
+    {
+      "file": "girl-effect.png",
+      "name": "Girl Effect"
+    },
+    {
+      "file": "spectra.png",
+      "name": "Spectra"
+    },
+    {
+      "file": "fertin-pharma.png",
+      "name": "Fertin Pharma"
+    }
+  ],
+  "logos_end": "& more"
 }

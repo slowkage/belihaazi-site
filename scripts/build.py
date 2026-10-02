@@ -392,8 +392,20 @@ def render_solve(sv, profile):
     areas = "".join(f'<section class="sv-a"><h3 class="c">{e(a["name"])}</h3>'
                     + (f'<p class="sv-short">{e(a["short"])}</p>' if a.get("short") else "")
                     + "<ul>" + "".join(f"<li>{e(p)}</li>" for p in a["problems"]) + "</ul></section>" for a in sv["areas"])
+    reel = ""
+    if sv.get("logos"):
+        src = os.path.join(C, "utkarsh", "logos"); os.makedirs(os.path.join(D, "img", "logos"), exist_ok=True)
+        items = []
+        for l in sv["logos"]:
+            if os.path.exists(os.path.join(src, l["file"])):
+                shutil.copy(os.path.join(src, l["file"]), os.path.join(D, "img", "logos", l["file"]))
+                items.append(f'<span class="sv-r"><img src="img/logos/{e(l["file"])}" alt="{e(l["name"])}"></span>')
+        items.append(f'<span class="sv-r sv-more">{e(sv.get("logos_end", "& more"))}</span>')
+        names = ", ".join(l["name"] for l in sv["logos"])
+        reel = (f'<span class="sv-reel" role="img" aria-label="Worked with {e(names)} {e(sv.get("logos_end", "& more"))}">'
+                f'<span class="sv-strip">{"".join(items)}</span></span>')
     block = (f'<details class="cell solve" id="solve"><summary><span class="mono">{e(sv["title"])}</span>'
-             f'<span class="sv-line">{e(sv["line"])}</span><span class="sv-tog mono" aria-hidden="true"></span></summary>'
+             f'<span class="sv-line">{e(sv["line"])}</span>{reel}<span class="sv-tog mono" aria-hidden="true"></span></summary>'
              f'<div class="sv-body"><div class="sv-areas">{areas}</div><div class="sv-x">'
              f'<div><span class="mono">{e(sv.get("across", "Sectors"))}</span><ul class="sv-chips">'
              + "".join(f"<li>{e(c)}</li>" for c in sv["categories"]) + f'</ul><p>{e(sv["scales"])}</p></div>'

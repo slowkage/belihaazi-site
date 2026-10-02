@@ -141,6 +141,14 @@ a{color:inherit}
 .sv-x .go:hover{background:var(--chrome);color:var(--ink)}
 @media (max-width:900px){.sv-x{grid-template-columns:1fr 1fr}}
 @media (max-width:560px){.sv-x{grid-template-columns:1fr}.sv-tog{margin-left:auto}}
+/* logo reel: jackpot-style, lands on "& more" */
+.sv-reel{flex:none;position:relative;width:150px;height:44px;overflow:hidden;border:2px solid var(--ink);background:var(--paper);box-shadow:inset 0 9px 7px -7px rgba(14,14,12,.35),inset 0 -9px 7px -7px rgba(14,14,12,.35)}
+.sv-strip{display:flex;flex-direction:column;will-change:transform}
+.sv-r{flex:none;height:44px;display:flex;align-items:center;justify-content:center;padding:6px 12px}
+.sv-r img{max-height:30px;max-width:122px;width:auto;height:auto;display:block}
+.sv-more{font-family:var(--sans);font-weight:900;font-stretch:80%;text-transform:uppercase;font-size:20px;letter-spacing:.01em}
+.sv-strip.spin{filter:blur(1.2px)}
+@media (max-width:560px){.sv-reel{width:132px}}
 /* frameworks + reports */
 .cara{grid-column:1/6}
 .cara h3,.rep h3{margin:0 0 4px;font-size:clamp(26px,2.6vw,36px)}
@@ -297,6 +305,19 @@ const q=[...document.querySelectorAll('.q4 button')];
 q.forEach(b=>b.addEventListener('click',()=>{q.forEach(o=>o.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true')}));
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 (()=>{const d=document.getElementById('solve');if(!d)return;const o=()=>{d.open=true};if(location.hash==='#solve')o();addEventListener('hashchange',()=>{if(location.hash==='#solve')o()});document.querySelectorAll('a[href="#solve"]').forEach(a=>a.addEventListener('click',o))})();
+(()=>{const reel=document.querySelector('.sv-reel');if(!reel)return;const strip=reel.querySelector('.sv-strip');
+  const base=[...strip.children];const n=base.length;const H=()=>reel.clientHeight;
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){strip.style.transform=`translateY(${-(n-1)*H()}px)`;return}
+  for(let k=0;k<2;k++)base.forEach(el=>{const c=el.cloneNode(true);c.setAttribute('aria-hidden','true');strip.appendChild(c)});
+  let i=0,t;const go=(idx,ms,ease)=>{strip.style.transition=ms?`transform ${ms}ms ${ease}`:'none';strip.style.transform=`translateY(${-idx*H()}px)`};
+  const tick=()=>{
+    if(i<n-1){i++;go(i,420,'cubic-bezier(.3,1.45,.55,1)');t=setTimeout(tick,i===n-1?2600:1150);}
+    else{strip.classList.add('spin');go(2*n,1300,'cubic-bezier(.15,.6,.25,1)');
+      t=setTimeout(()=>{strip.classList.remove('spin');go(0,0);i=0;t=setTimeout(tick,1150)},1350);}
+  };
+  const io=new IntersectionObserver(es=>{es.forEach(e=>{clearTimeout(t);if(e.isIntersecting){t=setTimeout(tick,700)}})});io.observe(reel);
+  addEventListener('resize',()=>go(i,0));
+})();
 fetch('data.json').then(r=>r.json()).then(D=>{
   // booking
   const P=D.profile||{};if(P.booking_link){const b=document.getElementById('book-btn');b.href=P.booking_link}
