@@ -399,7 +399,7 @@ def render_solve(sv, profile):
         for l in sv["logos"]:
             if os.path.exists(os.path.join(src, l["file"])):
                 shutil.copy(os.path.join(src, l["file"]), os.path.join(D, "img", "logos", l["file"]))
-                items.append(f'<span class="sv-r"><img src="img/logos/{e(l["file"])}" alt="{e(l["name"])}"></span>')
+                items.append(f'<span class="sv-r" style="background:{e(l.get("bg", "#ffffff"))}"><img src="img/logos/{e(l["file"])}" alt="{e(l["name"])}"></span>')
         items.append(f'<span class="sv-r sv-more">{e(sv.get("logos_end", "& more"))}</span>')
         names = ", ".join(l["name"] for l in sv["logos"])
         reel = (f'<span class="sv-reel" role="img" aria-label="Worked with {e(names)} {e(sv.get("logos_end", "& more"))}">'

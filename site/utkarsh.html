@@ -144,9 +144,9 @@ a{color:inherit}
 /* logo reel: jackpot-style, lands on "& more" */
 .sv-reel{flex:none;position:relative;width:150px;height:44px;overflow:hidden;border:2px solid var(--ink);background:var(--paper);box-shadow:inset 0 9px 7px -7px rgba(14,14,12,.35),inset 0 -9px 7px -7px rgba(14,14,12,.35)}
 .sv-strip{display:flex;flex-direction:column;will-change:transform}
-.sv-r{flex:none;height:44px;display:flex;align-items:center;justify-content:center;padding:6px 12px}
+.sv-r{flex:none;height:40px;display:flex;align-items:center;justify-content:center;padding:6px 12px}
 .sv-r img{max-height:30px;max-width:122px;width:auto;height:auto;display:block}
-.sv-more{font-family:var(--sans);font-weight:900;font-stretch:80%;text-transform:uppercase;font-size:20px;letter-spacing:.01em}
+.sv-more{background:var(--chrome);font-family:var(--sans);font-weight:900;font-stretch:80%;text-transform:uppercase;font-size:20px;letter-spacing:.01em}
 .sv-strip.spin{filter:blur(1.2px)}
 @media (max-width:560px){.sv-reel{width:132px}}
 /* frameworks + reports */
@@ -306,7 +306,7 @@ q.forEach(b=>b.addEventListener('click',()=>{q.forEach(o=>o.setAttribute('aria-p
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 (()=>{const d=document.getElementById('solve');if(!d)return;const o=()=>{d.open=true};if(location.hash==='#solve')o();addEventListener('hashchange',()=>{if(location.hash==='#solve')o()});document.querySelectorAll('a[href="#solve"]').forEach(a=>a.addEventListener('click',o))})();
 (()=>{const reel=document.querySelector('.sv-reel');if(!reel)return;const strip=reel.querySelector('.sv-strip');
-  const base=[...strip.children];const n=base.length;const H=()=>reel.clientHeight;
+  const base=[...strip.children];const n=base.length;const H=()=>base[0].offsetHeight;
   if(matchMedia('(prefers-reduced-motion: reduce)').matches){strip.style.transform=`translateY(${-(n-1)*H()}px)`;return}
   for(let k=0;k<2;k++)base.forEach(el=>{const c=el.cloneNode(true);c.setAttribute('aria-hidden','true');strip.appendChild(c)});
   let i=0,t;const go=(idx,ms,ease)=>{strip.style.transition=ms?`transform ${ms}ms ${ease}`:'none';strip.style.transform=`translateY(${-idx*H()}px)`};
