@@ -92,32 +92,32 @@
   },
   "logos": [
     {
-      "file": "coca-cola.png",
+      "file": "coca-cola-v2.png",
       "name": "Coca-Cola",
       "bg": "#ffffff"
     },
     {
-      "file": "kia.png",
+      "file": "kia-v2.png",
       "name": "Kia",
       "bg": "#010101"
     },
     {
-      "file": "nykaa.png",
+      "file": "nykaa-v2.png",
       "name": "Nykaa",
       "bg": "#ffffff"
     },
     {
-      "file": "girl-effect.png",
+      "file": "girl-effect-v2.png",
       "name": "Girl Effect",
       "bg": "#000000"
     },
     {
-      "file": "spectra.png",
+      "file": "spectra-v2.png",
       "name": "Spectra",
       "bg": "#000000"
     },
     {
-      "file": "fertin-pharma.png",
+      "file": "fertin-pharma-v2.png",
       "name": "Fertin Pharma",
       "bg": "#ffffff"
     }
