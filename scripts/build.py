@@ -476,6 +476,19 @@ def feeds(posts):
         'a{color:inherit}</style></head><body data-nofab><div class="w"><p data-unsubscribe>One moment…</p><p><a href="/">belihaazi.com</a></p></div>'
         '<script src="/config.js"></script><script src="/social.js"></script></body></html>')
 
+# ---------- cache-busting: every publish gets a fresh version tag on scripts and data ----------
+def stamp_versions():
+    from datetime import datetime
+    v = datetime.utcnow().strftime("%Y%m%d%H%M%S")
+    pat = re.compile(r'''((?:src|href)="/?(?:config|paint|social)\.js)"|(fetch\('data\.json)'\)''')
+    for root, _, files in os.walk(D):
+        for f in files:
+            if not f.endswith(".html"): continue
+            p = os.path.join(root, f)
+            s = open(p, encoding="utf-8").read()
+            s2 = pat.sub(lambda m: f'{m.group(1)}?v={v}"' if m.group(1) else f"{m.group(2)}?v={v}')", s)
+            if s2 != s: open(p, "w", encoding="utf-8").write(s2)
+
 # ---------- main ----------
 def main():
     shutil.rmtree(D, ignore_errors=True); os.makedirs(D)
@@ -552,6 +565,7 @@ def main():
     open(os.path.join(D, "robots.txt"), "w").write(f"User-agent: *\nAllow: /\nSitemap: {DOMAIN}/sitemap.xml\n")
     open(os.path.join(D, "CNAME"), "w").write("belihaazi.com\n")
     open(os.path.join(D, ".nojekyll"), "w").write("")
+    stamp_versions()
     log("done:", len(urls), "pages")
 
 if __name__ == "__main__":
