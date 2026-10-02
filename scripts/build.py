@@ -163,7 +163,7 @@ PIECE_TPL = """<!doctype html><html lang="en"><head><meta charset="utf-8">
 <link rel="canonical" href="{url}"><meta property="og:title" content="{title}"><meta property="og:description" content="{desc}">
 {og}<meta property="og:type" content="article"><meta property="og:url" content="{url}">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{title}"><meta name="twitter:description" content="{desc}">
-{twimg}<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.png" sizes="32x32" type="image/png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+{twimg}<link rel="icon" href="/favicon.ico" sizes="48x48"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon-96.png" sizes="96x96" type="image/png"><link rel="icon" href="/favicon-192.png" sizes="192x192" type="image/png"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Cormorant+Garamond:ital,wght@0,400;1,500&family=Tiro+Devanagari+Hindi&family=IBM+Plex+Mono&display=swap">
 <script type="application/ld+json">{ld}</script>
 <style>
@@ -216,7 +216,7 @@ REPORT_TPL = """<!doctype html><html lang="en"><head><meta charset="utf-8">
 <link rel="canonical" href="{url}"><meta property="og:title" content="{title}"><meta property="og:description" content="{desc}">
 <meta property="og:image" content="{ogimg}"><meta property="og:type" content="article"><meta property="og:url" content="{url}">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{title}"><meta name="twitter:description" content="{desc}"><meta name="twitter:image" content="{ogimg}">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.png" sizes="32x32" type="image/png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="icon" href="/favicon.ico" sizes="48x48"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon-96.png" sizes="96x96" type="image/png"><link rel="icon" href="/favicon-192.png" sizes="192x192" type="image/png"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono&display=swap">
 <script type="application/ld+json">{ld}</script>
 <style>
@@ -458,7 +458,7 @@ def feeds(posts):
     os.makedirs(os.path.join(D, "unsubscribe"), exist_ok=True)
     open(os.path.join(D, "unsubscribe", "index.html"), "w", encoding="utf-8").write(
         '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">'
-        '<meta name="robots" content="noindex"><title>Unsubscribe · belihaazi</title><link rel="icon" href="/favicon.svg" type="image/svg+xml">'
+        '<meta name="robots" content="noindex"><title>Unsubscribe · belihaazi</title><link rel="icon" href="/favicon.ico" sizes="48x48"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon-96.png" sizes="96x96" type="image/png"><link rel="icon" href="/favicon-192.png" sizes="192x192" type="image/png"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest">'
         '<style>body{margin:0;background:#F6F6F2;color:#0E0E0C;font:18px/1.6 "IBM Plex Mono",ui-monospace,monospace}'
         '.w{max-width:620px;margin:12vh auto;padding:24px;border:3px solid #0E0E0C;box-shadow:10px 10px 0 #F2C12E;background:#fff}'
         'a{color:inherit}</style></head><body data-nofab><div class="w"><p data-unsubscribe>One moment…</p><p><a href="/">belihaazi.com</a></p></div>'

@@ -10,7 +10,7 @@
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Utkarsh Singh × belihaazi"><meta name="twitter:description" content="Context architect, behavioural scientist, and writer."><meta name="twitter:image" content="https://belihaazi.com/img/portrait.jpg">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://belihaazi.com/#site","name":"belihaazi","alternateName":"Utkarsh Singh","url":"https://belihaazi.com/","author":{"@id":"https://belihaazi.com/utkarsh.html#person"}},{"@type":"Person","@id":"https://belihaazi.com/utkarsh.html#person","name":"Utkarsh Singh","alternateName":"belihaazi","jobTitle":"Context Architect & Strategist","description":"Context architect and behavioural scientist in India, at 1001 Stories. Writes poems, prose, spoken word and hip hop as belihaazi.","worksFor":{"@type":"Organization","name":"1001 Stories","url":"https://1001stories.com"},"url":"https://belihaazi.com/utkarsh.html","image":"https://belihaazi.com/img/portrait.jpg","sameAs":["https://linkedin.com/in/belihaazi","https://belihaazi.medium.com","https://instagram.com/belihaazi"]}]}</script>
 <link rel="alternate" type="application/rss+xml" title="Utkarsh Singh · belihaazi" href="/feed.xml">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.png" sizes="32x32" type="image/png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="icon" href="/favicon.ico" sizes="48x48"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon-96.png" sizes="96x96" type="image/png"><link rel="icon" href="/favicon-192.png" sizes="192x192" type="image/png"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,700..900&family=Cormorant+Garamond:ital,wght@1,500&family=Noto+Nastaliq+Urdu:wght@600&family=IBM+Plex+Mono:wght@400&display=swap">
 <style>
 /* Layout: two painted halves (wheatfield day, starry night) under raw black label blocks. Committed look, colors explicit. */
@@ -51,7 +51,7 @@ body{margin:0;background:var(--ink);color:var(--paper);font-family:var(--sans)}
 .door.go-day{grid-template-columns:1fr 0fr}
 .door.go-day .night{opacity:0;pointer-events:none;min-height:0;overflow:hidden}
 .progress{position:fixed;bottom:0;left:0;height:3px;background:var(--chrome);width:0;z-index:50;transition:opacity .3s}
-.progress.run{animation:fill 5s linear forwards}
+.progress.run{animation:fill 3.7s linear forwards}
 @keyframes fill{to{width:100%}}
 @media (max-width:720px){.door.go-day{grid-template-columns:1fr}}
 </style>
@@ -81,7 +81,7 @@ body{margin:0;background:var(--ink);color:var(--paper);font-family:var(--sans)}
 <script>
 (function(){
   var door=document.querySelector('.door'), prog=document.getElementById('prog'), done=false;
-  var tid=setTimeout(go, 5000);
+  var tid=setTimeout(go, 3700);
   prog.classList.add('run');
 
   function cancel(){

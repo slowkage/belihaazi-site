@@ -32,6 +32,7 @@
     {
       "name": "Product",
       "problems": [
+        "New product development: what to build, for whom, and why it will be picked up",
         "Features people ask for but don't use",
         "Habits that don't stick: onboarding, adoption, retention",
         "Building for the many Indias, not one 'Indian user'"
@@ -39,11 +40,14 @@
       "short": "Build what actually gets used."
     },
     {
-      "name": "Programmes",
+      "name": "Foresight",
       "problems": [
-        "Well-designed interventions that fail on the ground",
-        "Behaviour change in public health that has to work at scale"
-      ]
+        "Shifting cultural trends and what they mean for your category",
+        "Programme and culture design audits",
+        "Future outlooks for markets, categories and behaviour",
+        "Interventions that look right on paper and fail on the ground"
+      ],
+      "short": "See the shift before it shows up in the numbers."
     }
   ],
   "sectors_short": [
@@ -75,11 +79,10 @@
   "scales": "From zero-to-one launches to national brands and globally funded public health programmes, with teams from field sales up to the board.",
   "roi_label": "How the work creates returns",
   "roi": [
-    "Fewer failed launches: ideas are tested against how people actually live before the money is spent",
-    "Higher conversion and repeat: fixing the real barrier, not the assumed one",
-    "Spend where it works: clearer calls on where to grow and where to cut",
-    "Faster decisions: research that ends in roadmaps, launch plans and sales plans",
-    "Capability that stays: teams keep the methods after the project ends"
+    "Fewer failed launches: test ideas against real lives before the money is spent",
+    "Higher conversion and repeat: fix the real barrier, not the assumed one",
+    "Spend where it works: clear calls on where to grow and where to cut",
+    "Better decisions: insight that ends in a roadmap, a launch plan or a sales plan, not a deck"
   ],
   "how": "Deep context interviews, field immersion, longitudinal studies and behavioural design. Research that ends in decisions, not decks.",
   "ca": {
