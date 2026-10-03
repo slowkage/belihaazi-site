@@ -62,7 +62,7 @@ create or replace function _ip_hash() returns text language sql stable set searc
 $$;
 
 create or replace function _valid_page(p text) returns boolean language sql immutable set search_path = public as $$
-  select p ~ '^/(povs|prose|poems|reports)/[a-z0-9-]{1,80}/$'
+  select p ~ '^/(povs|prose|poems|reports|spoken-word|hip-hop)/[a-z0-9-]{1,80}/$'
 $$;
 
 -- ---------- what readers can call ----------

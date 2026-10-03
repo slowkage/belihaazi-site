@@ -209,6 +209,63 @@ def piece_pages(items, kind, dark):
         urls.append(url)
     return urls
 
+# ---------- video pages (spoken word, hip hop) ----------
+VIDEO_TPL = """<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{title} · {section} · belihaazi</title><meta name="description" content="{desc}">
+<link rel="canonical" href="{url}"><meta property="og:title" content="{title}"><meta property="og:description" content="{desc}">
+{og}<meta property="og:type" content="video.other"><meta property="og:url" content="{url}">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{title}"><meta name="twitter:description" content="{desc}">
+{twimg}<link rel="icon" href="/favicon.ico" sizes="48x48"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,500&family=IBM+Plex+Mono&display=swap">
+<script type="application/ld+json">{ld}</script>
+<style>
+body{{margin:0;background:#07091A;color:#EDE4CC;font-family:"Cormorant Garamond",serif;font-size:20px;line-height:1.6}}
+a{{color:inherit}} .w{{max-width:760px;margin:0 auto;padding:24px 16px 80px}}
+nav{{display:flex;justify-content:space-between;border:3px solid #EDE4CC;margin-bottom:24px}} nav a{{padding:10px 14px;text-decoration:none;font-family:"IBM Plex Mono",monospace;font-size:12px;text-transform:uppercase}}
+nav a+a{{border-left:3px solid #EDE4CC}}
+.m{{font-family:"IBM Plex Mono",monospace;font-size:12px;text-transform:uppercase;opacity:.7}}
+h1{{font-size:clamp(34px,6vw,56px);line-height:1;margin:.3em 0 .5em;font-style:italic;font-weight:500}}
+video{{width:100%;max-height:78vh;background:#000;border:3px solid #EDE4CC;display:block}}
+.ig{{font-family:"IBM Plex Mono",monospace;font-size:12px;text-transform:uppercase;margin-top:10px}}
+</style></head><body><div class="w">
+<nav><a href="/">Home</a><a href="/belihaazi.html">← belihaazi</a></nav>
+<p class="m">{section} · {year}</p><h1>{title}</h1>
+{player}
+{iglink}
+<div data-social="/{rel}" data-title="{title}"></div>
+<div data-subscribe hidden style="margin-top:28px"></div>
+</div><script src="/config.js"></script><script src="/social.js"></script></body></html>"""
+
+def video_pages(items, key):
+    names = {"spoken-word": "Spoken word", "hip-hop": "Hip hop"}
+    urls = []
+    for it in items:
+        e = html.escape
+        rel = f"{key}/{it['s']}/"; url = f"{DOMAIN}/{rel}"
+        desc = e(f"{it['title']}: {names[key].lower()} by belihaazi (Utkarsh Singh), {it.get('year', '')}.")
+        og_jpg = f"{DOMAIN}/{it['img'][:-5]}.jpg" if it.get("img") else ""
+        if it.get("src"):
+            player = f'<video src="/{e(it["src"])}" controls playsinline preload="metadata"' + (f' poster="/{e(it["img"])}"' if it.get("img") else "") + "></video>"
+        elif it.get("link"):
+            player = f'<p><a href="{e(it["link"])}">Watch on Instagram ↗</a></p>'
+        else:
+            player = ""
+        ld = {"@context": "https://schema.org", "@type": "VideoObject", "name": it["title"], "description": html.unescape(desc), "url": url,
+              "creator": {"@type": "Person", "@id": DOMAIN + "/utkarsh.html#person", "name": "Utkarsh Singh", "alternateName": "belihaazi"}}
+        if og_jpg: ld["thumbnailUrl"] = og_jpg
+        if it.get("src"): ld["contentUrl"] = f"{DOMAIN}/{it['src']}"
+        if it.get("year"): ld["uploadDate"] = f"{it['year']}-01-01"
+        page = VIDEO_TPL.format(title=e(it["title"]), section=names[key], year=e(str(it.get("year", ""))), desc=desc, url=url, rel=rel,
+                                og=f'<meta property="og:image" content="{og_jpg}">' if og_jpg else "",
+                                twimg=f'<meta name="twitter:image" content="{og_jpg}">' if og_jpg else "",
+                                ld=json.dumps(ld, ensure_ascii=False).replace("</", "<\\/"), player=player,
+                                iglink=f'<p class="ig"><a href="{e(it["link"])}">Also on Instagram ↗</a></p>' if it.get("link") and it.get("src") else "")
+        os.makedirs(os.path.join(D, rel), exist_ok=True)
+        open(os.path.join(D, rel, "index.html"), "w", encoding="utf-8").write(page)
+        urls.append(url)
+    return urls
+
 # ---------- report pages (1001 Stories BiteGeists: concepts as crawlable text) ----------
 REPORT_TPL = """<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -341,7 +398,7 @@ def prerender_pages(data):
     out = [_card(f"poems/{i['s']}/", i.get("img"), i["t"], _date(i), hi=hi(i["t"])) for i in data["poems"]]
     out += [_card(f"prose/{i['s']}/", i.get("img"), i["t"], _date(i), hidden=True, hi=hi(i["t"])) for i in data["prose"]]
     for key in ("spoken_word", "hip_hop"):
-        out += [_card(i.get("link") or "https://instagram.com/belihaazi", i.get("img"), i["title"], str(i.get("year", "")), hidden=True,
+        out += [_card(f"{key.replace('_', '-')}/{i['s']}/", i.get("img"), i["title"], str(i.get("year", "")), hidden=True,
                       tag='<span class="tag mono">▶ Play</span>') for i in data[key]]
     out += [_card(p["link"], p.get("img"), p["t"], _date(p), hidden=True, tag='<span class="tag mono">Medium ↗</span>') for p in data["medium"]]
     _inject("belihaazi.html", '<div class="cards" id="cards"></div>', "".join(out))
@@ -445,6 +502,10 @@ def all_posts(data):
         if r.get("page"):
             P.append({"url": f"{DOMAIN}/{r['page']}", "title": r["title"], "section": "Report",
                       "date": f"{r['year']}-01-01" if r.get("year") else "", "text": r["summary"][0][:280]})
+    for key, label in (("spoken_word", "Spoken word"), ("hip_hop", "Hip hop")):
+        for i in data.get(key, []):
+            P.append({"url": f"{DOMAIN}/{key.replace('_', '-')}/{i['s']}/", "title": i["title"], "section": label,
+                      "date": f"{i['year']}-01-01" if i.get("year") else "", "text": ""})
     for m in data["medium"]:
         P.append({"url": m["link"], "title": m["t"], "section": "Medium",
                   "date": f"{m['y']}-{(m.get('m') or 1):02d}-01" if m.get("y") else "", "text": ""})
@@ -537,11 +598,12 @@ def main():
         for it in m["items"]:
             if it.get("cover"):
                 cp = os.path.join(C, "belihaazi/covers", it["cover"])
-                if os.path.exists(cp): it["img"] = save_img(cp, f"img/covers/{it['cover']}", 480)
+                if os.path.exists(cp): it["img"] = save_img(cp, f"img/covers/{it['cover']}", 480, og=True)
             if it.get("video") and os.path.exists(os.path.join(C, "belihaazi/videos", it["video"])):
                 os.makedirs(os.path.join(D, "video"), exist_ok=True)
                 shutil.copy(os.path.join(C, "belihaazi/videos", it["video"]), os.path.join(D, "video", it["video"]))
                 it["src"] = "video/" + it["video"]
+            it["s"] = slugify(it["title"]); it["kind"] = key
         data[key.replace("-", "_")] = m["items"]
     data["medium"] = medium()
     report_urls = report_pages(data["reports"])
@@ -556,6 +618,7 @@ def main():
     urls += piece_pages(data["prose"], "prose", True)
     urls += piece_pages(data["poems"], "poems", True)
     urls += report_urls
+    urls += video_pages(data["spoken_word"], "spoken-word") + video_pages(data["hip_hop"], "hip-hop")
     llms_txt(data)
     site_config(data["profile"])
     feeds(all_posts(data))

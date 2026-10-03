@@ -152,6 +152,7 @@ function playVideo(it){
   if(!it.src)return false;
   let el=document.querySelector('.reader');if(!el){Reader.open({t:'',body:[]});el=document.querySelector('.reader')}
   el.innerHTML=`<article class="r-card"><button class="r-close" type="button">Close ✕</button><div class="r-body"><p class="r-meta">${it.year}</p><h2 class="r-title">${esc(it.title)}</h2><video class="ig" src="${it.src}" ${it.img?`poster="${it.img}"`:''} controls autoplay playsinline></video>${it.link?`<p class="r-meta"><a href="${it.link}">Watch on Instagram ↗</a></p>`:''}</div></article>`;
+  if(window.Social&&it.s){const d=document.createElement('div');el.querySelector('.r-body').appendChild(d);Social.bar(d,{path:`/${it.kind}/${it.s}/`,title:it.title})}
   el.hidden=false;document.body.style.overflow='hidden';el.querySelector('.r-close').focus();return true;
 }
 addEventListener('click',e=>{if(e.target.closest('.r-close')||e.target.classList.contains('reader')){document.querySelectorAll('.reader video').forEach(v=>v.pause())}},true);
@@ -180,7 +181,7 @@ fetch('data.json').then(r=>r.json()).then(D=>{
         a.innerHTML=`<div class="im">${p.img?`<img src="${p.img}" alt="${esc(p.t)}" loading="lazy">`:painted({palette:'cypress',seed:i*11+9,vortices:[[0.5,0.5,0.35,1]],gap:6})}<span class="tag mono">${p.pinned?'Pinned · ':''}Medium ↗</span></div><div class="tx"><span class="mono">${Reader.date(p)}</span><b>${esc(p.t)}</b></div>`;cards.appendChild(a)});
     } else {
       const hh=r==='Hip hop',L=hh?D.hip_hop:D.spoken_word;
-      L.forEach((it,i)=>{const a=document.createElement('a');a.className='card';a.href=it.link||'https://instagram.com/belihaazi';
+      L.forEach((it,i)=>{const a=document.createElement('a');a.className='card';a.href=it.s?`${it.kind}/${it.s}/`:(it.link||'https://instagram.com/belihaazi');
         a.innerHTML=`<div class="im">${it.img?`<img src="${it.img}" alt="${esc(it.title)}" loading="lazy">`:painted({palette:hh?'wheat':'night',seed:i*5+(hh?31:17),vortices:[[0.5,0.5,0.35,i%2?1:-1]],gap:6})}<span class="tag mono">▶ Play</span></div><div class="tx"><span class="mono">${it.year}</span><b>${esc(it.title)}</b></div>`;
         a.addEventListener('click',e=>{if(playVideo(it)||igEmbed(it.link,it.title))e.preventDefault()});cards.appendChild(a)});
     }
